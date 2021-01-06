@@ -14,7 +14,7 @@ public class Manager {
 	public void run(){
 		String line;
 		while ((line = linesReader.getNext()) != null){
-			RemoveSpaces remove = new RemoveSpaces(line);
+			Regex remove = new Regex(line);
 			if (!remove.commentOrEmpty()){
 				fixedLines.add(remove.checkSpaces());
 			}
