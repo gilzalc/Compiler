@@ -7,9 +7,9 @@ public class Reader {
 
 	private BufferedReader reader;
 
-	public Reader(File sFile) {
+	public Reader(String sFileName) {
 		try {
-			reader = new BufferedReader(new FileReader(sFile));
+			reader = new BufferedReader(new FileReader(sFileName));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
