@@ -4,23 +4,23 @@ public class Variable {
 
 	private final boolean initialized;
 	private final boolean isFinal;
-	private final String type;
+	private final String name;
 
-	public Variable(boolean vInitialized, boolean vFinal, String vType){
+	public Variable(boolean vInitialized, boolean vFinal, String vName){
 		initialized = vInitialized;
 		isFinal = vFinal;
-		type = vType;
+		name = vName;
 	}
 
-	public boolean variableInitialized(){
+	 boolean variableInitialized(){
 		return initialized;
 	}
 
-	public boolean variableIsFinal(){
+	 boolean variableIsFinal(){
 		return isFinal;
 	}
 
-	public String variableType(){
-		return type;
+	 String variableName(){
+		return name;
 	}
 }

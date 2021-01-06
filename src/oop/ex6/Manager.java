@@ -3,7 +3,6 @@ package oop.ex6;
 import java.util.LinkedList;
 
 public class Manager {
-
 	private final Reader linesReader;
 	private final LinkedList<String> fixedLines = new LinkedList<>();
 
