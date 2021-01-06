@@ -23,5 +23,4 @@ public class Variable {
 	public String variableType(){
 		return type;
 	}
-
 }
