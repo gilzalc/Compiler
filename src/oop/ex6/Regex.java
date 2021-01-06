@@ -4,11 +4,13 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Regex {
-    private final static String VALID_VARIABLE = "_\\w+|[a-zA-Z]\\w+";
+    private static final String TRUE = "true";
+    private static final String FALSE = "false";
+    private static final String VALID_VARIABLE = "_\\w+|[a-zA-Z]\\w+";
     private static final String VALID_SUFFIX = "[{};]$";
     private static final String VALID_INTEGER = "-*\\d+";
     private static final String VALID_DOUBLE ="-*\\d+(\\.\\d+)?";
-    private static final String VALID_BOOL = "true|false|"+VALID_DOUBLE;
+    private static final String VALID_BOOL = TRUE+"|"+FALSE+"|"+VALID_DOUBLE;
     private static final String VALID_CHAR = ".";
     private static final String PARENTHESES = "()";
     private static final String SPACES = "\\s{2,}";
