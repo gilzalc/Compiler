@@ -6,7 +6,7 @@ public class Global extends Scope {
 
 
 	public Global(){
-		super();
+		super() ;
 	}
 
 }
