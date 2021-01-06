@@ -4,7 +4,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class RemoveSpaces{
-
+	private final static String KAVUA = "^\\s";
 	private final static String SPACES = "\\s{2,}";
 	private final static String EMPTY = "^\\s*$";
 	private final static String COMMENT = "//.*";
