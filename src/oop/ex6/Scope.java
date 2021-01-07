@@ -1,4 +1,4 @@
-package oop.ex6.scopes;
+package oop.ex6;
 
 import oop.ex6.Variable;
 
@@ -17,10 +17,19 @@ public abstract class Scope {
 
 	protected Scope(){ // global
 		variables = new HashSet<>();
-		outerScope = null;
 	}
 	protected void addVariable(Variable variable){
 		variables.add(variable);
 	}
+
+//
+//	private void aaa(){
+//		while ((scope = myScope.getOuter) != null){
+//			myScope =scope;
+//			if((Variable check = myScope.getVariable(String str)) != null){
+//				Variable check =
+//			}
+//		}
+//	}
 
 }

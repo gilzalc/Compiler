@@ -44,9 +44,9 @@ test051.sjava 0 int member equals another member int
 test052.sjava 1 int member equals future variable
 test053.sjava 1 int member equals commented variable
 test054.sjava 1 int member equals uninitialized variable
-test055.sjava 1 declare nultiple variables in one line
+test055.sjava 1 declare Multiple variables in one line
 test056.sjava 0 void member
-test055.sjava 1 initialuzed void member
+test055.sjava 1 initialized void member
 test058.sjava 0 declare member without any type
 
 test061.sjava 1 array double empty
