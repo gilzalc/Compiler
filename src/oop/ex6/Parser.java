@@ -1,5 +1,6 @@
 package oop.ex6;
 
+public interface Parser {
 
-public class Parser {
+	void run();
 }

@@ -7,8 +7,8 @@ import java.util.HashMap;
 public abstract class Scope {
 
 	protected HashMap<String, Variable> variables;
-	protected Scope outerScope;
 
+	protected Scope outerScope;
 
 	protected Scope(Scope scope){
 		variables = new HashMap<>();
