@@ -1,5 +1,7 @@
 package oop.ex6;
 
+import oop.ex6.scopes.Global;
+
 import java.util.LinkedList;
 
 public class Manager {
@@ -12,10 +14,8 @@ public class Manager {
 
 	public void run(){
 		readLines();
-		for (String line : fixedLines){
-			Regex lineRegex = new Regex(line);
+		Global globalScope = new Global();
 
-		}
 	}
 
 	private void readLines(){

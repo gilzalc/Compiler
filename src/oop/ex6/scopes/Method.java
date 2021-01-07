@@ -1,6 +1,6 @@
 package oop.ex6.scopes;
 
-import oop.ex6.Scope;
+import oop.ex6.scopes.Scope;
 import oop.ex6.Variable;
 
 import java.lang.reflect.Type;

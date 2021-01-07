@@ -46,4 +46,11 @@ public class Regex {
         return regex(VALID_INTEGER).matches();
     }
 
+    public boolean enterScope(){
+        return regex("{$").matches();
+    }
+
+//    public boolean closeScope(){
+//        return regex("^}").matches();
+//    }
 }
