@@ -1,8 +1,10 @@
 package oop.ex6.scopes;
 
 
- class Global extends Scope {
+import java.util.LinkedList;
 
+class Global extends Scope {
+	private LinkedList<Method> methods;
 	public Global(){
 		super();
 	}
