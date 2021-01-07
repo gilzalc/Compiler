@@ -11,6 +11,10 @@ public class Manager {
 	}
 
 	public void run(){
+		readLines();
+	}
+
+	private void readLines(){
 		String line;
 		while ((line = linesSReader.getNext()) != null){
 			Regex remove = new Regex(line);
