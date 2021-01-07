@@ -16,7 +16,5 @@ class Method extends Scope {
 
     }
 
-//    boolean legalTypes(){
-//
-//    }
+
 }
