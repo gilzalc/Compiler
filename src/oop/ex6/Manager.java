@@ -1,28 +1,27 @@
 package oop.ex6;
 
+import oop.ex6.scopes.*;
+
 import java.util.LinkedList;
 
 public class Manager {
 	private final SReader linesSReader;
 	private final LinkedList<String> fixedLines = new LinkedList<>();
 
-	public Manager(SReader SReader){
+	public Manager(SReader SReader) {
 		linesSReader = SReader;
 	}
 
-	public void run(){
+	public void run() {
 		readLines();
-		for (String line : fixedLines){
-			Regex lineRegex = new Regex(line);
-
+		Global globalScope = new Global();
 		}
-	}
 
-	private void readLines(){
+	private void readLines() {
 		String line;
-		while ((line = linesSReader.getNext()) != null){
+		while ((line = linesSReader.getNext()) != null) {
 			Regex remove = new Regex(line);
-			if (!remove.commentOrEmpty()){
+			if (!remove.commentOrEmpty()) {
 				fixedLines.add(remove.checkSpaces());
 			}
 		}

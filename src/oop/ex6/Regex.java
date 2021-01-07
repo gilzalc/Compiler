@@ -10,9 +10,10 @@ public class Regex {
     private static final String VALID_METHOD = "[a-zA-Z]\\w*";
     private static final String VALID_SUFFIX = "[{};]$";
     private static final String VALID_INTEGER = "-?\\d+";
-    private static final String VALID_DOUBLE ="-?\\d+(\\.\\d+)?";
+    private static final String VALID_DOUBLE ="-?\\d+(\\.\\d+)?"; // W About .5 or 5. ?
     private static final String VALID_BOOL = TRUE+"|"+FALSE+"|"+VALID_DOUBLE;
-    private static final String VALID_CHAR = ".";
+    private static final String VALID_CHAR = "'.'";
+    private static final String VALID_STRING = "\".*\"";
     private static final String PARENTHESES = "(.*)";
     private static final String SPACES = "\\s{2,}";
     private static final String SPACE_COMMENT = "^( //)";
