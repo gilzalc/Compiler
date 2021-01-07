@@ -12,15 +12,15 @@ public class Variable {
 		name = vName;
 	}
 
-	 boolean variableInitialized(){
+	 public boolean variableInitialized(){
 		return initialized;
 	}
 
-	 boolean variableIsFinal(){
+	 public boolean variableIsFinal(){
 		return isFinal;
 	}
 
-	 String variableName(){
+	 public String getName(){
 		return name;
 	}
 }

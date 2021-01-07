@@ -41,10 +41,6 @@ public class Regex {
         return regex(SPACE).replaceAll("");
     }
 
-//    public String startEndSpace() {
-//
-//    }
-
     public boolean isValidInt(){
         return regex(VALID_INTEGER).matches();
     }
