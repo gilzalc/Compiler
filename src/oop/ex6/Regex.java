@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 public class Regex {
     private static final String TRUE = "true";
     private static final String FALSE = "false";
-    private static final String VALID_VARIABLE = "_\\w+|[a-zA-Z]\\w+";// "_\\w+|[a-zA-Z]\\w*"
+    private static final String VALID_VARIABLE = "_\\w+|[a-zA-Z]\\w*";
     private static final String VALID_SUFFIX = "[{};]$";
     private static final String VALID_INTEGER = "-?\\d+";
     private static final String VALID_DOUBLE ="-?\\d+(\\.\\d+)?";
