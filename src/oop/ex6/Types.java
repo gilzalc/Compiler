@@ -1,6 +1,11 @@
 package oop.ex6;
 
 enum Type {
+    INT("int"),
+    DOUBLE("double"), BOOLEAN("b"), STRING("s"), CHAR("s");
+    private final String myName;
 
-    INT, DOUBLE, BOOLEAN, STRING, CHAR
+    Type(String s) {
+        this.myName = s;
+    }
 }

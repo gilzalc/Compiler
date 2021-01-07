@@ -12,6 +12,10 @@ public class Manager {
 
 	public void run(){
 		readLines();
+		for (String line : fixedLines){
+			Regex lineRegex = new Regex(line);
+
+		}
 	}
 
 	private void readLines(){
