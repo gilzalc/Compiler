@@ -1,4 +1,4 @@
 package oop.ex6.scopes;
 
- class IfWhile {
+ class IfWhile extends Scope{
 }
