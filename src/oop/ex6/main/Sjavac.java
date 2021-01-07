@@ -1,6 +1,5 @@
 package oop.ex6.main;
-import oop.ex6.Manager;
-import oop.ex6.SReader;
+import oop.ex6.*;
 
 public class Sjavac {
     public static void main(String[] args) {

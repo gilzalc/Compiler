@@ -14,9 +14,11 @@ public class Regex {
     private static final String VALID_CHAR = ".";
     private static final String PARENTHESES = "()";
     private static final String SPACES = "\\s{2,}";
+    private static final String SPACE_COMMENT = "^( //)";
+    private static final String SPACE = "^ | $";
     private static final String EMPTY = "^\\s*$";
     private static final String COMMENT = "//.*";
-    private final String checkLine;
+    private String checkLine;
 
     public Regex(String line) {
         checkLine = line;
@@ -27,13 +29,21 @@ public class Regex {
         return pattern.matcher(checkLine);
     }
 
-    public String checkSpaces() {
-        return regex(SPACES).replaceAll(" ");
-    }
-
     public boolean commentOrEmpty() {
         return regex(EMPTY + "|" + COMMENT).matches();
     }
+
+    public String checkSpaces() {
+        checkLine = regex(SPACES).replaceAll(" ");
+        if (regex(SPACE_COMMENT).find()){
+            return checkLine;
+        }
+        return regex(SPACE).replaceAll("");
+    }
+
+//    public String startEndSpace() {
+//
+//    }
 
     public boolean isValidInt(){
         return regex(VALID_INTEGER).matches();
