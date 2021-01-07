@@ -4,7 +4,7 @@ import java.io.*;
 
 import java.util.LinkedList;
 
-public interface parser {
+public interface arser {
 
 //	public Manager(fi)
 
