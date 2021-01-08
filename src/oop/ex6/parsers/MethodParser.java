@@ -1,11 +1,11 @@
 package oop.ex6.parsers;
 
-import oop.ex6.Parser;
+import oop.ex6.ScopeParser;
 
-public class MethodParser extends Parser {
-	private Parser parentParser;
+public class MethodParser extends ScopeParser {
+	private ScopeParser parentParser;
 
-	public MethodParser(Parser parser){
+	public MethodParser(ScopeParser parser){
 		super(parser);
 	}
 

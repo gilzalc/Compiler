@@ -1,19 +1,21 @@
 package oop.ex6.parsers;
 
-import oop.ex6.Parser;
+import oop.ex6.ScopeParser;
 import oop.ex6.Regex;
 
 import java.util.LinkedList;
 
-public class LinesParser {
+public class FileParser {
 
 	private int scope = 0;
-	private LinkedList<String> fixedLines;
-	private Parser scopeParser;
+	private final LinkedList<String> fixedLines;
+	private ScopeParser scopeParser;
+	private final LinkedList<ScopeParser> methodParsers;
 
-	public LinesParser(LinkedList<String> lines){
+	public FileParser(LinkedList<String> lines){
 		fixedLines = lines;
-		scopeParser = new GlobalParser();
+		scopeParser = new GlobalScopeParser();
+		methodParsers = new LinkedList<>();
 	}
 
 	public void run() {
@@ -25,16 +27,21 @@ public class LinesParser {
 					scopeParser = new MethodParser(scopeParser);
 					scopeParser.addLine(line);
 				}
+
 			}
 			if (line.equals("}")){
 				scope--;
 				if (scope < 0){
 					return;//ERROR
 				}
+				methodParsers.add(scopeParser);
 				scopeParser = scopeParser.getParentParser();
 				continue;
 			}
 			scopeParser.addLine(line);
 		}
+	}
+	public LinkedList<ScopeParser> getMethodParsers(){
+		return this.methodParsers;
 	}
 }

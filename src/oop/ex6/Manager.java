@@ -1,5 +1,6 @@
 package oop.ex6;
 
+import oop.ex6.parsers.FileParser;
 import oop.ex6.scopes.Global;
 
 import java.util.LinkedList;
@@ -14,7 +15,8 @@ public class Manager {
 
 	public void run(){
 		readLines();
-		Global globalScope = new Global();
+		FileParser fileParser = new FileParser(fixedLines);
+		fileParser.run();
 
 	}
 

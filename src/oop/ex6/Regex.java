@@ -4,13 +4,14 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Regex {
+
     private static final String TRUE = "true";
     private static final String FALSE = "false";
-    private static final String VALID_VARIABLE = "_\\w+|[a-zA-Z]\\w*";
+    private static final String VALID_VARIABLE_NAME = "_\\w+|[a-zA-Z]\\w*";// and not a keyword or typeword
     private static final String VALID_METHOD = "[a-zA-Z]\\w*";
     private static final String VALID_SUFFIX = "[{};]$";
     private static final String VALID_INTEGER = "-?\\d+";
-    private static final String VALID_DOUBLE ="-?\\d+(\\.\\d+)?"; // W About .5 or 5. ?
+    private static final String VALID_DOUBLE = "-?\\d+(\\.\\d+)?"; // W About .5 or 5. ?
     private static final String VALID_BOOL = TRUE+"|"+FALSE+"|"+VALID_DOUBLE;
     private static final String VALID_CHAR = "'.'";
     private static final String VALID_STRING = "\".*\"";
@@ -49,6 +50,9 @@ public class Regex {
 
     public boolean enterScope(){
         return regex("{$").matches();
+    }
+    public boolean isValidVarName(String var){
+        return regex(VALID_VARIABLE_NAME).matches();
     }
 
 //    public boolean closeScope(){

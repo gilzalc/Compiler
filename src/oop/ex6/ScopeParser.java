@@ -2,11 +2,11 @@ package oop.ex6;
 
 import java.util.LinkedList;
 
-public abstract class Parser {
+public abstract class ScopeParser {
 	protected LinkedList<String> scopeLines;
-	protected Parser parentParser;
+	protected ScopeParser parentParser;
 
-	protected Parser(Parser parser){
+	protected ScopeParser(ScopeParser parser){
 		parentParser = parser;
 		scopeLines = new LinkedList<>();
 	}
@@ -15,7 +15,7 @@ public abstract class Parser {
 		scopeLines.add(line);
 	}
 
-	public Parser getParentParser(){
+	public ScopeParser getParentParser(){
 		return parentParser;
 	}
 
