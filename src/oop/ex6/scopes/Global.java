@@ -3,12 +3,23 @@ package oop.ex6.scopes;
 
 import oop.ex6.scopes.Scope;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 
-public class Global extends Scope {
-	private LinkedList<Method> methods;
-	public Global(){
-		super();
+public class Global extends Scope { //singleton
+	private static Global globalScope;
+	private HashMap<String,Method> methods;
+	private Global(){
 	}
 
+	public static Global getInstance() {
+		if(globalScope==null){
+			globalScope = new Global();
+		}
+		return globalScope;
+	}
+
+	public void addMethod(String s,Method m){
+		methods.put(s,m);
+	}
 }

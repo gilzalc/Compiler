@@ -3,7 +3,7 @@ package oop.ex6;
 import java.util.HashSet;
 
 /**
- * An abstract class that represents the S-java keywords; composed by two enums, one represents the valid
+ * An abstract class that represents the S-java keywords; composed of two enums, one represents the valid
  * Types, and one represents the other keywords. in addition, it has a static method that gets
  */
 public abstract class Keywords {
@@ -61,7 +61,7 @@ public abstract class Keywords {
 		}
 
 
-		String getRegex() {return this.myRegex;}
+		public String getRegex() {return this.myRegex;}
 
 	}
 
@@ -79,19 +79,20 @@ public abstract class Keywords {
 		}
 
 
-		/**
-		 * returns an Hashset containing all of the keywords in S-java
-		 * @return S-java keywords hashSet
-		 */
-		public static HashSet<String> getKeywords() {
-			HashSet<String> setToReturn = new HashSet<>();
-			for (Type t : Type.values()) {
-				setToReturn.add(t.toString());
-			}
-			for (General kw : General.values()) {
-				setToReturn.add(kw.name);
-			}
-			return setToReturn;
+	}
+
+	/**
+	 * returns an Hashset containing all of the keywords in S-java
+	 * @return S-java keywords hashSet
+	 */
+	public static HashSet<String> getKeywords() {
+		HashSet<String> setToReturn = new HashSet<>();
+		for (Type t : Type.values()) {
+			setToReturn.add(t.toString());
 		}
+		for (General kw : General.values()) {
+			setToReturn.add(kw.name);
+		}
+		return setToReturn;
 	}
 }

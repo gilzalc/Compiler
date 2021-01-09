@@ -12,16 +12,16 @@ public class FileParser {
 	private ScopeParser scopeParser;
 	private final LinkedList<ScopeParser> methodParsers;
 
-	public FileParser(LinkedList<String> lines){
+	public FileParser(LinkedList<String> lines) {
 		fixedLines = lines;
-		scopeParser = new GlobalScopeParser();
+		scopeParser = GlobalScopeParser.getInstance();
 		methodParsers = new LinkedList<>();
 	}
 
 	public void run() {
-		for (String line : fixedLines){
+		for (String line : fixedLines) {
 			Regex lineRegex = new Regex(line);
-			if (lineRegex.enterScope()) {
+			if (lineRegex.enterScope()) { //check for "void"?
 				scope++;
 				if (scope == 1) {
 					scopeParser = new MethodParser(scopeParser);
@@ -29,9 +29,9 @@ public class FileParser {
 				}
 
 			}
-			if (line.equals("}")){
+			if (line.equals("}")) {
 				scope--;
-				if (scope < 0){
+				if (scope < 0) {
 					return;//ERROR
 				}
 				methodParsers.add(scopeParser);
@@ -41,7 +41,9 @@ public class FileParser {
 			scopeParser.addLine(line);
 		}
 	}
-	public LinkedList<ScopeParser> getMethodParsers(){
+
+
+	public LinkedList<ScopeParser> getMethodParsers() {
 		return this.methodParsers;
 	}
 }

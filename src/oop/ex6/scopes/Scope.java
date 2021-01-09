@@ -19,7 +19,7 @@ public abstract class Scope {
 		outerScope = null;
 	}
 
-	protected void addVariable(Variable variable){
+	public void addVariable(Variable variable){
 		variables.put(variable.getName(), (variable));
 	}
 

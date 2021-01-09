@@ -9,8 +9,6 @@ public class IfWhileParser extends ScopeParser {
 		super(parser);
 	}
 
-
-
 	public void run() {
 
 	}

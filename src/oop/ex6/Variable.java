@@ -29,4 +29,5 @@ public class Variable {
 	public Keywords.Type getType() {
 		return type;
 	}
+
 }
