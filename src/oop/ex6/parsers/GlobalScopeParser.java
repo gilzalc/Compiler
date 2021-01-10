@@ -113,9 +113,7 @@ public class GlobalScopeParser extends ScopeParser {
 		}
 
 
-		//	private static class GlobalScopeVarFactory{
-		//
-		//	}
+
 	}
 
 	public void createMethods() {
@@ -126,4 +124,7 @@ public class GlobalScopeParser extends ScopeParser {
 //			globalScope.addMethod(methodName,m);
 		}
 	}
+	//	private static class GlobalScopeVarFactory{
+	//
+	//	}
 }

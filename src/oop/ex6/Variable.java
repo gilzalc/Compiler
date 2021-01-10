@@ -7,22 +7,22 @@ public class Variable {
 	private final String name;
 	private final Keywords.Type type;
 
-	public Variable(boolean vInitialized, boolean vFinal, String vName, Keywords.Type Vtype){
+	public Variable(boolean vInitialized, boolean vFinal, String vName, Keywords.Type Vtype) {
 		initialized = vInitialized;
 		isFinal = vFinal;
 		name = vName;
 		type = Vtype;
 	}
 
-	 public boolean isInitialized(){
+	public boolean isInitialized() {
 		return initialized;
 	}
 
-	 public boolean IsFinal(){
+	public boolean IsFinal() {
 		return isFinal;
 	}
 
-	 public String getName(){
+	public String getName() {
 		return name;
 	}
 
