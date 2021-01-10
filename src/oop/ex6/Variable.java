@@ -4,13 +4,13 @@ public class Variable {
 
 	private final boolean initialized;
 	private final boolean isFinal;
-	private final String name;
+//	private final String name;
 	private final Keywords.Type type;
 
-	public Variable(boolean vInitialized, boolean vFinal, String vName, Keywords.Type Vtype){
+	public Variable(boolean vInitialized, boolean vFinal,  Keywords.Type Vtype){
 		initialized = vInitialized;
 		isFinal = vFinal;
-		name = vName;
+//		name = vName;
 		type = Vtype;
 	}
 
@@ -22,9 +22,9 @@ public class Variable {
 		return isFinal;
 	}
 
-	 public String getName(){
-		return name;
-	}
+//	 public String getName(){
+//		return name;
+//	}
 
 	public Keywords.Type getType() {
 		return type;

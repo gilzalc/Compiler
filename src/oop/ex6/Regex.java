@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 public class Regex {
 	private static final String FINAL_AND_FIRST_WORD_GROUPS = "(?<final>final )?(?<first>\\w+)";
 	private static final String VAR_NAME_AND_VALUE
-			= "(?<varName> ?_\\w+|[a-zA-Z]\\w* ?)(=(?<value> ?\\S ?\\S*))?";
+			= "(?<varName> ?_\\w+|[a-zA-Z]\\w* ?)(=(?<value> ?\\S?\\S*))?";
 	private static final String COMMA_SEPARATED = " ?, ?";
 	private static final String TRUE = "true";
 	private static final String EQUALS = "=";
@@ -52,9 +52,15 @@ public class Regex {
 		return regexMatcher(FINAL_AND_FIRST_WORD_GROUPS);
 	}
 
-	public static Matcher getVarNameAndValue(String s) {
+	public static String[] getVarNameAndValue(java.lang.String s) {
 		Pattern pat = Pattern.compile(VAR_NAME_AND_VALUE);
-		return pat.matcher(s);
+		Matcher matcher = pat.matcher(s);
+		matcher.find();
+		String nameString = matcher.group("varName");
+		String valueString = matcher.group("value");
+		return new String[] {
+			 nameString,valueString
+		};
 	}
 
 	public static boolean isValidVal(String pattern, String varVal) {
@@ -66,15 +72,17 @@ public class Regex {
 	}
 
 	public static boolean isVarNameValid(String var) {
+		if (var.endsWith(" ")) {
+			var = var.substring(0, var.length() - 1);
+		}
 		return (Pattern.matches(VALID_VARIABLE_NAME, var)) && !(Keywords.getKeywords().contains(var));
 	}
 
 
-//	public boolean closeScope() {
-//		return regexMatcher("^}").matches();
-//	}
-
-	public String[] splitByComma() {
+	public String[] splitByComma() throws IllegalFileFormat {
+		if (checkLine.endsWith(",")) {
+			throw new IllegalFileFormat();
+		}
 		return this.checkLine.split(COMMA_SEPARATED);
 
 	}
