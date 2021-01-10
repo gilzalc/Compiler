@@ -69,7 +69,9 @@ public class TestClass {
 		System.out.println(matcher.group(2));
 		pattern = Pattern.compile("(\\|\\|)|(&&)");
 		matcher = pattern.matcher("twet||rey||rhr|Rherh");
-		System.out.println(Arrays.toString("twet||rey||rhr&&||Rherh".split("(\\|\\|)|(&&)")));
+		System.out.println(("twet||rey||rhr&& ||Rherh".split("(\\|\\|)|(&&)"))[3].equals("")||(("twet||rey" +
+																							   "||rhr&& " +
+																								"||Rherh").split("(\\|\\|)|(&&)"))[3].equals(" "));
 
 	}
 }
