@@ -26,16 +26,16 @@ public class FileParser {
 				if (scope == 1) {
 					scopeParser = new MethodParser(scopeParser);
 					scopeParser.getParentParser().addChildParsers(scopeParser);
-					scopeParser.addLine(line);
+//					scopeParser.addLine(line);
 				}
 				if (scope >= 2){
 					scopeParser = new IfWhileParser(scopeParser);
 					scopeParser.getParentParser().addChildParsers(scopeParser);
-					scopeParser.addLine(line);
+//					scopeParser.addLine(line);
 				}
-				continue;
+//				continue;
 			}
-			if (line.equals("}")) {
+			else if (line.equals("}")) {
 				scope--;
 				if (scope < 0) {
 					return;//ERROR
@@ -43,6 +43,9 @@ public class FileParser {
 //				methodParsers.add(scopeParser);
 				scopeParser = scopeParser.getParentParser();
 				continue;
+			}
+			if((line = lineRegex.validSuffix()) == null){
+				return;//ERROR not valid sufix
 			}
 			scopeParser.addLine(line);
 		}
