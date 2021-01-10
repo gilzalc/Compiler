@@ -23,4 +23,8 @@ public abstract class Scope {
 		variables.put(variable.getName(), (variable));
 	}
 
+	public Variable getVariable(String varName){
+		return variables.get(varName);// return null if not exist
+	}
+
 }
