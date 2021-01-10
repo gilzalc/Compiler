@@ -11,6 +11,8 @@ public class Regex {
 	private static final String TRUE = "true";
 	private static final String EQUALS = "=";
 	private static final String FALSE = "false";
+	private static final String IF_While = "(if|while) ?\\((.+)\\) ?\\{";
+	private static final String WHILE = "while";
 	private static final String VALID_VARIABLE_NAME = "_\\w+|[a-zA-Z]\\w*";// and not a keyword or typeword
 	private static final String VALID_METHOD = "[a-zA-Z]\\w*";
 	private static final String VALID_SUFFIX = ";$";
@@ -109,12 +111,19 @@ public class Regex {
 		return (Pattern.matches(VALID_VARIABLE_NAME, var)) && !(Keywords.getKeywords().contains(var));
 	}
 
-
 	public String[] splitByComma() throws IllegalFileFormat {
 		if (checkLine.endsWith(",")) {
 			throw new IllegalFileFormat();
 		}
 		return this.checkLine.split(COMMA_SEPARATED);
 
+	}
+
+	public String ifWhileCondition(){
+		Matcher matcher = regexMatcher(IF_While);
+		if (matcher.matches()) {
+			return matcher.group(2);
+		}
+		return null;
 	}
 }

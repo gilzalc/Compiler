@@ -62,6 +62,10 @@ public class TestClass {
 			System.out.println(matcher.group("varName") + " " + matcher.group("v"));
 
 		}
+		pattern = Pattern.compile("(if|while) ?\\((.+)\\) ?\\{");
+		Matcher matcher = pattern.matcher("if(56){");
+		System.out.println(matcher.matches());
+		System.out.println(matcher.group(2));
 	}
 }
 
