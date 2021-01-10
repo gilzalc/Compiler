@@ -8,8 +8,8 @@ import java.util.regex.Matcher;
 public class GlobalParser extends ScopeParser {
 	//-------------------Constants & data members---------------------\\
 
-	private static final String FINAL = "final";
-	private static final String FIRST = "first";
+//	private static final String FINAL = "final";
+//	private static final String FIRST = "first";
 //	private static final String BOOLEAN = "boolean";
 //	private static final String INT = "int";
 //	private static final String DOUBLE = "double";
@@ -36,34 +36,35 @@ public class GlobalParser extends ScopeParser {
 	@Override
 	public void checkLines() throws IllegalFileFormat {
 		for (String line : scopeLines) {
-			checkLine(line);
+			return;
+//			checkLine(line);
 		}
 	}
 
-	private void checkLine(String line) throws IllegalFileFormat {
-		Regex reg = new Regex(line);
-//		Matcher matcher = reg.getFirstWords();
-//		matcher.find();
-//		String firstWord = matcher.group(FIRST);
-//		boolean hasFinal = matcher.group(FINAL) != null;
-		reg.setFirstWordsMatcher();
-		String firstWord = reg.getFirstWord(FIRST);
-		boolean hasFinal = (reg.getFinalGroup(FINAL) != null);
-		int afterLast = reg.getEndFirst(FIRST);
-		Keywords.Type type = checkVarType(firstWord);
-		if (type == null) {
-			if (hasFinal) {
-				return; //Error - no Type and hasFinal
-			}
-			AssignVars(reg);
-		}
-		reg = new Regex(line.substring(afterLast));
-		try {
-			createVars(hasFinal, type, reg);
-		} catch (UnInitializedFinalVar | UnmatchingValueError unInitializedFinalVar) {
-			unInitializedFinalVar.printStackTrace();
-		}
-	}
+//	private void checkLine(String line) throws IllegalFileFormat {
+//		Regex reg = new Regex(line);
+//		//		Matcher matcher = reg.getFirstWords();
+//		//		matcher.find();
+//		//		String firstWord = matcher.group(FIRST);
+//		//		boolean hasFinal = matcher.group(FINAL) != null;
+//		reg.setFirstWordsMatcher();
+//		String firstWord = reg.getFirstWord(FIRST);
+//		boolean hasFinal = (reg.getFinalGroup(FINAL) != null);
+//		int afterLast = reg.getEndFirst(FIRST);
+//		Keywords.Type type = checkVarType(firstWord);
+//		if (type == null) {
+//			if (hasFinal) {
+//				return; //Error - no Type and hasFinal
+//			}
+//			AssignVars(reg);
+//		}
+//		reg = new Regex(line.substring(afterLast));
+//		try {
+//			createVars(hasFinal, type, reg);
+//		} catch (UnInitializedFinalVar | UnmatchingValueError unInitializedFinalVar) {
+//			unInitializedFinalVar.printStackTrace();
+//		}
+//	}
 
 
 //	private void checkVarValue(String valString, Keywords.Type type) throws UnmatchingValueError {

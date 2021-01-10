@@ -26,6 +26,9 @@ public abstract class ScopeParser {
 		childParsers = new LinkedList<>();
 
 	}
+
+
+
 	public abstract void checkLines() throws IllegalFileFormat;
 
 	public Scope getScope(){
@@ -36,16 +39,53 @@ public abstract class ScopeParser {
 		scopeLines.add(line);
 	}
 
-	public ScopeParser getParentParser(){
+	public ScopeParser getParentParser() {
 		return parentParser;
 	}
 
-	public void addChildParsers(ScopeParser parser){
+	public void addChildParsers(ScopeParser parser) {
 		childParsers.add(parser);
 	}
 
-	public LinkedList<String> getScopeLines(){
+	public LinkedList<String> getScopeLines() {
 		return scopeLines;
+	}
+
+	private void checkLine(String line) throws IllegalFileFormat, UnInitializedFinalVar,
+											   UnmatchingValueError {
+		Regex reg = new Regex(line);
+		//		Matcher matcher = reg.getFirstWords();
+		//		matcher.find();
+		//		String firstWord = matcher.group(FIRST);
+		//		boolean hasFinal = matcher.group(FINAL) != null;
+		reg.setFirstWordsMatcher();
+		String firstWord = reg.getFirstWord(FIRST);
+		boolean hasFinal = (reg.getFinalGroup(FINAL) != null);
+		int afterLast = reg.getEndFirst(FIRST);
+		Keywords.Type type = checkVarType(firstWord);
+		boolean flag = false;
+		if (type != null) {
+			reg = new Regex(line.substring(afterLast));
+			flag = true;
+		} else {
+			if (hasFinal) {
+				return; //Error - no Type and hasFinal
+			}
+		}
+		//			createVars(hasFinal, type, reg);
+		String[] varDeclarations = reg.splitByComma();
+		for (String declaration : varDeclarations) {
+			reg = new Regex(declaration);
+			String[] str = reg.getVarNameAndValue();
+			String nameString = str[0];
+			String valueString = str[1];
+			if (flag) {
+				createVars(nameString, valueString, type, hasFinal);
+				continue;
+			}
+			assignVars(nameString,
+					   valueString);
+		}
 	}
 
 	protected Keywords.Type checkVarType(String firstWord) {
@@ -65,40 +105,45 @@ public abstract class ScopeParser {
 		}
 	}
 
-	public void createVars(boolean hasFinal, Keywords.Type type, Regex regex)
+	public void createVars(String nameString, String valueString, Keywords.Type type, boolean hasFinal)
 			throws UnInitializedFinalVar, UnmatchingValueError, IllegalFileFormat {
-		String[] varDeclarations = regex.splitByComma();
-		for (String declaration : varDeclarations) {
-			Regex reg = new Regex(declaration);
-			String[] str = regex.getVarNameAndValue();
-			String nameString = str[0];
-			String valueString = str[1];
-			if (nameString == null || !Regex.isVarNameValid(nameString)) {
-				return; //Error - not valid var name
+		if (nameString == null || !Regex.isVarNameValid(nameString)) {
+			return; //Error - not valid var name
+		}
+		if (valueString == null) {
+			if (hasFinal) {
+				throw new UnInitializedFinalVar();
 			}
-//			if (!Regex.isVarNameValid(nameString)) { // wo space in the end
-//				return; //Error
-//			}
-			if (valueString == null) {
-				if (hasFinal) {
-					throw new UnInitializedFinalVar();
-				}
-				scope.addVariable (nameString, new Variable(false, false, type));
-			} else {
-				checkVarValue(valueString, type);
-				scope.addVariable(nameString, new Variable(true, hasFinal, type));
-			}
+			scope.addVariable(nameString, new Variable(false, false, type));
+		} else {
+			checkVarValue(valueString, type);
+			scope.addVariable(nameString, new Variable(true, hasFinal, type));
 		}
 	}
+
+	protected void assignVars(String nameString, String valueString) {
+		Variable assignedVar = scope.getVariable(nameString);
+		if (assignedVar == null) {
+			return;//Error - not declared
+		}
+		try {
+			checkVarValue(valueString, assignedVar.getType());
+		} catch (UnmatchingValueError error) {
+			error.getMessage(); //not good value/var Type
+		}
+	}
+
 
 	protected void checkVarValue(String valString, Keywords.Type type) throws UnmatchingValueError {
-		if (Regex.isValidVal(type.getRegex(), valString)) {
-			return;
+		Variable var = scope.getVariable(valString);
+		if (var != null && !(type.isMatching(var.getType()))) {
+			return; //not compatible Type
 		}
-		throw new UnmatchingValueError();
+		if (!Regex.isValidVal(type.getRegex(), valString)) {
+			throw new UnmatchingValueError();
+		}
+	}
+//	protected Variable findVariable(){
+//		while (scope.)
 	}
 
-	protected void AssignVars(Regex reg) {
-
-	}
-}

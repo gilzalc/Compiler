@@ -20,7 +20,7 @@ public class Global extends Scope { //singleton
 	}
 
 	public void addMethod(String s,Method m){
-		if (methods.containsKey(s)) return;//error
+		if (methods.containsKey(s)) return; //error
 		methods.put(s,m);
 	}
 }

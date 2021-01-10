@@ -2,7 +2,6 @@ package oop.ex6.parsers;
 
 import oop.ex6.ScopeParser;
 import oop.ex6.Regex;
-
 import java.util.LinkedList;
 
 public class FileParser {

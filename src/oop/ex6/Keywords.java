@@ -20,48 +20,32 @@ public abstract class Keywords {
 	 * for valid value
 	 */
 	public enum Type {
-		BOOLEAN(VALID_BOOL) {
-			@Override
-			public String toString() {
-				return "boolean";
-			}
-		},
-		CHAR(VALID_CHAR) {
-			@Override
-			public String toString() {
-				return "char";
-			}
-		},
-
-		DOUBLE(VALID_DOUBLE) {
-			@Override
-			public String toString() {
-				return "double";
-			}
-		},
-
-		INT(VALID_INTEGER_REG) {
-			@Override
-			public String toString() {
-				return "int";
-			}
-		},
-
-		STRING(VALID_STRING) {
-			@Override
-			public String toString() {
-				return "String";
-			}
-		};
+		BOOLEAN(VALID_BOOL),
+		CHAR(VALID_CHAR),
+		DOUBLE(VALID_DOUBLE),
+		INT(VALID_INTEGER_REG),
+		STRING(VALID_STRING);
 		private final String myRegex;
-
 
 		Type(String regex) {
 			this.myRegex = regex;
 		}
 
-
 		public String getRegex() {return this.myRegex;}
+
+		public boolean isMatching(Type type) { //Checks assignments
+			if (this == type) {
+				return true;
+			}
+			switch (this) {
+			case DOUBLE:
+				return type == INT;
+			case BOOLEAN:
+				return type == INT || type == DOUBLE;
+			default:
+				return false;
+			}
+		}
 
 	}
 
