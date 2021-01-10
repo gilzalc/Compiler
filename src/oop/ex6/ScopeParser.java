@@ -14,6 +14,7 @@ public abstract class ScopeParser {
 		scopeLines = new LinkedList<>();
 		childParsers = new LinkedList<>();
 	}
+	public abstract void checkLines() throws IllegalFileFormat;
 
 	public void addLine(String line){
 		scopeLines.add(line);

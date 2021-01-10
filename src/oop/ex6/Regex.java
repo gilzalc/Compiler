@@ -25,6 +25,7 @@ public class Regex {
 	private static final String SPACE = "^ | $";
 	private static final String EMPTY = "^\\s*$";
 	private static final String COMMENT = "//.*";
+	private Matcher firstWordsMatcher;
 	private String checkLine;
 
 	public Regex(String line) {
@@ -48,8 +49,31 @@ public class Regex {
 		return regexMatcher(SPACE).replaceAll("");
 	}
 
-	public Matcher getFirstWords() {
-		return regexMatcher(FINAL_AND_FIRST_WORD_GROUPS);
+//	public static String[] getFirstWords(String fir, String fin) {
+//		Matcher matcher = regexMatcher(FINAL_AND_FIRST_WORD_GROUPS);
+//		matcher.find();
+//		String[] firstWords = {matcher.group(fir), matcher.group(fin), String.valueOf(matcher.end(fir))};
+//		return firstWords;
+//	}
+
+//	public Matcher getFirstWords() {
+//		return regexMatcher(FINAL_AND_FIRST_WORD_GROUPS);
+//	}
+
+	public void setFirstWordsMatcher(){
+		firstWordsMatcher = regexMatcher(FINAL_AND_FIRST_WORD_GROUPS);
+	}
+
+	public String getFirstWord(String fir){
+		return firstWordsMatcher.group(fir);
+	}
+
+	public String getFinalGroup(String fin){
+		return firstWordsMatcher.group(fin);
+	}
+
+	public int getEndFirst(String fir){
+		return firstWordsMatcher.end(fir);
 	}
 
 	public static String[] getVarNameAndValue(java.lang.String s) {

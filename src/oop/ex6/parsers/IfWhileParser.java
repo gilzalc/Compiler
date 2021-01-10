@@ -9,6 +9,11 @@ public class IfWhileParser extends ScopeParser {
 		super(parser);
 	}
 
+	@Override
+	public void checkLines() {
+
+	}
+
 	public void run() {
 
 	}

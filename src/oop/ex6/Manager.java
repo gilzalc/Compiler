@@ -17,9 +17,11 @@ public class Manager {
 		readLines();
 		FileParser fileParser = new FileParser(fixedLines);
 		fileParser.run();
-		GlobalParser globalParser = GlobalParser.getInstance();
-		globalParser.checkLines();// declarations and assignments
-		globalParser.createMethods();
+		try {
+			runGlobalParser();
+		} catch (IllegalFileFormat illegalFileFormat) {
+			illegalFileFormat.printStackTrace();
+		}
 		// parse method declarations
 		// parse all scopes
 	}
@@ -32,5 +34,15 @@ public class Manager {
 				fixedLines.add(remove.checkSpaces());
 			}
 		}
+	}
+
+	private void runGlobalParser() throws IllegalFileFormat {
+		GlobalParser globalParser = GlobalParser.getInstance();
+		globalParser.checkLines();// declarations and assignments
+		globalParser.createMethods();
+	}
+
+	private void runInnerParsers(){
+
 	}
 }

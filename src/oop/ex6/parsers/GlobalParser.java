@@ -33,6 +33,7 @@ public class GlobalParser extends ScopeParser {
 	}
 
 	//-----------------------------Parsing methods----------------------------\\
+	@Override
 	public void checkLines() throws IllegalFileFormat {
 		for (String line : scopeLines) {
 			checkLine(line);
@@ -41,10 +42,14 @@ public class GlobalParser extends ScopeParser {
 
 	private void checkLine(String line) throws IllegalFileFormat {
 		Regex reg = new Regex(line);
-		Matcher matcher = reg.getFirstWords();
-		matcher.find();
-		String firstWord = matcher.group(FIRST);
-		boolean hasFinal = matcher.group(FINAL) != null;
+//		Matcher matcher = reg.getFirstWords();
+//		matcher.find();
+//		String firstWord = matcher.group(FIRST);
+//		boolean hasFinal = matcher.group(FINAL) != null;
+		reg.setFirstWordsMatcher();
+		String firstWord = reg.getFirstWord(FIRST);
+		boolean hasFinal = (reg.getFinalGroup(FINAL) != null);
+		int afterLast = reg.getEndFirst(FIRST);
 		Keywords.Type type = checkVarType(firstWord);
 		if (type == null) {
 			if (hasFinal) {
@@ -52,7 +57,7 @@ public class GlobalParser extends ScopeParser {
 			}
 			AssignVars(reg);
 		}
-		reg = new Regex(line.substring(matcher.end(FIRST)));
+		reg = new Regex(line.substring(afterLast));
 		try {
 			createVars(hasFinal, type, reg);
 		} catch (UnInitializedFinalVar | UnmatchingValueError unInitializedFinalVar) {
@@ -93,7 +98,7 @@ public class GlobalParser extends ScopeParser {
 		String[] varDeclarations = regex.splitByComma();
 		for (String declaration : varDeclarations) {
 			String[] str = Regex.getVarNameAndValue(declaration);
-			String nameString = str[1], valueString = str[2];
+			String nameString = str[0], valueString = str[1];
 			if (nameString == null) {
 				return; //Error - no var name
 			}

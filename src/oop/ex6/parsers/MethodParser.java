@@ -1,5 +1,6 @@
 package oop.ex6.parsers;
 
+import oop.ex6.IllegalFileFormat;
 import oop.ex6.ScopeParser;
 import oop.ex6.Variable;
 
@@ -11,9 +12,13 @@ public class MethodParser extends ScopeParser {
 		super(parser);
 	}
 
+	@Override
+	public void checkLines() throws IllegalFileFormat {
+
+	}
 
 
-//	public String getMethodDeclaration() {
+	//	public String getMethodDeclaration() {
 //		return scopeLines.getFirst();
 //	}
 	public boolean isValidArguments(LinkedList<Variable> vars){
