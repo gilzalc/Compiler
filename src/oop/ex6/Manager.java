@@ -1,9 +1,7 @@
 package oop.ex6;
 
 import oop.ex6.parsers.FileParser;
-import oop.ex6.parsers.GlobalScopeParser;
-import oop.ex6.parsers.UnInitializedFinalVar;
-import oop.ex6.scopes.Global;
+import oop.ex6.parsers.GlobalParser;
 
 import java.util.LinkedList;
 
@@ -19,10 +17,9 @@ public class Manager {
 		readLines();
 		FileParser fileParser = new FileParser(fixedLines);
 		fileParser.run();
-		GlobalScopeParser globalScopeParser = GlobalScopeParser.getInstance();
-		globalScopeParser.checkLines();// declarations and assignments
-		globalScopeParser.createMethods();
-
+		GlobalParser globalParser = GlobalParser.getInstance();
+		globalParser.checkLines();// declarations and assignments
+		globalParser.createMethods();
 		// parse method declarations
 		// parse all scopes
 	}

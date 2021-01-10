@@ -14,7 +14,7 @@ public class FileParser {
 
 	public FileParser(LinkedList<String> lines) {
 		fixedLines = lines;
-		scopeParser = GlobalScopeParser.getInstance();
+		scopeParser = GlobalParser.getInstance();
 //		methodParsers = new LinkedList<>();
 	}
 

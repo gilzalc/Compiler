@@ -26,9 +26,8 @@ public abstract class ScopeParser {
 	public void addChildParsers(ScopeParser parser){
 		childParsers.add(parser);
 	}
+
 	public LinkedList<String> getScopeLines(){
 		return scopeLines;
 	}
-
-
 }

@@ -5,12 +5,9 @@ import oop.ex6.Regex;
 import oop.ex6.Keywords;
 import oop.ex6.scopes.Global;
 
-import java.lang.reflect.Method;
-import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.regex.Matcher;
 
-public class GlobalScopeParser extends ScopeParser {
+public class GlobalParser extends ScopeParser {
 	private static final String FINAL = "final";
 	private static final String FIRST = "first";
 	private static final String BOOLEAN = "boolean";
@@ -20,20 +17,20 @@ public class GlobalScopeParser extends ScopeParser {
 	private static final String CHAR = "char";
 	private final Global globalScope;
 	//	private final LinkedList<MethodParser> methodParsers;
-	private static GlobalScopeParser globalScopeParser;
+	private static GlobalParser globalParser;
 
 
-	private GlobalScopeParser() {
+	private GlobalParser() {
 		super(null);
 		globalScope = Global.getInstance();
 		//		Methods = new HashMap<>();
 	}
 
-	public static GlobalScopeParser getInstance() {
-		if (globalScopeParser == null) {
-			globalScopeParser = new GlobalScopeParser();
+	public static GlobalParser getInstance() {
+		if (globalParser == null) {
+			globalParser = new GlobalParser();
 		}
-		return globalScopeParser;
+		return globalParser;
 	}
 
 	public void checkLines() {
@@ -108,7 +105,6 @@ public class GlobalScopeParser extends ScopeParser {
 			} else {
 				checkVarValue(valueString, type);
 				// add new variable to global scope HashMap, Vinit = true;
-
 			}
 		}
 
