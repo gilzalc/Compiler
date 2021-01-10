@@ -122,7 +122,7 @@ public class Regex {
 	public String ifWhileCondition(){
 		Matcher matcher = regexMatcher(IF_While);
 		if (matcher.matches()) {
-			return matcher.group(2);
+			return matcher.group(2);//condition
 		}
 		return null;
 	}

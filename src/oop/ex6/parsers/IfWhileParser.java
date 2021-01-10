@@ -10,7 +10,8 @@ public class IfWhileParser extends ScopeParser {
 	private boolean firstLine;
 
 	public IfWhileParser(ScopeParser parentParser){
-		super(parentParser, new IfWhile(parentParser.getScope()));
+		super(parentParser, new IfWhile());
+//		super(parentParser, new IfWhile(parentParser.getScope()));
 		firstLine = true;
 
 	}

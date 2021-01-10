@@ -8,7 +8,8 @@ import oop.ex6.scopes.Scope;
 import java.util.LinkedList;
 
 public abstract class ScopeParser {
-
+	private static final String FINAL = "final";
+	private static final String FIRST = "first";
 	private static final String BOOLEAN = "boolean";
 	private static final String INT = "int";
 	private static final String DOUBLE = "double";
