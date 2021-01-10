@@ -19,8 +19,11 @@ public abstract class Scope {
 		outerScope = null;
 	}
 
-	public void addVariable(Variable variable){
-		variables.put(variable.getName(), (variable));
+	public void addVariable(String s,Variable var){
+		if (variables.containsKey(s)){
+			return; //Error
+		}
+		variables.put(s, var);
 	}
 
 }
