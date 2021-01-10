@@ -1,5 +1,6 @@
 package oop.ex6;
 
+import java.util.Arrays;
 import java.util.regex.*;
 
 public class TestClass {
@@ -66,6 +67,10 @@ public class TestClass {
 		Matcher matcher = pattern.matcher("if(56){");
 		System.out.println(matcher.matches());
 		System.out.println(matcher.group(2));
+		pattern = Pattern.compile("(\\|\\|)|(&&)");
+		matcher = pattern.matcher("twet||rey||rhr|Rherh");
+		System.out.println(Arrays.toString("twet||rey||rhr&&||Rherh".split("(\\|\\|)|(&&)")));
+
 	}
 }
 

@@ -35,7 +35,10 @@ public class IfWhileParser extends ScopeParser {
 		if (condition == null){
 			return;//error not valid if/while
 		}
+		String[] conBooleans = condition.split("(\\|\\|)|(&&)");
+		for (String bool : conBooleans){
 
+		}
 	}
 
 //	public void run() {
