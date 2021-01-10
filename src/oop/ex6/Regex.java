@@ -49,12 +49,6 @@ public class Regex {
 		return regexMatcher(SPACE).replaceAll("");
 	}
 
-//	public static String[] getFirstWords(String fir, String fin) {
-//		Matcher matcher = regexMatcher(FINAL_AND_FIRST_WORD_GROUPS);
-//		matcher.find();
-//		String[] firstWords = {matcher.group(fir), matcher.group(fin), String.valueOf(matcher.end(fir))};
-//		return firstWords;
-//	}
 
 //	public Matcher getFirstWords() {
 //		return regexMatcher(FINAL_AND_FIRST_WORD_GROUPS);
