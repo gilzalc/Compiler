@@ -127,8 +127,12 @@ public abstract class ScopeParser {
 		if (assignedVar == null) {
 			return;//Error - not declared
 		}
+		if (assignedVar.IsFinal() && assignedVar.isInitialized()){
+			return; //Error - cant assign to final?
+		}
 		try {
 			checkVarValue(valueString, assignedVar.getType());
+			assignedVar.initial();
 		} catch (UnmatchingValueError error) {
 			error.getMessage(); //not good value/var Type
 		}

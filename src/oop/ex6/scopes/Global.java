@@ -7,7 +7,7 @@ import java.util.LinkedList;
 
 public class Global extends Scope { //singleton
 	private static Global globalScope;
-	private HashMap<String,Method> methods;
+	private HashMap<String,Method> methodsMap;
 	private Global(){
 
 	}
@@ -20,7 +20,10 @@ public class Global extends Scope { //singleton
 	}
 
 	public void addMethod(String s,Method m){
-		if (methods.containsKey(s)) return; //error
-		methods.put(s,m);
+		if (methodsMap.containsKey(s)) return; //error
+		methodsMap.put(s,m);
+	}
+	public HashMap<String,Method> getMethodsMap(){
+		return methodsMap;
 	}
 }

@@ -7,6 +7,7 @@ public class Regex {
 	private static final String FINAL_AND_FIRST_WORD_GROUPS = "(?<final>final )?(?<first>\\w+)";
 	private static final String VAR_NAME_AND_VALUE
 			= "(?<varName> ?_\\w+|[a-zA-Z]\\w* ?)(=(?<value> ?\\S?\\S*))?";
+	private static final String STARTS_WITH_VOID = " ?void ";
 	private static final String COMMA_SEPARATED = " ?, ?";
 	private static final String TRUE = "true";
 	private static final String EQUALS = "=";
@@ -14,7 +15,7 @@ public class Regex {
 	private static final String IF_While = "(if|while) ?\\((.+)\\) ?\\{";
 	private static final String WHILE = "while";
 	private static final String VALID_VARIABLE_NAME = "_\\w+|[a-zA-Z]\\w*";// and not a keyword or typeword
-	private static final String VALID_METHOD = "[a-zA-Z]\\w*";
+	private static final String VALID_METHOD_NAME = "[a-zA-Z]\\w*";
 	private static final String VALID_SUFFIX = ";$";
 	private static final String VALID_INTEGER = "-?\\d+";
 	private static final String VALID_DOUBLE = "-?\\d+(\\.\\d+)?"; // W About .5 or 5. ?
@@ -34,6 +35,8 @@ public class Regex {
 		checkLine = line;
 	}
 
+
+
 	private Matcher regexMatcher(String p) {
 		Pattern pattern = Pattern.compile(p);
 		return pattern.matcher(checkLine);
@@ -52,64 +55,62 @@ public class Regex {
 	}
 
 
-//	public Matcher getFirstWords() {
-//		return regexMatcher(FINAL_AND_FIRST_WORD_GROUPS);
-//	}
-
-	public void setFirstWordsMatcher(){
+	public void setFirstWordsMatcher() {
 		firstWordsMatcher = regexMatcher(FINAL_AND_FIRST_WORD_GROUPS);
 	}
 
-	public String getFirstWord(String fir){
+	public String getFirstWord(String fir) {
 		return firstWordsMatcher.group(fir);
 	}
 
-	public String getFinalGroup(String fin){
+	public String getFinalGroup(String fin) {
 		return firstWordsMatcher.group(fin);
 	}
 
-	public int getEndFirst(String fir){
+	public int getEndFirst(String fir) {
 		return firstWordsMatcher.end(fir);
 	}
 
 	public String[] getVarNameAndValue() {
 		Matcher matcher = regexMatcher(VAR_NAME_AND_VALUE);
-		matcher.find();
-		String nameString = matcher.group("varName");
-		String valueString = matcher.group("value");
-		return new String[] { nameString, valueString };
+		if (matcher.find()) {
+			String nameString = matcher.group("varName");
+			String valueString = matcher.group("value");
+			return new String[]{nameString, valueString};
+		}
+		// throw an error?
+		return new String[]{"S"}; //to edit!!!!!
 	}
 
-//	public static String[] getVarNameAndValue(java.lang.String s) {
-//		Pattern pat = Pattern.compile(VAR_NAME_AND_VALUE);
-//		Matcher matcher = pat.matcher(s);
-//		matcher.find();
-//		String nameString = matcher.group("varName");
-//		String valueString = matcher.group("value");
-//		return new String[] { nameString,valueString};
-//	}
-
-	public static boolean isValidVal(String pattern, String varVal) {
-		return Pattern.matches(pattern, varVal);
-	}
 
 	public boolean enterScope() {
 		return regexMatcher("{$").matches();
 	}
 
-	public String validSuffix(){
-		if (regexMatcher(VALID_SUFFIX).find()){
+	public String validSuffix() {
+		if (regexMatcher(VALID_SUFFIX).find()) {
 			return regexMatcher(VALID_SUFFIX).replaceAll("");
 		}
 		return null;
 	}
 
-	public static boolean isVarNameValid(String var) {
-		if (var.endsWith(" ")) {
-			var = var.substring(0, var.length() - 1);
+	public boolean methodStart() {
+		Matcher matcher = regexMatcher(STARTS_WITH_VOID);
+		if (matcher.lookingAt()) {
+			int newStart = matcher.end();
+			checkLine = checkLine.substring(newStart);
+			return true;
 		}
-		return (Pattern.matches(VALID_VARIABLE_NAME, var)) && !(Keywords.getKeywords().contains(var));
+		return false;
 	}
+	public String getNextWord(){
+		Matcher matcher = regexMatcher("\\w+");
+		if (matcher.find()){
+			return checkLine.substring(matcher.start(),matcher.end());
+		}
+		return ""; // Error?
+	}
+
 
 	public String[] splitByComma() throws IllegalFileFormat {
 		if (checkLine.endsWith(",")) {
@@ -119,11 +120,26 @@ public class Regex {
 
 	}
 
-	public String ifWhileCondition(){
+	public String ifWhileCondition() {
 		Matcher matcher = regexMatcher(IF_While);
 		if (matcher.matches()) {
 			return matcher.group(2);//condition
 		}
 		return null;
+	}
+
+	//------------------Static methods------------------\\
+	public static boolean isVarNameValid(String varName) {
+		if (varName.endsWith(" ")) {
+			varName = varName.substring(0, varName.length() - 1);
+		}
+		return (Pattern.matches(VALID_VARIABLE_NAME, varName)) && !(Keywords.getKeywords().contains(varName));
+	}
+	public static boolean isValidMethodName(String methodName) {
+		return (Pattern.matches(VALID_METHOD_NAME, methodName)) && !(Keywords.getKeywords().contains(methodName));
+	}
+
+	public static boolean isValidVal(String pattern, String varVal) {
+		return Pattern.matches(pattern, varVal);
 	}
 }
