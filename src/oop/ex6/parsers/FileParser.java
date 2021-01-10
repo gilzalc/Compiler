@@ -31,6 +31,7 @@ public class FileParser {
 //					scopeParser.addLine(line);
 				}
 				if (scope >= 2){
+					scopeParser.addLine("{"); // מוסיף את זה כדי לדעת שצריך לפתוח סקופ פנימי
 					scopeParser = new IfWhileParser(scopeParser);
 					scopeParser.getParentParser().addChildParsers(scopeParser);
 //					scopeParser.addLine(line);

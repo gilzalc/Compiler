@@ -19,14 +19,18 @@ public abstract class ScopeParser {
 	protected LinkedList<ScopeParser> childParsers;
 	protected Scope scope;
 
-	protected ScopeParser(ScopeParser parser, Scope s){
-		parentParser = parser;
+	protected ScopeParser(ScopeParser parent, Scope s){
+		parentParser = parent;
 		scope = s;
 		scopeLines = new LinkedList<>();
 		childParsers = new LinkedList<>();
 
 	}
 	public abstract void checkLines() throws IllegalFileFormat;
+
+	public Scope getScope(){
+		return scope;
+	}
 
 	public void addLine(String line){
 		scopeLines.add(line);
