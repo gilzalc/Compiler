@@ -25,5 +25,4 @@ public abstract class Scope {
 		}
 		variables.put(s, var);
 	}
-
 }
