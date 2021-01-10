@@ -3,12 +3,9 @@ package oop.ex6.parsers;
 import oop.ex6.*;
 import oop.ex6.scopes.Global;
 
-import java.lang.reflect.Method;
-import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.regex.Matcher;
 
-public class GlobalScopeParser extends ScopeParser {
+public class GlobalParser extends ScopeParser {
 	//-------------------Constants & data members---------------------\\
 
 	private static final String FINAL = "final";
@@ -19,20 +16,20 @@ public class GlobalScopeParser extends ScopeParser {
 	private static final String STRING = "String";
 	private static final String CHAR = "char";
 	private final Global globalScope;
-	private static GlobalScopeParser globalScopeParser;
+	private static GlobalParser globalParser;
 
 	//-------------------Singleton constructor & access---------------------\\
-	private GlobalScopeParser() {
+	private GlobalParser() {
 		super(null);
 		globalScope = Global.getInstance();
 		//		Methods = new HashMap<>();
 	}
 
-	public static GlobalScopeParser getInstance() {
-		if (globalScopeParser == null) {
-			globalScopeParser = new GlobalScopeParser();
+	public static GlobalParser getInstance() {
+		if (globalParser == null) {
+			globalParser = new GlobalParser();
 		}
-		return globalScopeParser;
+		return globalParser;
 	}
 
 	//-----------------------------Parsing methods----------------------------\\
