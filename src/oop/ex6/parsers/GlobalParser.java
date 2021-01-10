@@ -65,9 +65,6 @@ public class GlobalParser extends ScopeParser {
 		}
 	}
 
-	private void AssignVars(Regex reg) {
-	}
-
 
 //	private void checkVarValue(String valString, Keywords.Type type) throws UnmatchingValueError {
 //		if (Regex.isValidVal(type.getRegex(), valString)) {
