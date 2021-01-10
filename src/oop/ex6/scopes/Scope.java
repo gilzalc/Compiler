@@ -22,4 +22,5 @@ public abstract class Scope {
 	public void addVariable(Variable variable){
 		variables.put(variable.getName(), (variable));
 	}
+
 }

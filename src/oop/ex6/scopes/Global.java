@@ -24,5 +24,4 @@ public class Global extends Scope { //singleton
 		if (methods.containsKey(s)) return;//error
 		methods.put(s,m);
 	}
-	
 }
