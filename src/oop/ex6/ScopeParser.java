@@ -65,7 +65,8 @@ public abstract class ScopeParser {
 			throws UnInitializedFinalVar, UnmatchingValueError, IllegalFileFormat {
 		String[] varDeclarations = regex.splitByComma();
 		for (String declaration : varDeclarations) {
-			String[] str = Regex.getVarNameAndValue(declaration);
+			Regex reg = new Regex(declaration);
+			String[] str = regex.getVarNameAndValue();
 			String nameString = str[0];
 			String valueString = str[1];
 			if (nameString == null || !Regex.isVarNameValid(nameString)) {
@@ -91,5 +92,9 @@ public abstract class ScopeParser {
 			return;
 		}
 		throw new UnmatchingValueError();
+	}
+
+	protected void AssignVars(Regex reg) {
+
 	}
 }

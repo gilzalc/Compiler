@@ -9,7 +9,7 @@ import java.util.LinkedList;
 public class MethodParser extends ScopeParser {
 
 	public MethodParser(ScopeParser parser) {
-		super(parser);
+		super(parser,);
 	}
 
 	@Override

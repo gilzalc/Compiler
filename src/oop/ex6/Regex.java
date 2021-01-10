@@ -70,16 +70,22 @@ public class Regex {
 		return firstWordsMatcher.end(fir);
 	}
 
-	public static String[] getVarNameAndValue(java.lang.String s) {
-		Pattern pat = Pattern.compile(VAR_NAME_AND_VALUE);
-		Matcher matcher = pat.matcher(s);
+	public String[] getVarNameAndValue() {
+		Matcher matcher = regexMatcher(VAR_NAME_AND_VALUE);
 		matcher.find();
 		String nameString = matcher.group("varName");
 		String valueString = matcher.group("value");
-		return new String[] {
-			 nameString,valueString
-		};
+		return new String[] { nameString, valueString };
 	}
+
+//	public static String[] getVarNameAndValue(java.lang.String s) {
+//		Pattern pat = Pattern.compile(VAR_NAME_AND_VALUE);
+//		Matcher matcher = pat.matcher(s);
+//		matcher.find();
+//		String nameString = matcher.group("varName");
+//		String valueString = matcher.group("value");
+//		return new String[] { nameString,valueString};
+//	}
 
 	public static boolean isValidVal(String pattern, String varVal) {
 		return Pattern.matches(pattern, varVal);
