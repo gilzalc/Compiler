@@ -70,9 +70,9 @@ public class Regex {
 	}
 
 
-	public boolean closeScope() {
-		return regexMatcher("^}").matches();
-	}
+//	public boolean closeScope() {
+//		return regexMatcher("^}").matches();
+//	}
 
 	public String[] splitByComma() {
 		return this.checkLine.split(COMMA_SEPARATED);

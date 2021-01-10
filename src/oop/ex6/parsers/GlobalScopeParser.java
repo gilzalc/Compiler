@@ -7,6 +7,7 @@ import oop.ex6.scopes.Global;
 
 import java.lang.reflect.Method;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.regex.Matcher;
 
 public class GlobalScopeParser extends ScopeParser {
@@ -18,14 +19,14 @@ public class GlobalScopeParser extends ScopeParser {
 	private static final String STRING = "String";
 	private static final String CHAR = "char";
 	private final Global globalScope;
-	private final HashMap<String, Method> ScopeMethods;
+	//	private final LinkedList<MethodParser> methodParsers;
 	private static GlobalScopeParser globalScopeParser;
 
 
 	private GlobalScopeParser() {
 		super(null);
 		globalScope = Global.getInstance();
-		ScopeMethods = new HashMap<>();
+		//		Methods = new HashMap<>();
 	}
 
 	public static GlobalScopeParser getInstance() {
@@ -111,8 +112,18 @@ public class GlobalScopeParser extends ScopeParser {
 			}
 		}
 
+
 		//	private static class GlobalScopeVarFactory{
 		//
 		//	}
+	}
+
+	public void createMethods() {
+		for (ScopeParser parser : childParsers) {
+			String firstLine = parser.getScopeLines().getFirst();
+			// Create methods
+//			Method m = new Method();
+//			globalScope.addMethod(methodName,m);
+		}
 	}
 }

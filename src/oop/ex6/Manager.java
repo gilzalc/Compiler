@@ -20,8 +20,8 @@ public class Manager {
 		FileParser fileParser = new FileParser(fixedLines);
 		fileParser.run();
 		GlobalScopeParser globalScopeParser = GlobalScopeParser.getInstance();
-
-		globalScopeParser.checkLines();
+		globalScopeParser.checkLines();// declarations and assignments
+		globalScopeParser.createMethods();
 
 		// parse method declarations
 		// parse all scopes

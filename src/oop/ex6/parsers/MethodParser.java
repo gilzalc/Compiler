@@ -12,9 +12,9 @@ public class MethodParser extends ScopeParser {
 		super(parser);
 	}
 
-	public String getMethodDeclaration() {
-		return scopeLines.getFirst();
-	}
+//	public String getMethodDeclaration() {
+//		return scopeLines.getFirst();
+//	}
 	public boolean isValidArguments(LinkedList<Variable> vars){
 		return false;
 	}//can be a primitive
