@@ -1,13 +1,13 @@
 package oop.ex6.parsers;
 
-import oop.ex6.ScopeParser;
-import oop.ex6.Regex;
-import oop.ex6.Keywords;
+import oop.ex6.*;
 import oop.ex6.scopes.Global;
 
 import java.util.regex.Matcher;
 
 public class GlobalParser extends ScopeParser {
+	//-------------------Constants & data members---------------------\\
+
 	private static final String FINAL = "final";
 	private static final String FIRST = "first";
 	private static final String BOOLEAN = "boolean";
@@ -16,10 +16,9 @@ public class GlobalParser extends ScopeParser {
 	private static final String STRING = "String";
 	private static final String CHAR = "char";
 	private final Global globalScope;
-	//	private final LinkedList<MethodParser> methodParsers;
 	private static GlobalParser globalParser;
 
-
+	//-------------------Singleton constructor & access---------------------\\
 	private GlobalParser() {
 		super(null);
 		globalScope = Global.getInstance();
@@ -33,13 +32,14 @@ public class GlobalParser extends ScopeParser {
 		return globalParser;
 	}
 
-	public void checkLines() {
+	//-----------------------------Parsing methods----------------------------\\
+	public void checkLines() throws IllegalFileFormat {
 		for (String line : scopeLines) {
 			checkLine(line);
 		}
 	}
 
-	private void checkLine(String line) {
+	private void checkLine(String line) throws IllegalFileFormat {
 		Regex reg = new Regex(line);
 		Matcher matcher = reg.getFirstWords();
 		matcher.find();
@@ -48,7 +48,7 @@ public class GlobalParser extends ScopeParser {
 		Keywords.Type type = checkVarType(firstWord);
 		if (type == null) {
 			if (hasFinal) {
-				return; //Error - no Type
+				return; //Error - no Type and hasFinal
 			}
 			AssignVars(reg);
 		}
@@ -89,37 +89,44 @@ public class GlobalParser extends ScopeParser {
 	}
 
 	public void createVars(boolean hasFinal, Keywords.Type type, Regex regex)
-			throws UnInitializedFinalVar, UnmatchingValueError {
+			throws UnInitializedFinalVar, UnmatchingValueError, IllegalFileFormat {
 		String[] varDeclarations = regex.splitByComma();
-		Matcher matcher;
 		for (String declaration : varDeclarations) {
-
-			matcher = Regex.getVarNameAndValue(declaration);
-			matcher.find();
-			String valueString = matcher.group("value");
+			String[] str = Regex.getVarNameAndValue(declaration);
+			String nameString = str[1], valueString = str[2];
+			if (nameString == null) {
+				return; //Error - no var name
+			}
+			if (!Regex.isVarNameValid(nameString)) { // wo space in the end
+				return; //Error
+			}
 			if (valueString == null) {
 				if (hasFinal) {
 					throw new UnInitializedFinalVar();
 				}
-				// add new variable to global scope Hashmap, Vinit = false;
+
+				globalScope.addVariable
+						(nameString, new Variable(false, false, type));
 			} else {
 				checkVarValue(valueString, type);
-				// add new variable to global scope HashMap, Vinit = true;
+				globalScope.addVariable(nameString, new Variable(true, hasFinal, type));
 			}
 		}
 
 
-		//	private static class GlobalScopeVarFactory{
-		//
-		//	}
+
 	}
 
 	public void createMethods() {
 		for (ScopeParser parser : childParsers) {
 			String firstLine = parser.getScopeLines().getFirst();
+
 			// Create methods
-//			Method m = new Method();
-//			globalScope.addMethod(methodName,m);
+			//			Method m = new Method();
+			//			globalScope.addMethod(methodName,m);
 		}
 	}
+	//	private static class GlobalScopeVarFactory{
+	//
+	//	}
 }
