@@ -10,11 +10,13 @@ public class FileParser {
 	private int scope = 0;
 	private final LinkedList<String> fixedLines;
 	private ScopeParser scopeParser;
+	private LinkedList<ScopeParser> innerParsers;
 //	private final LinkedList<ScopeParser> methodParsers;
 
 	public FileParser(LinkedList<String> lines) {
 		fixedLines = lines;
 		scopeParser = GlobalParser.getInstance();
+		innerParsers = new LinkedList<>();
 //		methodParsers = new LinkedList<>();
 	}
 
@@ -33,6 +35,7 @@ public class FileParser {
 					scopeParser.getParentParser().addChildParsers(scopeParser);
 //					scopeParser.addLine(line);
 				}
+				innerParsers.add(scopeParser);
 //				continue;
 			}
 			else if (line.equals("}")) {
@@ -51,6 +54,9 @@ public class FileParser {
 		}
 	}
 
+	public LinkedList<ScopeParser> getInnerParsers(){
+		return innerParsers;
+	}
 
 
 }
