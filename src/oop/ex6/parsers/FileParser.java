@@ -45,7 +45,7 @@ public class FileParser {
 				continue;
 			}
 			if((line = lineRegex.validSuffix()) == null){
-				return;//ERROR not valid sufix
+				return;//ERROR not valid suffix
 			}
 			scopeParser.addLine(line);
 		}
