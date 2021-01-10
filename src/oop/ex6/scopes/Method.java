@@ -9,7 +9,9 @@ import java.util.HashSet;
 import java.util.LinkedList;
 
 class Method extends Scope {
-	private final LinkedList<Keywords.Type> requiredTypes; //
+
+	private final LinkedList<Keywords.Type> requiredTypes;
+
 	Method(LinkedList<Keywords.Type> requiredTypes) {
 		super();
 		this.requiredTypes = requiredTypes;

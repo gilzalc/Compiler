@@ -117,9 +117,6 @@ public class GlobalParser extends ScopeParser {
 				globalScope.addVariable(nameString, new Variable(true, hasFinal, type));
 			}
 		}
-
-
-
 	}
 
 	public void createMethods() {

@@ -14,9 +14,7 @@ public class MethodParser extends ScopeParser {
 
 	@Override
 	public void checkLines() throws IllegalFileFormat {
-
 	}
-
 
 	//	public String getMethodDeclaration() {
 //		return scopeLines.getFirst();
