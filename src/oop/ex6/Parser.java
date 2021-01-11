@@ -41,8 +41,12 @@ public abstract class Parser {
 		childParsers.add(parser);
 	}
 
-	public LinkedList<String> getScopeLines() {
-		return scopeLines;
+	public String pollScopeLines() {
+		return scopeLines.poll();
+	}
+
+	public LinkedList<Parser> getChildParsers() {
+		return childParsers;
 	}
 
 	protected void checkLine(String line) {

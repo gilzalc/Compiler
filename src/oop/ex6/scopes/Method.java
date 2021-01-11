@@ -11,7 +11,7 @@ public class Method extends Scope {
 	private final LinkedList<Variable> requiredVars;
 
 	public Method(LinkedList<Variable> requiredVars) {
-		super();
+		super(Global.getInstance());
 		this.requiredVars = requiredVars;
 	}
 

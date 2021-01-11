@@ -32,29 +32,30 @@ public class GlobalParser extends Parser {
 		for (String line : scopeLines) {
 			checkLine(line);
 		}
+		createMethods();
 	}
 
 
 	public void createMethods() {
 		for (Parser parser : childParsers) {
-			String firstLine = parser.getScopeLines().getFirst();
+			String firstLine = parser.pollScopeLines();
 			Regex reg = new Regex(firstLine);
 			if (!reg.methodStart()) { // removes void and space, if false throw error
 				return;//Error not starting with void
 			}
 			String methodName = reg.getMethodName();
-			if (!Regex.isValidMethodName(methodName)) {
+			if (!Regex.isValidMethodName(methodName) && !(Keywords.getKeywords().contains(methodName))) {
 				return; // invalid name for method
 			}
-			if ((Global.getInstance().getMethodsMap().containsKey(methodName))) {
+			if (Global.getInstance().getMethodsMap().containsKey(methodName)) {
 				return; // - method name already exists;
 			}
 			Method toAdd = new Method(new LinkedList<Variable>());
 			Global.getInstance().addMethod(methodName, toAdd);
 			String parameters = reg.getMethodParameters();
-			if (parameters.endsWith(",")) { //edge case
-				return; //Error
-			}
+//			if (parameters.endsWith(",")) { //edge case
+//				return; //Error
+//			}
 			String[] parametersArr = parameters.split(",");
 			for (String param : parametersArr) {
 				VariableRegex paramReg = new VariableRegex(param);
@@ -79,8 +80,8 @@ public class GlobalParser extends Parser {
 		}
 	}
 
-	private void checkParam(String param) {
-
-	}
+//	private void checkParam(String param) {
+//
+//	}
 
 }

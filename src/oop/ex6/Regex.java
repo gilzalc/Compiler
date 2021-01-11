@@ -150,7 +150,7 @@ public class Regex {
 		return (Pattern.matches(VALID_VARIABLE_NAME, varName));
 	}
 	public static boolean isValidMethodName(String methodName) {
-		return (Pattern.matches(VALID_METHOD_NAME, methodName)) && !(Keywords.getKeywords().contains(methodName));
+		return (Pattern.matches(VALID_METHOD_NAME, methodName));
 	}
 
 	public static boolean isValidVal(String pattern, String varVal) {

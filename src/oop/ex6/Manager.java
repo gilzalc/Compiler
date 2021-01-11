@@ -22,6 +22,7 @@ public class Manager {
 		} catch (IllegalFileFormat illegalFileFormat) {
 			illegalFileFormat.printStackTrace();
 		}
+		runMethodsParsers();
 		// parse method declarations
 		// parse all scopes
 	}
@@ -38,8 +39,14 @@ public class Manager {
 
 	private void runGlobalParser() throws IllegalFileFormat {
 		GlobalParser globalParser = GlobalParser.getInstance();
-		globalParser.checkLines();// declarations and assignments
-		globalParser.createMethods();
+		globalParser.checkLines();// declarations and assignments and creating methods
+	}
+
+	private void runMethodsParsers(){
+		LinkedList<Parser> methodsParsers = GlobalParser.getInstance().getChildParsers();
+		for (Parser parser : methodsParsers){
+
+		}
 	}
 
 	private void runInnerParsers(){

@@ -8,12 +8,30 @@ import java.util.LinkedList;
 
 public class MethodParser extends Parser {
 
+//	LinkedList<>
+
 	public MethodParser(Parser parser) {
 		super(parser, parser.getScope());// הפרמטר השני לא נכון!!!
+
 	}
 
 	@Override
 	public void checkLines() throws IllegalFileFormat {
+
+		for (int i = 1 ; i < scopeLines.size() - 2; i++){
+			//
+		}
+
+	}
+
+//	public void runFirstLine(){
+//		for (Variable var: parameters){
+//			// מוסיף את הפרמטרים כמשתנים של המתודה
+//		}
+//	}
+
+	public void addParameters(Variable parameter){
+
 	}
 
 	//	public String getMethodDeclaration() {
