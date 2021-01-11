@@ -11,8 +11,8 @@ public class MethodParser extends Parser {
 
 //	LinkedList<>
 
-	public MethodParser(Parser parser) {
-		super(parser, parser.getScope());// הפרמטר השני לא נכון!!!
+	public MethodParser(Parser parentParser) {
+		super(parentParser, null);
 	}
 
 	@Override

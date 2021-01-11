@@ -56,7 +56,7 @@ public abstract class Parser {
 			throws IllegalFileFormat, UnInitializedFinalVar, UnmatchingValueError {
 		Regex reg = new Regex(line);
 		if (reg.isReturnLine()) { //with regex
-			return true; //continue
+			return true;
 		}
 		reg.setFirstWordsMatcher();
 		String firstWord = reg.getFirstWord();
