@@ -23,7 +23,7 @@ public abstract class Parser {
 		childParsers = new LinkedList<>();
 	}
 
-	public abstract void checkLines();
+	public abstract void checkLines() throws IllegalFileFormat;
 
 	public Scope getScope() {
 		return scope;
@@ -49,38 +49,47 @@ public abstract class Parser {
 		return childParsers;
 	}
 
-	protected void checkLine(String line) {
+	protected boolean checkLine(String line)
+			throws IllegalFileFormat, UnInitializedFinalVar, UnmatchingValueError {
+		if (line.equals("return;")) { //with regex
+			return true; //continue
+		}
 		Regex reg = new Regex(line);
 		reg.setFirstWordsMatcher();
 		String firstWord = reg.getFirstWord();
 		boolean hasFinal = reg.hasFinal();
-		int afterLast = reg.getEndFirst();
+		int afterLast = reg.getEndOfFirst();
+		boolean isCreating = false;
 		Keywords.Type type = checkVarType(firstWord);
-		boolean flag = false;
-		if (type != null) {
-			reg = new Regex(line.substring(afterLast));
-			flag = true;
-		} else {
+		if (type == null) {
 			if (hasFinal) {
-				return; //Error - no Type and hasFinal
+				return true;//Error
 			}
+			Variable var = scope.getVariable(firstWord);
+			if (var == null) {
+				return false;
+			}
+		} else {
+			isCreating = true;
+			reg = new Regex(line.substring(afterLast));
 		}
-		String[] varDeclarations;
-		try {
-			varDeclarations = reg.splitByComma();
-			for (String declaration : varDeclarations) {
-				reg = new Regex(declaration);
-				String[] str = reg.getVarNameAndValue();
-				String nameString = str[0];
-				String valueString = str[1];
-				if (flag) {
-					createVars(nameString, valueString, type, hasFinal);
-					continue;
-				}
-				assignVars(nameString, valueString);
+		manageVarExpressions(reg, isCreating, type, hasFinal);
+		return true;
+	}
+
+	private void manageVarExpressions(Regex reg, Boolean isCreating, Keywords.Type type, boolean hasFinal)
+			throws IllegalFileFormat, UnmatchingValueError, UnInitializedFinalVar {
+		String[] varDeclarations = reg.splitByComma();
+		for (String declaration : varDeclarations) {
+			reg = new Regex(declaration);
+			String[] str = reg.getVarNameAndValue();
+			String nameString = str[0];
+			String valueString = str[1];
+			if (isCreating) {
+				createVars(nameString, valueString, type, hasFinal);
+				continue;
 			}
-		} catch (Exception e) {
-			return;
+			assignVars(nameString, valueString);
 		}
 	}
 
@@ -102,7 +111,7 @@ public abstract class Parser {
 	}
 
 	public void createVars(String nameString, String valueString, Keywords.Type type, boolean hasFinal)
-			throws UnInitializedFinalVar, UnmatchingValueError, IllegalFileFormat {
+			throws UnInitializedFinalVar, UnmatchingValueError {
 		if (nameString == null || !Regex.isVarNameValid(nameString)) {
 			return; //Error - not valid var name
 		}
@@ -112,7 +121,7 @@ public abstract class Parser {
 			}
 			scope.addVariable(nameString, new Variable(false, false, type));
 		} else {
-			checkVarValue(valueString, type);
+			checkVarValueAssignment(valueString, type);
 			scope.addVariable(nameString, new Variable(true, hasFinal, type));
 		}
 	}
@@ -126,7 +135,7 @@ public abstract class Parser {
 			return; //Error - cant assign to final?
 		}
 		try {
-			checkVarValue(valueString, assignedVar.getType());
+			checkVarValueAssignment(valueString, assignedVar.getType());
 			assignedVar.initial();
 		} catch (UnmatchingValueError error) {
 			error.getMessage(); //not good value/var Type
@@ -134,10 +143,10 @@ public abstract class Parser {
 	}
 
 
-	protected void checkVarValue(String valString, Keywords.Type type) throws UnmatchingValueError {
+	protected void checkVarValueAssignment(String valString, Keywords.Type type) throws UnmatchingValueError {
 		Variable var = scope.getVariable(valString);
-		if (var != null){
-			if (!var.isInitialized()){
+		if (var != null) {
+			if (!var.isInitialized()) {
 				return;// error Assigning uninitialized var
 			}
 			if (!(type.isMatching(var.getType()))) {
@@ -155,6 +164,23 @@ public abstract class Parser {
 			return;//error
 		}
 		childParser.checkLines();
+	}
+
+	protected Keywords.Type checkVarType(String firstWord) {
+		switch (firstWord) {
+		case BOOLEAN:
+			return Keywords.Type.BOOLEAN;
+		case CHAR:
+			return Keywords.Type.CHAR;
+		case STRING:
+			return Keywords.Type.STRING;
+		case INT:
+			return Keywords.Type.INT;
+		case DOUBLE:
+			return Keywords.Type.DOUBLE;
+		default:
+			return null;
+		}
 	}
 }
 

@@ -45,7 +45,6 @@ public class Manager {
 	private void runMethodsParsers(){
 		LinkedList<Parser> methodsParsers = GlobalParser.getInstance().getChildParsers();
 		for (Parser parser : methodsParsers){
-
 		}
 	}
 
