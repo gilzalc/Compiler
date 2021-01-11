@@ -2,6 +2,7 @@ package oop.ex6.parsers;
 
 import oop.ex6.IllegalFileFormat;
 import oop.ex6.Parser;
+import oop.ex6.Regex;
 import oop.ex6.Variable;
 
 import java.util.LinkedList;
@@ -12,16 +13,17 @@ public class MethodParser extends Parser {
 
 	public MethodParser(Parser parser) {
 		super(parser, parser.getScope());// הפרמטר השני לא נכון!!!
-
 	}
 
 	@Override
-	public void checkLines() {
-
-		for (int i = 1 ; i < scopeLines.size() - 2; i++){
-			//
+	public void checkLines() throws IllegalFileFormat, UnmatchingValueError, UnInitializedFinalVar {
+		scopeLines.poll();
+		String lastLine = scopeLines.getLast();
+		runInnerParsers();
+		Regex regex = new Regex(lastLine);
+		if (!regex.isReturnLine()){
+			return;// error not end with return
 		}
-
 	}
 
 //	public void runFirstLine(){

@@ -39,6 +39,7 @@ public class Regex {
 	private static final String SPACE = "^ | $";
 	private static final String EMPTY = "^\\s*$";
 	private static final String COMMENT = "//.*";
+	private static final String RETURN = "return ?";
 
 	//--------------DATA MEMBERS-------------\\
 	private Matcher firstWordsMatcher;
@@ -127,7 +128,10 @@ public class Regex {
 			throw new IllegalFileFormat();
 		}
 		return this.checkLine.split(COMMA_SEPARATED);
+	}
 
+	public boolean isReturnLine(){
+		return regexMatcher(RETURN).matches();
 	}
 
 	public String ifWhileCondition() {

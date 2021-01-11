@@ -13,6 +13,7 @@ public abstract class Parser {
 	private static final String DOUBLE = "double";
 	private static final String STRING = "String";
 	private static final String CHAR = "char";
+	protected boolean lastReturn;
 	protected LinkedList<String> scopeLines;
 	protected Parser parentParser;
 	protected LinkedList<Parser> childParsers;
@@ -53,10 +54,10 @@ public abstract class Parser {
 
 	protected boolean checkLine(String line)
 			throws IllegalFileFormat, UnInitializedFinalVar, UnmatchingValueError {
-		if (line.equals("return;")) { //with regex
+		Regex reg = new Regex(line);
+		if (reg.isReturnLine()) { //with regex
 			return true; //continue
 		}
-		Regex reg = new Regex(line);
 		reg.setFirstWordsMatcher();
 		String firstWord = reg.getFirstWord();
 		boolean hasFinal = reg.hasFinal();
@@ -71,7 +72,8 @@ public abstract class Parser {
 			if (var == null) {
 				return false;
 			}
-		} else {
+		}
+		else {
 			isCreating = true;
 			reg = new Regex(line.substring(afterLast));
 		}
@@ -171,6 +173,7 @@ public abstract class Parser {
 	protected void runInnerParsers() throws IllegalFileFormat, UnmatchingValueError, UnInitializedFinalVar {
 		String line;
 		while ((line = scopeLines.poll()) != null){
+			lastReturn = false;
 			if (line.equals("{")){
 				runChildParser();
 				continue;
