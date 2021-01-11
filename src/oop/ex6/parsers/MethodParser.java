@@ -4,6 +4,7 @@ import oop.ex6.IllegalFileFormat;
 import oop.ex6.Parser;
 import oop.ex6.Regex;
 import oop.ex6.Variable;
+import oop.ex6.scopes.Method;
 
 import java.util.LinkedList;
 
@@ -11,8 +12,8 @@ public class MethodParser extends Parser {
 
 //	LinkedList<>
 
-	public MethodParser(Parser parentParser) {
-		super(parentParser, null);
+	public MethodParser(Parser parser) {
+		super(parser, new Method(new LinkedList<>()));
 	}
 
 	@Override

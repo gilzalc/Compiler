@@ -13,7 +13,7 @@ public class Regex {
 	private static final String WHILE = "while";
 	protected static final String parameters = "parameters";
 	//-----------------------------Capturing groups-----------------\\
-	protected static final String FINAL_AND_FIRST_WORD_GROUPS = "(?<final>final )?(?<first>\\w+ )";
+	protected static final String FINAL_AND_FIRST_WORD_GROUPS = "(?<final>final )?(?<first>\\w+) ";
 	private static final String VAR_NAME_AND_VALUE
 			= "(?<varName> ?_\\w+|[a-zA-Z]\\w* ?)(=(?<value> ?\\S?\\S*))?";
 	protected static final String METHOD_PARAMS = " ?\\((?<parameters>[^\\(\\)]*)\\)\\s*";
@@ -97,7 +97,7 @@ public class Regex {
 	}
 
 	public int getEndOfFirst() {
-		return firstWordsMatcher.end(FIRST);
+		return firstWordsMatcher.end();
 	}
 
 	public String[] getVarNameAndValue() {
