@@ -1,10 +1,13 @@
 package oop.ex6.scopes;
 
-import oop.ex6.Keywords;
-import oop.ex6.Regex;
-import oop.ex6.Variable;
+import oop.ex6.*;
 
 public class IfWhile extends Scope {
+
+	public IfWhile(Scope parentScope){
+		super(parentScope);
+	}
+
 	private boolean checkCondition(String cond) {
 		if (cond.equals("true") || cond.equals("false")) {
 			return true;

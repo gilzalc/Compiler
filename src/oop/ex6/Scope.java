@@ -1,4 +1,4 @@
-package oop.ex6.scopes;
+package oop.ex6;
 
 import oop.ex6.Keywords;
 import oop.ex6.Variable;
@@ -10,9 +10,9 @@ public abstract class Scope {
 	protected HashMap<String, Variable> variables;
 	protected Scope outerScope;
 
-	protected Scope(Scope scope) {
+	protected Scope(Scope parentScope) {
 		variables = new HashMap<>();
-		outerScope = scope;
+		outerScope = parentScope;
 	}
 
 	protected Scope() { // global

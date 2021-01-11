@@ -6,7 +6,7 @@ import oop.ex6.scopes.Method;
 
 import java.util.LinkedList;
 
-public class GlobalParser extends ScopeParser {
+public class GlobalParser extends Parser {
 	//-------------------Constants & data members---------------------\\
 
 	private static GlobalParser globalParser;
@@ -36,7 +36,7 @@ public class GlobalParser extends ScopeParser {
 
 
 	public void createMethods() {
-		for (ScopeParser parser : childParsers) {
+		for (Parser parser : childParsers) {
 			String firstLine = parser.getScopeLines().getFirst();
 			Regex reg = new Regex(firstLine);
 			reg.methodStart();// removes void and space, if false throw error

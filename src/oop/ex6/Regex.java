@@ -30,7 +30,7 @@ public class Regex {
 	private static final String VALID_CHAR = "'.'";
 	private static final String VALID_STRING = "\".*\"";
 	private static final String PARENTHESES = "(.*)";
-	private static final String SPACES = "\\s{2,}";
+	private static final String SPACES = "'?\\s{2,}'?";// להוסיף בדיקה
 	private static final String SPACE_COMMENT = "^( //)";
 	private static final String SPACE = "^ | $";
 	private static final String EMPTY = "^\\s*$";

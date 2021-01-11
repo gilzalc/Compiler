@@ -1,6 +1,6 @@
 package oop.ex6.parsers;
 
-import oop.ex6.ScopeParser;
+import oop.ex6.Parser;
 import oop.ex6.Regex;
 import java.util.LinkedList;
 
@@ -8,13 +8,13 @@ public class FileParser {
 
 	private int scope = 0;
 	private final LinkedList<String> fixedLines;
-	private ScopeParser scopeParser;
+	private Parser parser;
 //	private LinkedList<ScopeParser> innerParsers;
 //	private final LinkedList<ScopeParser> methodParsers;
 
 	public FileParser(LinkedList<String> lines) {
 		fixedLines = lines;
-		scopeParser = GlobalParser.getInstance();
+		parser = GlobalParser.getInstance();
 //		innerParsers = new LinkedList<>();
 //		methodParsers = new LinkedList<>();
 	}
@@ -25,17 +25,17 @@ public class FileParser {
 			if (lineRegex.enterScope()) { //check for "void"?
 				scope++;
 				if (scope == 1) {
-					scopeParser = new MethodParser(scopeParser);
-					scopeParser.getParentParser().addChildParsers(scopeParser);
+					parser = new MethodParser(parser);
+					parser.getParentParser().addChildParsers(parser);
 //					scopeParser.addLine(line);
 				}
 				if (scope >= 2){
-					scopeParser.addLine("{"); // מוסיף את זה כדי לדעת שצריך לפתוח סקופ פנימי
-					scopeParser = new IfWhileParser(scopeParser);
-					scopeParser.getParentParser().addChildParsers(scopeParser);
+					parser.addLine("{"); // מוסיף את זה כדי לדעת שצריך לפתוח סקופ פנימי
+					parser = new IfWhileParser(parser);
+					parser.getParentParser().addChildParsers(parser);
 //					scopeParser.addLine(line);
 				}
-				scopeParser.addLine(line);
+				parser.addLine(line);
 //				innerParsers.add(scopeParser);
 				continue;
 			}
@@ -45,13 +45,13 @@ public class FileParser {
 					return;//ERROR
 				}
 //				methodParsers.add(scopeParser);
-				scopeParser = scopeParser.getParentParser();
+				parser = parser.getParentParser();
 				continue;
 			}
 			if((line = lineRegex.validSuffix()) == null){
 				return;//ERROR not valid suffix
 			}
-			scopeParser.addLine(line);
+			parser.addLine(line);
 		}
 	}
 

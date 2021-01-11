@@ -1,32 +1,27 @@
 package oop.ex6;
 
-import oop.ex6.parsers.MethodParser;
 import oop.ex6.parsers.UnInitializedFinalVar;
 import oop.ex6.parsers.UnmatchingValueError;
-import oop.ex6.scopes.Scope;
 
 import java.util.LinkedList;
 
-public abstract class ScopeParser {
+public abstract class Parser {
 	private static final String BOOLEAN = "boolean";
 	private static final String INT = "int";
 	private static final String DOUBLE = "double";
 	private static final String STRING = "String";
 	private static final String CHAR = "char";
 	protected LinkedList<String> scopeLines;
-	protected ScopeParser parentParser;
-	protected LinkedList<ScopeParser> childParsers;
+	protected Parser parentParser;
+	protected LinkedList<Parser> childParsers;
 	protected Scope scope;
 
-	protected ScopeParser(ScopeParser parent, Scope s){
+	protected Parser(Parser parent, Scope s){
 		parentParser = parent;
 		scope = s;
 		scopeLines = new LinkedList<>();
 		childParsers = new LinkedList<>();
-
 	}
-
-
 
 	public abstract void checkLines() throws IllegalFileFormat;
 
@@ -38,11 +33,11 @@ public abstract class ScopeParser {
 		scopeLines.add(line);
 	}
 
-	public ScopeParser getParentParser() {
+	public Parser getParentParser() {
 		return parentParser;
 	}
 
-	public void addChildParsers(ScopeParser parser) {
+	public void addChildParsers(Parser parser) {
 		childParsers.add(parser);
 	}
 
@@ -82,8 +77,7 @@ public abstract class ScopeParser {
 				createVars(nameString, valueString, type, hasFinal);
 				continue;
 			}
-			assignVars(nameString,
-					   valueString);
+			assignVars(nameString, valueString);
 		}
 	}
 

@@ -1,17 +1,14 @@
 package oop.ex6.parsers;
 
 import oop.ex6.Regex;
-import oop.ex6.ScopeParser;
+import oop.ex6.Parser;
 import oop.ex6.scopes.IfWhile;
-import oop.ex6.scopes.Scope;
-
-public class IfWhileParser extends ScopeParser {
+public class IfWhileParser extends Parser {
 //	private ScopeParser parentParser;
 	private boolean firstLine;
 
-	public IfWhileParser(ScopeParser parentParser){
-		super(parentParser, new IfWhile());
-//		super(parentParser, new IfWhile(parentParser.getScope()));
+	public IfWhileParser(Parser parentParser){
+		super(parentParser, new IfWhile(parentParser.getScope()));
 		firstLine = true;
 
 	}
@@ -36,8 +33,8 @@ public class IfWhileParser extends ScopeParser {
 		if (condition == null){
 			return;//error not valid if/while
 		}
-		String[] conBooleans = condition.split("(\\|\\|)|(&&)");
-		for (String bool : conBooleans){
+		String[] conditionsArray = condition.split("(\\|\\|)|(&&)");
+		for (String bool : conditionsArray){
 			if (bool.equals("")||bool.equals((" "))){
 				return;// error not valid condition
 			}
