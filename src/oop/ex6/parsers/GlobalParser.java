@@ -59,13 +59,12 @@ public class GlobalParser extends Parser {
 			if ((Global.getInstance().getMethod(methodName)) != null) {
 //				throw new DuplicateRequestException("two methods with the same name");
 			}
-			addParameters(methodName, reg);
+			addParameters(methodName,reg,(Method) parser.getScope());
 		}
 
 	}
 
-	private void addParameters(String methodName, MethodRegex reg) throws Exception {
-		Method toAdd = new Method(new LinkedList<>());
+	private void addParameters(String methodName, MethodRegex reg,Method toAdd) throws Exception {
 		Global.getInstance().addMethod(methodName, toAdd);
 		String parameters = reg.getMethodParameters();
 		String[] parametersArr = parameters.split(COMMA);
