@@ -5,15 +5,15 @@ import java.util.regex.Pattern;
 
 public class Regex {
 	//-----------------------------magic numbers-----------------\\
-	private static final String FINAL = "final";
-	private static final String FIRST = "first";
+	protected static final String FINAL = "final";
+	protected static final String FIRST = "first";
 	private static final String TRUE = "true";
 	private static final String EQUALS = "=";
 	private static final String FALSE = "false";
 	private static final String WHILE = "while";
 	private static final String parameters = "parameters";
 	//-----------------------------Capturing groups-----------------\\
-	private static final String FINAL_AND_FIRST_WORD_GROUPS = "(?<final>final )?(?<first>\\w+)";
+	protected static final String FINAL_AND_FIRST_WORD_GROUPS = "(?<final>final )?(?<first>\\w+)";
 	private static final String VAR_NAME_AND_VALUE = "(?<varName> ?_\\w+|[a-zA-Z]\\w* ?)(=(?<value> ?\\S?\\S*))?";
 	private static final String METHOD_PARAMS = " ?\\((?<parameters>[^\\(\\)]*)\\)\\s*";
 	//-----------------------------regex-----------------\\
@@ -44,7 +44,7 @@ public class Regex {
 
 
 
-	private Matcher regexMatcher(String p) {
+	protected Matcher regexMatcher(String p) {
 		Pattern pattern = Pattern.compile(p);
 		return pattern.matcher(checkLine);
 	}

@@ -10,7 +10,6 @@ public class Variable {
 	public Variable(boolean vInitialized, boolean vFinal, Keywords.Type Vtype) {
 		initialized = vInitialized;
 		isFinal = vFinal;
-		//		name = vName;
 		type = Vtype;
 	}
 
@@ -26,9 +25,6 @@ public class Variable {
 		return isFinal;
 	}
 
-	//	 public String getName(){
-	//		return name;
-	//	}
 
 	public Keywords.Type getType() {
 		return type;

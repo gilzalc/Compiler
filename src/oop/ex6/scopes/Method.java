@@ -5,11 +5,11 @@ import oop.ex6.Variable;
 
 import java.util.LinkedList;
 
-class Method extends Scope {
+public class Method extends Scope {
 
 	private final LinkedList<Variable> requiredVars;
 
-	Method(LinkedList<Variable> requiredVars) {
+	public Method(LinkedList<Variable> requiredVars) {
 		super();
 		this.requiredVars = requiredVars;
 	}
