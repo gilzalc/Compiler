@@ -16,13 +16,14 @@ public class IfWhileParser extends Parser {
 	public void checkLines() {
 		runFirstLine(scopeLines.poll());
 		String line;
+		String[] methodPars;
 		while ((line = scopeLines.poll()) != null){
 			if (line.equals("{")){
 				runChildParser();
 				continue;
 			}
 			Regex regex = new Regex(line);
-			if (regex.checkMethodCall()){
+			if ((methodPars = regex.checkMethodCall()) != null){
 				// בדיקה שהקריאה למתודה תקינה
 			}
 			checkLine(line);
@@ -37,7 +38,8 @@ public class IfWhileParser extends Parser {
 		}
 		String[] conditionsArray = conditions.split(AND_OR);
 		for (String bool : conditionsArray){
-			bool = bool.replaceAll(" ", "");
+			regex = new Regex(bool);
+			bool = regex.startEndSpace();
 			if (bool.equals("") || !checkCondition(bool)){
 				return;// error not valid condition
 			}
