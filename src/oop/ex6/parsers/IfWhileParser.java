@@ -26,7 +26,7 @@ public class IfWhileParser extends Parser {
 			}
 			Regex regex = new Regex(line);
 			if (regex.checkMethodCall()){
-				// בודק שהקריאה למתודה תקינה
+				// בדיקה שהקריאה למתודה תקינה
 			}
 			checkLine(line);
 		}
@@ -41,11 +41,11 @@ public class IfWhileParser extends Parser {
 		}
 		String[] conditionsArray = condition.split("(\\|\\|)|(&&)");
 		for (String bool : conditionsArray){
-			if (bool.equals("")||bool.equals((" "))){
+			bool = bool.replaceAll(" ", "");
+			if (bool.equals("")){
 				return;// error not valid condition
 			}
-			//check if bool valid
-			if(!checkCondition(bool.replaceAll(" ", ""))){// הוספתי מחיקה של רווחים לפני
+			if(!checkCondition(bool)){
 				return;//Error not valid condition
 			}
 		}
