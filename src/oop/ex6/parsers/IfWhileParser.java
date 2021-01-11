@@ -25,6 +25,7 @@ public class IfWhileParser extends Parser {
 			Regex regex = new Regex(line);
 			if ((methodPars = regex.checkMethodCall()) != null){
 				// בדיקה שהקריאה למתודה תקינה
+
 			}
 			checkLine(line);
 		}

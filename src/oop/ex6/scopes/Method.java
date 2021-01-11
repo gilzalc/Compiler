@@ -8,20 +8,20 @@ import java.util.LinkedList;
 
 public class Method extends Scope {
 
-	private final LinkedList<Variable> requiredVars;
+	private final LinkedList<Keywords.Type> requiredTypes;
 
-	public Method(LinkedList<Variable> requiredVars) {
+	public Method(LinkedList<Keywords.Type> types) {
 		super(Global.getInstance());
-		this.requiredVars = requiredVars;
+		requiredTypes = types;
 	}
 
 	public void addRequiredVar(String varName,Variable variable) {
 		addVariable(varName,variable); //can throw error
-		requiredVars.add(variable);
+		requiredTypes.add(variable.getType());
 	}
 
-	public LinkedList<Variable> getRequiredVars() {
-		return this.requiredVars;
+	public LinkedList<Keywords.Type> getRequiredTypes() {
+		return requiredTypes;
 	}
 
 }

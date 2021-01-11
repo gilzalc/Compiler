@@ -50,7 +50,7 @@ public class GlobalParser extends Parser {
 			if (Global.getInstance().getMethodsMap().containsKey(methodName)) {
 				return; // - method name already exists;
 			}
-			Method toAdd = new Method(new LinkedList<Variable>());
+			Method toAdd = new Method(new LinkedList<Keywords.Type>());
 			Global.getInstance().addMethod(methodName, toAdd);
 			String parameters = reg.getMethodParameters();
 //			if (parameters.endsWith(",")) { //edge case
