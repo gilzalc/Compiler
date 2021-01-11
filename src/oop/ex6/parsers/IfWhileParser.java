@@ -22,10 +22,13 @@ public class IfWhileParser extends Parser {
 		while ((line = scopeLines.poll()) != null){
 			if (line.equals("{")){
 				runChildParser();
-				// להיכנס לסקופ פנימי יותר
 				continue;
 			}
-//			runLine(line);
+			Regex regex = new Regex(line);
+			if (regex.checkMethodCall()){
+				// בודק שהקריאה למתודה תקינה
+			}
+			checkLine(line);
 		}
 	}
 

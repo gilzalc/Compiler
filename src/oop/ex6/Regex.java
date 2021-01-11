@@ -18,6 +18,7 @@ public class Regex {
 	private static final String METHOD_PARAMS = " ?\\((?<parameters>[^\\(\\)]*)\\)\\s*";
 	//-----------------------------regex-----------------\\
 	private static final String METHOD_NAME = "[^\\s\\(]+";
+	private static final String METHOD_CALL = "^[^\\s\\(=]+ ?\\(.*\\) ?$";
 	private static final String STARTS_WITH_VOID = " ?void ";
 	private static final String COMMA_SEPARATED = " ?, ?";
 	private static final String IF_While = "(if|while) ?\\((.+)\\) ?\\{";
@@ -65,6 +66,10 @@ public class Regex {
 			return checkLine;
 		}
 		return regexMatcher(SPACE).replaceAll("");
+	}
+
+	public boolean checkMethodCall(){
+		return regexMatcher(METHOD_CALL).matches();
 	}
 
 
