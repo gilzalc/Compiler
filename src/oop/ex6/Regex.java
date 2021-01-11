@@ -31,7 +31,8 @@ public class Regex {
 	private static final String VALID_STRING = "\".*\"";
 	private static final String PARENTHESES = "(.*)";
 //	private static final String SPACES_NOT_CHAR = "[^ '](\\s{2,})[^ ']";// להוסיף בדיקה
-	private static final String SPACES = "[^ '](\\s{2,})[^ ']";
+	private static final String NOT_VALID_CHAR = "'\\s{2,}'";
+	private static final String SPACES = "\\s{2,}";
 	private static final String SPACE_COMMENT = "^( //)";
 	private static final String SPACE = "^ | $";
 	private static final String EMPTY = "^\\s*$";
@@ -55,8 +56,11 @@ public class Regex {
 	}
 
 	public String checkSpaces() {
-		String spaceNoChar = regexMatcher(SPACES).group(1);
-		checkLine = regexMatcher(spaceNoChar).replaceAll(" ");
+		if (regexMatcher(NOT_VALID_CHAR).find()){
+			//error not valid char
+		}
+//		checkLine = regexMatcher(spaceNoChar).replaceAll(" ");
+		checkLine = regexMatcher(SPACES).replaceAll(" ");
 		if (regexMatcher(SPACE_COMMENT).find()) {
 			return checkLine;
 		}
