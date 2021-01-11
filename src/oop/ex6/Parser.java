@@ -2,6 +2,8 @@ package oop.ex6;
 
 import oop.ex6.parsers.UnInitializedFinalVar;
 import oop.ex6.parsers.UnmatchingValueError;
+import oop.ex6.scopes.Global;
+import oop.ex6.scopes.Method;
 
 import java.util.LinkedList;
 
@@ -164,6 +166,52 @@ public abstract class Parser {
 		default:
 			return null;
 		}
+	}
+
+	protected void runInnerParsers() throws IllegalFileFormat, UnmatchingValueError, UnInitializedFinalVar {
+		String line;
+		while ((line = scopeLines.poll()) != null){
+			if (line.equals("{")){
+				runChildParser();
+				continue;
+			}
+			if (checkMethodCall(line)){
+				continue;
+			}
+			if (!checkLine(line)){
+				return;//error: not valid line
+			}
+		}
+	}
+
+	private boolean checkMethodCall(String line) throws IllegalFileFormat, UnmatchingValueError {
+		String[] methodPars;
+		Regex regex = new Regex(line);
+		if ((methodPars = regex.checkMethodCall()) != null){
+			// בדיקה שהקריאה למתודה תקינה
+			String methodName = methodPars[0];
+			regex = new Regex(methodPars[1]);
+			String[] parameters = regex.splitByComma();
+			Global global = Global.getInstance();
+			Method calledMethod = global.getMethod(methodName);
+			if (calledMethod == null){
+				return false;//error not exist method
+			}
+			LinkedList<Keywords.Type> requiredTypes = calledMethod.getRequiredTypes();
+			checkArgs(requiredTypes, parameters);
+			return true;
+		}
+		return false;
+	}
+
+	private boolean checkArgs(LinkedList<Keywords.Type> types, String[] params) throws UnmatchingValueError {
+		if (types.size() != params.length){
+			return false;//Error Wrong num of params
+		}
+		for (int i = 0; i < params.length - 1; i++) {
+			checkVarValueAssignment(params[i],types.get(i));
+		}
+		return true;
 	}
 }
 

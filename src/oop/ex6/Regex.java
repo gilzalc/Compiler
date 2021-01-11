@@ -49,8 +49,6 @@ public class Regex {
 		checkLine = line;
 	}
 
-
-
 	protected Matcher regexMatcher(String p) {
 		Pattern pattern = Pattern.compile(p);
 		return pattern.matcher(checkLine);

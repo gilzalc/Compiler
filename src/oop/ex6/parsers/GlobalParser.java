@@ -1,6 +1,6 @@
 package oop.ex6.parsers;
 
-import com.sun.jdi.request.DuplicateRequestException;
+//import com.sun.jdi.request.DuplicateRequestException;
 import oop.ex6.*;
 import oop.ex6.regexs.MethodRegex;
 import oop.ex6.regexs.VariableRegex;
@@ -56,8 +56,8 @@ public class GlobalParser extends Parser {
 				&& !(Keywords.getKeywords().contains(methodName))) {
 				return; // invalid name for method
 			}
-			if (Global.getInstance().getMethodsMap().containsKey(methodName)) {
-				throw new DuplicateRequestException("two methods with the same name");
+			if ((Global.getInstance().getMethod(methodName)) != null) {
+//				throw new DuplicateRequestException("two methods with the same name");
 			}
 			addParameters(methodName, reg);
 		}
