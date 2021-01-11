@@ -1,18 +1,15 @@
 package oop.ex6.parsers;
 
-import oop.ex6.Keywords;
-import oop.ex6.Regex;
-import oop.ex6.Parser;
-import oop.ex6.Variable;
+import oop.ex6.*;
 import oop.ex6.scopes.IfWhile;
+
 public class IfWhileParser extends Parser {
-//	private ScopeParser parentParser;
-	private boolean firstLine;
+
+	private final static String AND_OR = "(\\|\\|)|(&&)";
+
 
 	public IfWhileParser(Parser parentParser){
 		super(parentParser, new IfWhile(parentParser.getScope()));
-		firstLine = true;
-
 	}
 
 	@Override
@@ -33,13 +30,12 @@ public class IfWhileParser extends Parser {
 	}
 
 	private void runFirstLine(String line){
-		firstLine = false;
 		Regex regex = new Regex(line);
-		String condition = regex.ifWhileCondition();
-		if (condition == null){
+		String conditions = regex.ifWhileCondition();
+		if (conditions == null){
 			return;//error not valid if/while
 		}
-		String[] conditionsArray = condition.split("(\\|\\|)|(&&)");
+		String[] conditionsArray = conditions.split(AND_OR);
 		for (String bool : conditionsArray){
 			bool = bool.replaceAll(" ", "");
 			if (bool.equals("") || !checkCondition(bool)){
@@ -60,13 +56,5 @@ public class IfWhileParser extends Parser {
 			}
 		}
 		return Regex.isValidVal(bool.getRegex(), cond);
-	}
-
-	private void runChildParser(){
-		Parser childParser;
-		if ((childParser = childParsers.poll()) == null){
-			return;//error
-		}
-		childParser.checkLines();
 	}
 }

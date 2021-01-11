@@ -148,5 +148,13 @@ public abstract class Parser {
 			throw new UnmatchingValueError();
 		}
 	}
+
+	protected void runChildParser(){
+		Parser childParser;
+		if ((childParser = childParsers.poll()) == null){
+			return;//error
+		}
+		childParser.checkLines();
+	}
 }
 
