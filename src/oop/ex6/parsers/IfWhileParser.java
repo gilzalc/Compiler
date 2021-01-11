@@ -1,7 +1,11 @@
 package oop.ex6.parsers;
 
 import oop.ex6.*;
+import oop.ex6.scopes.Global;
 import oop.ex6.scopes.IfWhile;
+import oop.ex6.scopes.Method;
+
+import java.util.LinkedList;
 
 public class IfWhileParser extends Parser {
 
@@ -25,11 +29,21 @@ public class IfWhileParser extends Parser {
 			Regex regex = new Regex(line);
 			if ((methodPars = regex.checkMethodCall()) != null){
 				// בדיקה שהקריאה למתודה תקינה
-
+				String methodName = methodPars[0];
+				String paramsString = methodPars[1];
+				methodName.split(",")
+				Global global = Global.getInstance();
+				Method calledMethod = global.getMethod(methodName);
+				if (calledMethod == null){
+					return;//error not exist method
+				}
+				calledMethod.getRequiredTypes();
 			}
 			checkLine(line);
 		}
 	}
+
+	private boolean checkArgs(LinkedList<>)
 
 	private void runFirstLine(String line){
 		Regex regex = new Regex(line);

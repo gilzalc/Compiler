@@ -18,8 +18,9 @@ public class Regex {
 			= "(?<varName> ?_\\w+|[a-zA-Z]\\w* ?)(=(?<value> ?\\S?\\S*))?";
 	protected static final String METHOD_PARAMS = " ?\\((?<parameters>[^\\(\\)]*)\\)\\s*";
 	//-----------------------------regex-----------------\\
-	private static final String METHOD_NAME = "[^\\s\\(]+";
-	private static final String STARTS_WITH_VOID = " ?void ";
+	protected static final String METHOD_NAME = "[^\\s\\(]+";
+	private static final String METHOD_CALL = "^([^\\s\\(=]+) ?\\((.*\\)) ?$";
+	protected static final String STARTS_WITH_VOID = " ?void ";
 	private static final String COMMA_SEPARATED = " ?, ?";
 	private static final String IF_While = "(if|while) ?\\((.+)\\) ?\\{";
 	private static final String VALID_VARIABLE_NAME = "_\\w+|[a-zA-Z]\\w*";// and not a keyword or typeword

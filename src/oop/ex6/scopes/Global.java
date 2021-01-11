@@ -26,7 +26,7 @@ public class Global extends Scope { //singleton
 	}
 
 
-	public HashMap<String,Method> getMethodsMap(){
-		return methodsMap;
+	public Method getMethod(String methodName){
+		return methodsMap.get(methodName);
 	}
 }
