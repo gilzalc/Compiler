@@ -42,11 +42,8 @@ public class IfWhileParser extends Parser {
 		String[] conditionsArray = condition.split("(\\|\\|)|(&&)");
 		for (String bool : conditionsArray){
 			bool = bool.replaceAll(" ", "");
-			if (bool.equals("")){
+			if (bool.equals("") || !checkCondition(bool)){
 				return;// error not valid condition
-			}
-			if(!checkCondition(bool)){
-				return;//Error not valid condition
 			}
 		}
 	}
