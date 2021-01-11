@@ -8,8 +8,6 @@ import oop.ex6.scopes.Scope;
 import java.util.LinkedList;
 
 public abstract class ScopeParser {
-	private static final String FINAL = "final";
-	private static final String FIRST = "first";
 	private static final String BOOLEAN = "boolean";
 	private static final String INT = "int";
 	private static final String DOUBLE = "double";
@@ -60,9 +58,9 @@ public abstract class ScopeParser {
 		//		String firstWord = matcher.group(FIRST);
 		//		boolean hasFinal = matcher.group(FINAL) != null;
 		reg.setFirstWordsMatcher();
-		String firstWord = reg.getFirstWord(FIRST);
-		boolean hasFinal = (reg.getFinalGroup(FINAL) != null);
-		int afterLast = reg.getEndFirst(FIRST);
+		String firstWord = reg.getFirstWord();
+		boolean hasFinal = (reg.hasFinal());
+		int afterLast = reg.getEndFirst();
 		Keywords.Type type = checkVarType(firstWord);
 		boolean flag = false;
 		if (type != null) {

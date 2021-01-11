@@ -4,16 +4,23 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Regex {
-	private static final String FINAL_AND_FIRST_WORD_GROUPS = "(?<final>final )?(?<first>\\w+)";
-	private static final String VAR_NAME_AND_VALUE
-			= "(?<varName> ?_\\w+|[a-zA-Z]\\w* ?)(=(?<value> ?\\S?\\S*))?";
-	private static final String STARTS_WITH_VOID = " ?void ";
-	private static final String COMMA_SEPARATED = " ?, ?";
+	//-----------------------------magic numbers-----------------\\
+	private static final String FINAL = "final";
+	private static final String FIRST = "first";
 	private static final String TRUE = "true";
 	private static final String EQUALS = "=";
 	private static final String FALSE = "false";
-	private static final String IF_While = "(if|while) ?\\((.+)\\) ?\\{";
 	private static final String WHILE = "while";
+	private static final String parameters = "parameters";
+	//-----------------------------Capturing groups-----------------\\
+	private static final String FINAL_AND_FIRST_WORD_GROUPS = "(?<final>final )?(?<first>\\w+)";
+	private static final String VAR_NAME_AND_VALUE = "(?<varName> ?_\\w+|[a-zA-Z]\\w* ?)(=(?<value> ?\\S?\\S*))?";
+	private static final String METHOD_PARAMS = " ?\\((?<parameters>[^\\(\\)]*)\\)\\s*";
+	//-----------------------------regex-----------------\\
+	private static final String METHOD_NAME = "[^\\s\\(]+";
+	private static final String STARTS_WITH_VOID = " ?void ";
+	private static final String COMMA_SEPARATED = " ?, ?";
+	private static final String IF_While = "(if|while) ?\\((.+)\\) ?\\{";
 	private static final String VALID_VARIABLE_NAME = "_\\w+|[a-zA-Z]\\w*";// and not a keyword or typeword
 	private static final String VALID_METHOD_NAME = "[a-zA-Z]\\w*";
 	private static final String VALID_SUFFIX = ";$";
@@ -59,16 +66,16 @@ public class Regex {
 		firstWordsMatcher = regexMatcher(FINAL_AND_FIRST_WORD_GROUPS);
 	}
 
-	public String getFirstWord(String fir) {
-		return firstWordsMatcher.group(fir);
+	public String getFirstWord() {
+		return firstWordsMatcher.group(FIRST);
 	}
 
-	public String getFinalGroup(String fin) {
-		return firstWordsMatcher.group(fin);
+	public boolean hasFinal() {
+		return firstWordsMatcher.group(FINAL)!=null;
 	}
 
-	public int getEndFirst(String fir) {
-		return firstWordsMatcher.end(fir);
+	public int getEndFirst() {
+		return firstWordsMatcher.end(FIRST);
 	}
 
 	public String[] getVarNameAndValue() {
@@ -103,12 +110,19 @@ public class Regex {
 		}
 		return false;
 	}
-	public String getNextWord(){
-		Matcher matcher = regexMatcher("\\w+");
+	public String getMethodName(){
+		Matcher matcher = regexMatcher( METHOD_NAME);
 		if (matcher.find()){
 			return checkLine.substring(matcher.start(),matcher.end());
 		}
 		return ""; // Error?
+	}
+	public String getMethodParameters() {
+		Matcher matcher = regexMatcher(METHOD_PARAMS);
+		if(matcher.matches()){
+			return matcher.group(parameters);
+		}
+		return ""; //error
 	}
 
 
@@ -142,4 +156,6 @@ public class Regex {
 	public static boolean isValidVal(String pattern, String varVal) {
 		return Pattern.matches(pattern, varVal);
 	}
+
+
 }
