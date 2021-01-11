@@ -23,7 +23,7 @@ public abstract class Parser {
 		childParsers = new LinkedList<>();
 	}
 
-	public abstract void checkLines() throws IllegalFileFormat;
+	public abstract void checkLines() throws IllegalFileFormat, UnmatchingValueError, UnInitializedFinalVar;
 
 	public Scope getScope() {
 		return scope;
@@ -93,23 +93,6 @@ public abstract class Parser {
 		}
 	}
 
-	protected Keywords.Type checkVarType(String firstWord) {
-		switch (firstWord) {
-		case BOOLEAN:
-			return Keywords.Type.BOOLEAN;
-		case CHAR:
-			return Keywords.Type.CHAR;
-		case STRING:
-			return Keywords.Type.STRING;
-		case INT:
-			return Keywords.Type.INT;
-		case DOUBLE:
-			return Keywords.Type.DOUBLE;
-		default:
-			return null;
-		}
-	}
-
 	public void createVars(String nameString, String valueString, Keywords.Type type, boolean hasFinal)
 			throws UnInitializedFinalVar, UnmatchingValueError {
 		if (nameString == null || !Regex.isVarNameValid(nameString)) {
@@ -158,7 +141,7 @@ public abstract class Parser {
 		}
 	}
 
-	protected void runChildParser(){
+	protected void runChildParser() throws IllegalFileFormat, UnmatchingValueError, UnInitializedFinalVar {
 		Parser childParser;
 		if ((childParser = childParsers.poll()) == null){
 			return;//error

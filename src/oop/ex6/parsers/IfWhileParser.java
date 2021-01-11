@@ -13,7 +13,7 @@ public class IfWhileParser extends Parser {
 	}
 
 	@Override
-	public void checkLines() {
+	public void checkLines() throws IllegalFileFormat, UnmatchingValueError, UnInitializedFinalVar {
 		runFirstLine(scopeLines.poll());
 		String line;
 		String[] methodPars;
