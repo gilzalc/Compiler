@@ -41,92 +41,22 @@ public class GlobalParser extends ScopeParser {
 		}
 	}
 
-//	private void checkLine(String line) throws IllegalFileFormat {
-//		Regex reg = new Regex(line);
-//		//		Matcher matcher = reg.getFirstWords();
-//		//		matcher.find();
-//		//		String firstWord = matcher.group(FIRST);
-//		//		boolean hasFinal = matcher.group(FINAL) != null;
-//		reg.setFirstWordsMatcher();
-//		String firstWord = reg.getFirstWord(FIRST);
-//		boolean hasFinal = (reg.getFinalGroup(FINAL) != null);
-//		int afterLast = reg.getEndFirst(FIRST);
-//		Keywords.Type type = checkVarType(firstWord);
-//		if (type == null) {
-//			if (hasFinal) {
-//				return; //Error - no Type and hasFinal
-//			}
-//			AssignVars(reg);
-//		}
-//		reg = new Regex(line.substring(afterLast));
-//		try {
-//			createVars(hasFinal, type, reg);
-//		} catch (UnInitializedFinalVar | UnmatchingValueError unInitializedFinalVar) {
-//			unInitializedFinalVar.printStackTrace();
-//		}
-//	}
-
-
-//	private void checkVarValue(String valString, Keywords.Type type) throws UnmatchingValueError {
-//		if (Regex.isValidVal(type.getRegex(), valString)) {
-//			return;
-//		}
-//		throw new UnmatchingValueError();
-//	}
-
-//	private Keywords.Type checkVarType(String firstWord) {
-//		switch (firstWord) {
-//		case BOOLEAN:
-//			return Keywords.Type.BOOLEAN;
-//		case CHAR:
-//			return Keywords.Type.CHAR;
-//		case STRING:
-//			return Keywords.Type.STRING;
-//		case INT:
-//			return Keywords.Type.INT;
-//		case DOUBLE:
-//			return Keywords.Type.DOUBLE;
-//		default:
-//			return null;
-//		}
-//	}
-
-//	public void createVars(boolean hasFinal, Keywords.Type type, Regex regex)
-//			throws UnInitializedFinalVar, UnmatchingValueError, IllegalFileFormat {
-//		String[] varDeclarations = regex.splitByComma();
-//		for (String declaration : varDeclarations) {
-//			String[] str = Regex.getVarNameAndValue(declaration);
-//			String nameString = str[0], valueString = str[1];
-//			if (nameString == null) {
-//				return; //Error - no var name
-//			}
-//			if (!Regex.isVarNameValid(nameString)) { // wo space in the end
-//				return; //Error
-//			}
-//			if (valueString == null) {
-//				if (hasFinal) {
-//					throw new UnInitializedFinalVar();
-//				}
-//
-//				scope.addVariable
-//						(nameString, new Variable(false, false, type));
-//			} else {
-//				checkVarValue(valueString, type);
-//				scope.addVariable(nameString, new Variable(true, hasFinal, type));
-//			}
-//		}
-//	}
 
 	public void createMethods() {
 		for (ScopeParser parser : childParsers) {
 			String firstLine = parser.getScopeLines().getFirst();
-
-			// Create methods
+			Regex reg = new Regex(firstLine);
+			reg.methodStart();
+			String methodName = reg.getNextWord();
+			if (!Regex.isValidMethodName(methodName))
+				return; // invalid name for method
+			if ((Global.getInstance().getMethodsMap().containsKey(methodName))){
+				return; // - duplicate method name;
+			}
+			// Create methods - regex for req arguments
 			//			Method m = new Method();
 			//			globalScope.addMethod(methodName,m);
 		}
 	}
-	//	private static class GlobalScopeVarFactory{
-	//
-	//	}
+
 }

@@ -2,29 +2,33 @@ package oop.ex6;
 
 public class Variable {
 
-	private final boolean initialized;
+	private  boolean initialized;
 	private final boolean isFinal;
-//	private final String name;
+	//	private final String name;
 	private final Keywords.Type type;
 
-	public Variable(boolean vInitialized, boolean vFinal,  Keywords.Type Vtype){
+	public Variable(boolean vInitialized, boolean vFinal, Keywords.Type Vtype) {
 		initialized = vInitialized;
 		isFinal = vFinal;
-//		name = vName;
+		//		name = vName;
 		type = Vtype;
 	}
 
-	 public boolean isInitialized(){
+	public boolean isInitialized() {
 		return initialized;
 	}
 
-	 public boolean IsFinal(){
+	public void initial(){
+		initialized = true;
+	}
+
+	public boolean IsFinal() {
 		return isFinal;
 	}
 
-//	 public String getName(){
-//		return name;
-//	}
+	//	 public String getName(){
+	//		return name;
+	//	}
 
 	public Keywords.Type getType() {
 		return type;
