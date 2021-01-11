@@ -1,6 +1,5 @@
 package oop.ex6;
 
-import java.util.Arrays;
 import java.util.regex.*;
 
 public class TestClass {
@@ -69,10 +68,17 @@ public class TestClass {
 		System.out.println(matcher.group(2));
 		pattern = Pattern.compile("(\\|\\|)|(&&)");
 		matcher = pattern.matcher("twet||rey||rhr|Rherh");
-		System.out.println(("twet||rey||rhr&& ||Rherh".split("(\\|\\|)|(&&)"))[3].equals("")||(("twet||rey" +
-																							   "||rhr&& " +
-																								"||Rherh").split("(\\|\\|)|(&&)"))[3].equals(" "));
+		System.out
+				.println(("twet||rey||rhr&& ||Rherh".split("(\\|\\|)|(&&)"))[3].equals("") || (("twet||rey" +
+																								"||rhr&& " +
+																								"||Rherh")
+						.split("(\\|\\|)|(&&)"))[3].equals(" "));
+		final int a = 334;
+	}
 
+	private static int get(int a) {
+		a = 5;
+		return a;
 	}
 }
 
