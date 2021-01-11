@@ -16,7 +16,7 @@ public abstract class Parser {
 	protected LinkedList<Parser> childParsers;
 	protected Scope scope;
 
-	protected Parser(Parser parent, Scope s){
+	protected Parser(Parser parent, Scope s) {
 		parentParser = parent;
 		scope = s;
 		scopeLines = new LinkedList<>();
@@ -25,11 +25,11 @@ public abstract class Parser {
 
 	public abstract void checkLines() throws IllegalFileFormat;
 
-	public Scope getScope(){
+	public Scope getScope() {
 		return scope;
 	}
 
-	public void addLine(String line){
+	public void addLine(String line) {
 		scopeLines.add(line);
 	}
 
@@ -45,16 +45,11 @@ public abstract class Parser {
 		return scopeLines;
 	}
 
-	private void checkLine(String line) throws IllegalFileFormat, UnInitializedFinalVar,
-											   UnmatchingValueError {
+	protected void checkLine(String line) {
 		Regex reg = new Regex(line);
-		//		Matcher matcher = reg.getFirstWords();
-		//		matcher.find();
-		//		String firstWord = matcher.group(FIRST);
-		//		boolean hasFinal = matcher.group(FINAL) != null;
 		reg.setFirstWordsMatcher();
 		String firstWord = reg.getFirstWord();
-		boolean hasFinal = (reg.hasFinal());
+		boolean hasFinal = reg.hasFinal();
 		int afterLast = reg.getEndFirst();
 		Keywords.Type type = checkVarType(firstWord);
 		boolean flag = false;
@@ -66,18 +61,22 @@ public abstract class Parser {
 				return; //Error - no Type and hasFinal
 			}
 		}
-		//			createVars(hasFinal, type, reg);
-		String[] varDeclarations = reg.splitByComma();
-		for (String declaration : varDeclarations) {
-			reg = new Regex(declaration);
-			String[] str = reg.getVarNameAndValue();
-			String nameString = str[0];
-			String valueString = str[1];
-			if (flag) {
-				createVars(nameString, valueString, type, hasFinal);
-				continue;
+		String[] varDeclarations;
+		try {
+			varDeclarations = reg.splitByComma();
+			for (String declaration : varDeclarations) {
+				reg = new Regex(declaration);
+				String[] str = reg.getVarNameAndValue();
+				String nameString = str[0];
+				String valueString = str[1];
+				if (flag) {
+					createVars(nameString, valueString, type, hasFinal);
+					continue;
+				}
+				assignVars(nameString, valueString);
 			}
-			assignVars(nameString, valueString);
+		} catch (Exception e) {
+			return;
 		}
 	}
 
@@ -119,7 +118,7 @@ public abstract class Parser {
 		if (assignedVar == null) {
 			return;//Error - not declared
 		}
-		if (assignedVar.IsFinal() && assignedVar.isInitialized()){
+		if (assignedVar.IsFinal() && assignedVar.isInitialized()) {
 			return; //Error - cant assign to final?
 		}
 		try {
@@ -133,14 +132,17 @@ public abstract class Parser {
 
 	protected void checkVarValue(String valString, Keywords.Type type) throws UnmatchingValueError {
 		Variable var = scope.getVariable(valString);
-		if (var != null && !(type.isMatching(var.getType()))) {
-			return; //not compatible Type
+		if (var != null){
+			if (!var.isInitialized()){
+				return;// error Assigning uninitialized var
+			}
+			if (!(type.isMatching(var.getType()))) {
+				return; //not compatible Type
+			}
 		}
 		if (!Regex.isValidVal(type.getRegex(), valString)) {
 			throw new UnmatchingValueError();
 		}
 	}
-//	protected Variable findVariable(){
-//		while (scope.)
-	}
+}
 

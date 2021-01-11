@@ -1,6 +1,7 @@
 package oop.ex6.parsers;
 
 import oop.ex6.*;
+import oop.ex6.regexs.VariableRegex;
 import oop.ex6.scopes.Global;
 import oop.ex6.scopes.Method;
 
@@ -27,10 +28,9 @@ public class GlobalParser extends Parser {
 
 	//-----------------------------Parsing methods----------------------------\\
 	@Override
-	public void checkLines() throws IllegalFileFormat {
+	public void checkLines() {
 		for (String line : scopeLines) {
-			return;
-			//			checkLine(line);
+			checkLine(line);
 		}
 	}
 
@@ -39,7 +39,9 @@ public class GlobalParser extends Parser {
 		for (Parser parser : childParsers) {
 			String firstLine = parser.getScopeLines().getFirst();
 			Regex reg = new Regex(firstLine);
-			reg.methodStart();// removes void and space, if false throw error
+			if (!reg.methodStart()) { // removes void and space, if false throw error
+				return;//Error not starting with void
+			}
 			String methodName = reg.getMethodName();
 			if (!Regex.isValidMethodName(methodName)) {
 				return; // invalid name for method

@@ -21,6 +21,7 @@ public abstract class Scope {
 	}
 
 	public void addVariable(String s, Variable var) {
+		// בדיקה שהשם תקין
 		if (variables.containsKey(s) || Keywords.getKeywords().contains(s)) {
 			return; //Error
 		}

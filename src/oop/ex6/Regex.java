@@ -147,7 +147,7 @@ public class Regex {
 		if (varName.endsWith(" ")) {
 			varName = varName.substring(0, varName.length() - 1);
 		}
-		return (Pattern.matches(VALID_VARIABLE_NAME, varName)) && !(Keywords.getKeywords().contains(varName));
+		return (Pattern.matches(VALID_VARIABLE_NAME, varName));
 	}
 	public static boolean isValidMethodName(String methodName) {
 		return (Pattern.matches(VALID_METHOD_NAME, methodName)) && !(Keywords.getKeywords().contains(methodName));
@@ -156,6 +156,5 @@ public class Regex {
 	public static boolean isValidVal(String pattern, String varVal) {
 		return Pattern.matches(pattern, varVal);
 	}
-
 
 }

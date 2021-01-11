@@ -14,7 +14,7 @@ public class Manager {
 	}
 
 	public void run() {
-		readLines();
+		sfileOrganizer();
 		FileParser fileParser = new FileParser(fixedLines);
 		fileParser.run();
 		try {
@@ -26,12 +26,12 @@ public class Manager {
 		// parse all scopes
 	}
 
-	private void readLines() {
+	private void sfileOrganizer() {
 		String line;
 		while ((line = linesSReader.getNext()) != null) {
-			Regex remove = new Regex(line);
-			if (!remove.commentOrEmpty()) {
-				fixedLines.add(remove.checkSpaces());
+			Regex regex = new Regex(line);
+			if (!regex.commentOrEmpty()) {
+				fixedLines.add(regex.checkSpaces());
 			}
 		}
 	}

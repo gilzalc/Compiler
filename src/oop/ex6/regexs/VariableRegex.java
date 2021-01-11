@@ -1,8 +1,10 @@
-package oop.ex6;
+package oop.ex6.regexs;
+
+import oop.ex6.Regex;
 
 import java.util.regex.Matcher;
 
-public class VariableRegex extends Regex{
+public class VariableRegex extends Regex {
 	Matcher matcher;
 	protected static final String FINAL_AND_FIRST_WORD_GROUPS = "(?<final>final )?(?<type>\\w+) " +
 																"(?<name>\\w+)";

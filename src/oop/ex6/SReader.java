@@ -10,7 +10,7 @@ public class SReader {
 	public SReader(String sFileName) {
 		try {
 			reader = new BufferedReader(new FileReader(sFileName));
-		} catch (FileNotFoundException e) {
+		} catch (FileNotFoundException e) {//error
 			e.printStackTrace();
 		}
 	}
@@ -18,7 +18,7 @@ public class SReader {
 	String getNext() {
 		try {
 			return reader.readLine();
-		} catch (IOException e) {
+		} catch (IOException e) {//error
 			e.printStackTrace();
 			return null;
 		}

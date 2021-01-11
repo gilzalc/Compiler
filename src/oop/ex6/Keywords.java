@@ -46,8 +46,8 @@ public abstract class Keywords {
 				return false;
 			}
 		}
-
 	}
+
 
 	public enum General {
 		VOID("void"), FINAL("final"), IF("if"), WHILE("while"), TRUE("true"), FALSE("false"),

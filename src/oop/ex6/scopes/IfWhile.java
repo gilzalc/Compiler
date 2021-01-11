@@ -13,7 +13,7 @@ public class IfWhile extends Scope {
 			return true;
 		}
 		Keywords.Type bool = Keywords.Type.BOOLEAN;
-		if (Regex.isVarNameValid(cond)) { //search first
+		if (Regex.isVarNameValid(cond)&&!(Keywords.getKeywords().contains(cond))) { //search first
 			Variable var = getVariable(cond);
 			if (var != null) {
 				return bool.isMatching(var.getType());
