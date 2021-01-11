@@ -16,7 +16,7 @@ public class MethodParser extends Parser {
 	}
 
 	@Override
-	public void checkLines() throws IllegalFileFormat {
+	public void checkLines() {
 
 		for (int i = 1 ; i < scopeLines.size() - 2; i++){
 			//

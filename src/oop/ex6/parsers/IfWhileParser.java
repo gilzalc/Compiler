@@ -1,7 +1,9 @@
 package oop.ex6.parsers;
 
+import oop.ex6.Keywords;
 import oop.ex6.Regex;
 import oop.ex6.Parser;
+import oop.ex6.Variable;
 import oop.ex6.scopes.IfWhile;
 public class IfWhileParser extends Parser {
 //	private ScopeParser parentParser;
@@ -15,19 +17,20 @@ public class IfWhileParser extends Parser {
 
 	@Override
 	public void checkLines() {
-		for (String line : scopeLines){
-			if (firstLine){
-				firstLine = false;
-				runFirstLine(line);
+		runFirstLine(scopeLines.poll());
+		String line;
+		while ((line = scopeLines.poll()) != null){
+			if (line.equals("{")){
+				runChildParser();
+				// להיכנס לסקופ פנימי יותר
 				continue;
 			}
-			if (line.equals("{")){
-				// להיכנס לסקופ פנימי יותר
-			}
+//			runLine(line);
 		}
 	}
 
 	private void runFirstLine(String line){
+		firstLine = false;
 		Regex regex = new Regex(line);
 		String condition = regex.ifWhileCondition();
 		if (condition == null){
@@ -39,10 +42,31 @@ public class IfWhileParser extends Parser {
 				return;// error not valid condition
 			}
 			//check if bool valid
+			if(!checkCondition(bool.replaceAll(" ", ""))){// הוספתי מחיקה של רווחים לפני
+				return;//Error not valid condition
+			}
 		}
 	}
 
-//	public void run() {
-//
-//	}
+	private boolean checkCondition(String cond) {
+		if (cond.equals("true") || cond.equals("false")) {
+			return true;
+		}
+		Keywords.Type bool = Keywords.Type.BOOLEAN;
+		if (Regex.isVarNameValid(cond)&&!(Keywords.getKeywords().contains(cond))) { //search first
+			Variable var = scope.getVariable(cond);
+			if (var != null) {
+				return bool.isMatching(var.getType());
+			}
+		}
+		return Regex.isValidVal(bool.getRegex(), cond);
+	}
+
+	private void runChildParser(){
+		Parser childParser;
+		if ((childParser = childParsers.poll()) == null){
+			return;//error
+		}
+		childParser.checkLines();
+	}
 }

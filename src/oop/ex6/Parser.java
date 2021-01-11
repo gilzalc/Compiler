@@ -23,7 +23,7 @@ public abstract class Parser {
 		childParsers = new LinkedList<>();
 	}
 
-	public abstract void checkLines() throws IllegalFileFormat;
+	public abstract void checkLines();
 
 	public Scope getScope() {
 		return scope;
