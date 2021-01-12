@@ -4,7 +4,6 @@ import oop.ex6.parsers.UnInitializedFinalVar;
 import oop.ex6.parsers.UnmatchingValueError;
 import oop.ex6.scopes.Global;
 import oop.ex6.scopes.Method;
-
 import java.util.LinkedList;
 
 public abstract class Parser {
@@ -13,7 +12,6 @@ public abstract class Parser {
 	private static final String DOUBLE = "double";
 	private static final String STRING = "String";
 	private static final String CHAR = "char";
-	protected boolean lastReturn;
 	protected LinkedList<String> scopeLines;
 	protected Parser parentParser;
 	protected LinkedList<Parser> childParsers;
@@ -72,8 +70,7 @@ public abstract class Parser {
 			if (var == null) {
 				return false;
 			}
-		}
-		else {
+		} else {
 			isCreating = true;
 			reg = new Regex(line.substring(afterLast));
 		}
@@ -147,7 +144,7 @@ public abstract class Parser {
 
 	protected void runChildParser() throws IllegalFileFormat, UnmatchingValueError, UnInitializedFinalVar {
 		Parser childParser;
-		if ((childParser = childParsers.poll()) == null){
+		if ((childParser = childParsers.poll()) == null) {
 			return;//error
 		}
 		childParser.checkLines();
@@ -172,16 +169,15 @@ public abstract class Parser {
 
 	protected void runInnerParsers() throws IllegalFileFormat, UnmatchingValueError, UnInitializedFinalVar {
 		String line;
-		while ((line = scopeLines.poll()) != null){
-			lastReturn = false;
-			if (line.equals("{")){
+		while ((line = scopeLines.poll()) != null) {
+			if (line.equals("{")) {
 				runChildParser();
 				continue;
 			}
-			if (checkMethodCall(line)){
+			if (checkMethodCall(line)) {
 				continue;
 			}
-			if (!checkLine(line)){
+			if (!checkLine(line)) {
 				return;//error: not valid line
 			}
 		}
@@ -190,14 +186,14 @@ public abstract class Parser {
 	private boolean checkMethodCall(String line) throws IllegalFileFormat, UnmatchingValueError {
 		String[] methodPars;
 		Regex regex = new Regex(line);
-		if ((methodPars = regex.checkMethodCall()) != null){
+		if ((methodPars = regex.checkMethodCall()) != null) {
 			// בדיקה שהקריאה למתודה תקינה
 			String methodName = methodPars[0];
 			regex = new Regex(methodPars[1]);
 			String[] parameters = regex.splitByComma();
 			Global global = Global.getInstance();
 			Method calledMethod = global.getMethod(methodName);
-			if (calledMethod == null){
+			if (calledMethod == null) {
 				return false;//error not exist method
 			}
 			LinkedList<Keywords.Type> requiredTypes = calledMethod.getRequiredTypes();
@@ -208,11 +204,11 @@ public abstract class Parser {
 	}
 
 	private boolean checkArgs(LinkedList<Keywords.Type> types, String[] params) throws UnmatchingValueError {
-		if (types.size() != params.length){
+		if (types.size() != params.length) {
 			return false;//Error Wrong num of params
 		}
 		for (int i = 0; i < params.length - 1; i++) {
-			checkVarValueAssignment(params[i],types.get(i));
+			checkVarValueAssignment(params[i], types.get(i));
 		}
 		return true;
 	}

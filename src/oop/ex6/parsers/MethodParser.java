@@ -18,7 +18,7 @@ public class MethodParser extends Parser {
 
 	@Override
 	public void checkLines() throws IllegalFileFormat, UnmatchingValueError, UnInitializedFinalVar {
-		scopeLines.poll();
+//		scopeLines.poll();
 		String lastLine = scopeLines.getLast();
 		runInnerParsers();
 		Regex regex = new Regex(lastLine);

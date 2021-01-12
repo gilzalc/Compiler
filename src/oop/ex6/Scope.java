@@ -28,12 +28,16 @@ public abstract class Scope {
 		variables.put(s, var);
 	}
 
+	private Scope getOuterScope(){
+		return outerScope;
+	}
+
 	public Variable getVariable(String varName) {
 		while (outerScope != null) {
 			if (variables.containsKey(varName)) {
 				return variables.get(varName);
 			}
-			outerScope = outerScope.outerScope;
+			outerScope = outerScope.getOuterScope();
 		}
 		return null;
 	}

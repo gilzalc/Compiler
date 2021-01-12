@@ -15,7 +15,7 @@ public class Regex {
 	//-----------------------------Capturing groups-----------------\\
 	protected static final String FINAL_AND_FIRST_WORD_GROUPS = "(?<final>final )?(?<first>\\w+) ";
 	private static final String VAR_NAME_AND_VALUE
-			= "(?<varName> ?_\\w+|[a-zA-Z]\\w* ?)(=(?<value> ?\\S?\\S*))?";
+			= "(?<varName> ?_\\w+|[a-zA-Z]\\w* ?)(=(?<value> ?\\S?\\S*))?";// למה יש פעמיים \\S בסוף?
 	protected static final String METHOD_PARAMS = " ?\\((?<parameters>[^\\(\\)]*)\\)\\s*";
 	//-----------------------------regex-----------------\\
 	protected static final String METHOD_NAME = "[^\\s\\(]+";
@@ -32,9 +32,8 @@ public class Regex {
 	private static final String VALID_CHAR = "'.'";
 	private static final String VALID_STRING = "\".*\"";
 	private static final String PARENTHESES = "(.*)";
-//	private static final String SPACES_NOT_CHAR = "[^ '](\\s{2,})[^ ']";// להוסיף בדיקה
-	private static final String NOT_VALID_CHAR = "'\\s{2,}'";
-	private static final String SPACES = "\\s{2,}";
+//	private static final String NOT_VALID_CHAR = "'\\s{2,}'";
+	private static final String SPACES = "\\b\\s{2,}|\\s{2,}\\b";
 	private static final String SPACE_COMMENT = "^( //)";
 	private static final String SPACE = "^ | $";
 	private static final String EMPTY = "^\\s*$";
@@ -60,15 +59,11 @@ public class Regex {
 	}
 
 	public String checkSpaces() {
-		if (regexMatcher(NOT_VALID_CHAR).find()){
-			//error not valid char
-		}
-//		checkLine = regexMatcher(spaceNoChar).replaceAll(" ");
 		checkLine = regexMatcher(SPACES).replaceAll(" ");
 		if (regexMatcher(SPACE_COMMENT).find()) {
 			return checkLine;
 		}
-		return regexMatcher(SPACE).replaceAll("");
+		return startEndSpace();
 	}
 
 	public String startEndSpace(){

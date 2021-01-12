@@ -8,6 +8,7 @@ public class MethodRegex extends Regex {
 	public MethodRegex(String line) {
 		super(line);
 	}
+
 	public static boolean isValidMethodName(String methodName) {
 		return (Pattern.matches(VALID_METHOD_NAME, methodName));
 	}

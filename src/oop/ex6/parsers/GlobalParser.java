@@ -7,9 +7,8 @@ import oop.ex6.regexs.VariableRegex;
 import oop.ex6.scopes.Global;
 import oop.ex6.scopes.Method;
 
-import java.util.LinkedList;
-
 public class GlobalParser extends Parser {
+
 	//-------------------Constants & data members---------------------\\
 	private static final String COMMA = ",";
 	private static GlobalParser globalParser;
@@ -43,7 +42,6 @@ public class GlobalParser extends Parser {
 		}
 	}
 
-
 	public void createMethods() throws Exception {
 		for (Parser parser : childParsers) {
 			String firstLine = parser.pollScopeLines();
@@ -53,7 +51,7 @@ public class GlobalParser extends Parser {
 			}
 			String methodName = reg.getMethodName();
 			if (!Regex.isValidMethodName(methodName)
-				&& !(Keywords.getKeywords().contains(methodName))) {
+				&& !(Keywords.getKeywords().contains(methodName))) { // לא הבנתי מה קורה פה...
 				return; // invalid name for method
 			}
 			if ((Global.getInstance().getMethod(methodName)) != null) {
@@ -61,13 +59,12 @@ public class GlobalParser extends Parser {
 			}
 			addParameters(methodName,reg,(Method) parser.getScope());
 		}
-
 	}
 
 	private void addParameters(String methodName, MethodRegex reg,Method toAdd) throws Exception {
 		Global.getInstance().addMethod(methodName, toAdd);
 		String parameters = reg.getMethodParameters();
-		String[] parametersArr = parameters.split(COMMA);
+		String[] parametersArr = parameters.split(COMMA);// לשנות??
 		for (String param : parametersArr) {
 			VariableRegex paramReg = new VariableRegex(param);
 			if (!paramReg.isMatching()) {
@@ -85,6 +82,7 @@ public class GlobalParser extends Parser {
 			return;// error
 		}
 	}
+
 
 //	private void checkParam(String param) {
 //

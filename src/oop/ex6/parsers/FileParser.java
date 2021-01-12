@@ -6,6 +6,10 @@ import java.util.LinkedList;
 
 public class FileParser {
 
+	private final static int GLOBAL = 0;
+	private final static int METHOD = 1;
+	private final static int IF_WHILE = 2;
+
 	private int scope = 0;
 	private final LinkedList<String> fixedLines;
 	private Parser parser;
@@ -20,20 +24,20 @@ public class FileParser {
 			Regex lineRegex = new Regex(line);
 			if (lineRegex.enterScope()) { //check for "void"?
 				scope++;
-				if (scope == 1) {
+				if (scope == METHOD) {
 					parser = new MethodParser(parser);
 				}
-				if (scope >= 2){
-					parser.addLine("{"); // מוסיף את זה כדי לדעת שצריך לפתוח סקופ פנימי
+				if (scope >= IF_WHILE){
+					parser.addLine("{");
 					parser = new IfWhileParser(parser);
 				}
 				parser.getParentParser().addChildParsers(parser);
 				parser.addLine(line);
 				continue;
 			}
-			else if (line.equals("}")) {
+			if (line.equals("}")) {
 				scope--;
-				if (scope < 0) {
+				if (scope < GLOBAL) {
 					return;//ERROR
 				}
 				parser = parser.getParentParser();
@@ -45,6 +49,4 @@ public class FileParser {
 			parser.addLine(line);
 		}
 	}
-
-
 }

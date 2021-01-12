@@ -2,6 +2,8 @@ package oop.ex6;
 
 import oop.ex6.parsers.FileParser;
 import oop.ex6.parsers.GlobalParser;
+import oop.ex6.parsers.UnInitializedFinalVar;
+import oop.ex6.parsers.UnmatchingValueError;
 
 import java.util.LinkedList;
 
@@ -31,9 +33,10 @@ public class Manager {
 		String line;
 		while ((line = linesSReader.getNext()) != null) {
 			Regex regex = new Regex(line);
-			if (!regex.commentOrEmpty()) {
-				fixedLines.add(regex.checkSpaces());
+			if (regex.commentOrEmpty()) {
+				continue;
 			}
+			fixedLines.add(regex.checkSpaces());
 		}
 	}
 
@@ -45,6 +48,10 @@ public class Manager {
 	private void runMethodsParsers(){
 		LinkedList<Parser> methodsParsers = GlobalParser.getInstance().getChildParsers();
 		for (Parser parser : methodsParsers){
+			try {
+				parser.checkLines();
+			} catch (Exception e) {
+			}
 		}
 	}
 

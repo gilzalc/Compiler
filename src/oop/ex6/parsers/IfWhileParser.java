@@ -8,7 +8,8 @@ public class IfWhileParser extends Parser {
 	private final static String AND_OR = "(\\|\\|)|(&&)";
 
 	public IfWhileParser(Parser parentParser) {
-		super(parentParser, new IfWhile(parentParser.getScope()));
+		super(parentParser, parentParser.getScope());// לא נכון!!! צריך לתקן
+//		super(parentParser, new IfWhile(parentParser.getScope()));
 	}
 
 	@Override
