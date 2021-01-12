@@ -97,7 +97,8 @@ public abstract class Parser {
 	public void createVars(String nameString, String valueString, Keywords.Type type, boolean hasFinal)
 			throws ParserError {
 		if (nameString == null || !Regex.isVarNameValid(nameString)) {
-			return; //Error - not valid var name
+//			return; //Error - not valid var name
+			throw new InvalidError("not valid var name");
 		}
 		if (valueString == null) {
 			if (hasFinal) {
@@ -141,7 +142,7 @@ public abstract class Parser {
 			}
 		}
 		if (!Regex.isValidVal(type.getRegex(), valString)) {
-			throw new InvalidValueError("The value of the variable does not match the type of variable");
+			throw new InvalidError("The value of the variable does not match the type of variable");
 		}
 	}
 

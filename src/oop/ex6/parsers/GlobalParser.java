@@ -38,7 +38,7 @@ public class GlobalParser extends Parser {
 		createMethods();
 	}
 
-	public void createMethods() {
+	public void createMethods() throws ParserError {
 		for (Parser parser : childParsers) {
 			String firstLine = parser.pollScopeLines();
 			MethodRegex reg = new MethodRegex(firstLine);
@@ -48,7 +48,8 @@ public class GlobalParser extends Parser {
 			String methodName = reg.getMethodName();
 			if (!Regex.isValidMethodName(methodName)
 				&& !(Keywords.getKeywords().contains(methodName))) { // לא הבנתי מה קורה פה...
-				return; // invalid name for method
+				throw new MethodParseError("invalid name for method");
+//				return; // invalid name for method
 			}
 			if ((Global.getInstance().getMethod(methodName)) != null) {
 //				throw new DuplicateRequestException("two methods with the same name");
@@ -57,7 +58,7 @@ public class GlobalParser extends Parser {
 		}
 	}
 
-	private void addParameters(String methodName, MethodRegex reg,Method toAdd) throws MethodParseError {
+	private void addParameters(String methodName, MethodRegex reg,Method toAdd) throws ParserError {
 		Global.getInstance().addMethod(methodName, toAdd);
 		String parameters = reg.getMethodParameters();
 		String[] parametersArr = parameters.split(COMMA);// לשנות??
