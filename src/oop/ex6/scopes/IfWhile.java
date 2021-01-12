@@ -1,7 +1,5 @@
 package oop.ex6.scopes;
 
-import oop.ex6.*;
-
 public class IfWhile extends Scope {
 
 	public IfWhile(Scope parentScope){

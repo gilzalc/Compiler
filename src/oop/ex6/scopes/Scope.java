@@ -1,4 +1,4 @@
-package oop.ex6;
+package oop.ex6.scopes;
 
 import oop.ex6.Keywords;
 import oop.ex6.Variable;

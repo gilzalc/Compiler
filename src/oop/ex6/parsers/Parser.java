@@ -1,7 +1,9 @@
-package oop.ex6;
+package oop.ex6.parsers;
 
-import oop.ex6.parsers.UnInitializedFinalVar;
-import oop.ex6.parsers.UnmatchingValueError;
+import oop.ex6.Keywords;
+import oop.ex6.regexs.Regex;
+import oop.ex6.scopes.Scope;
+import oop.ex6.Variable;
 import oop.ex6.scopes.Global;
 import oop.ex6.scopes.Method;
 import java.util.LinkedList;
@@ -24,7 +26,7 @@ public abstract class Parser {
 		childParsers = new LinkedList<>();
 	}
 
-	public abstract void checkLines() throws IllegalFileFormat, UnmatchingValueError, UnInitializedFinalVar;
+	public abstract void checkLines();
 
 	public Scope getScope() {
 		return scope;
@@ -50,8 +52,7 @@ public abstract class Parser {
 		return childParsers;
 	}
 
-	protected boolean checkLine(String line)
-			throws IllegalFileFormat, UnInitializedFinalVar, UnmatchingValueError {
+	protected boolean checkLine(String line) throws ParserError {
 		Regex reg = new Regex(line);
 		if (reg.isReturnLine()) { //with regex
 			return true;
@@ -64,7 +65,7 @@ public abstract class Parser {
 		Keywords.Type type = checkVarType(firstWord);
 		if (type == null) {
 			if (hasFinal) {
-				return true;//Error
+				throw new UnInitializedError("missing type after final");
 			}
 			Variable var = scope.getVariable(firstWord);
 			if (var == null) {
@@ -79,7 +80,7 @@ public abstract class Parser {
 	}
 
 	private void manageVarExpressions(Regex reg, Boolean isCreating, Keywords.Type type, boolean hasFinal)
-			throws IllegalFileFormat, UnmatchingValueError, UnInitializedFinalVar {
+			throws ParserError {
 		String[] varDeclarations = reg.splitByComma();
 		for (String declaration : varDeclarations) {
 			reg = new Regex(declaration);
@@ -95,13 +96,13 @@ public abstract class Parser {
 	}
 
 	public void createVars(String nameString, String valueString, Keywords.Type type, boolean hasFinal)
-			throws UnInitializedFinalVar, UnmatchingValueError {
+			throws ParserError {
 		if (nameString == null || !Regex.isVarNameValid(nameString)) {
 			return; //Error - not valid var name
 		}
 		if (valueString == null) {
 			if (hasFinal) {
-				throw new UnInitializedFinalVar();
+				throw new UnInitializedError("final variable not initialized");
 			}
 			scope.addVariable(nameString, new Variable(false, false, type));
 		} else {
@@ -118,35 +119,37 @@ public abstract class Parser {
 		if (assignedVar.IsFinal() && assignedVar.isInitialized()) {
 			return; //Error - cant assign to final?
 		}
-		try {
-			checkVarValueAssignment(valueString, assignedVar.getType());
-			assignedVar.initial();
-		} catch (UnmatchingValueError error) {
-			error.getMessage(); //not good value/var Type
-		}
+//		try {
+		checkVarValueAssignment(valueString, assignedVar.getType());
+		assignedVar.initial();
+//		} catch (UnmatchingValueError error) {
+//			error.getMessage(); //not good value/var Type
+//		}
 	}
 
 
-	protected void checkVarValueAssignment(String valString, Keywords.Type type) throws UnmatchingValueError {
+	protected void checkVarValueAssignment(String valString, Keywords.Type type) throws ParserError {
 		Variable var = scope.getVariable(valString);
 		if (var != null) {
 			if (!var.isInitialized()) {
-				return;// error Assigning uninitialized var
+				throw new UnInitializedError("Assigning uninitialized variable");
+//				return;// error Assigning uninitialized var
 			}
-			if (!(type.isMatching(var.getType()))) {
-				return; //not compatible Type
+			if (!type.isMatching(var.getType())) {
+				throw new TypeError("Incompatible type");
+//				return; //not compatible Type
 			}
 		}
 		if (!Regex.isValidVal(type.getRegex(), valString)) {
-			throw new UnmatchingValueError();
+			throw new InvalidValueError("The value of the variable does not match the type of variable");
 		}
 	}
 
-	protected void runChildParser() throws IllegalFileFormat, UnmatchingValueError, UnInitializedFinalVar {
-		Parser childParser;
-		if ((childParser = childParsers.poll()) == null) {
-			return;//error
-		}
+	protected void runChildParser() {
+		Parser childParser = childParsers.poll();
+//		if ((childParser = childParsers.poll()) == null) {
+//			return;//error
+//		}
 		childParser.checkLines();
 	}
 
@@ -167,7 +170,7 @@ public abstract class Parser {
 		}
 	}
 
-	protected void runInnerParsers() throws IllegalFileFormat, UnmatchingValueError, UnInitializedFinalVar {
+	protected void runInnerParsers(){
 		String line;
 		while ((line = scopeLines.poll()) != null) {
 			if (line.equals("{")) {
@@ -183,7 +186,7 @@ public abstract class Parser {
 		}
 	}
 
-	private boolean checkMethodCall(String line) throws IllegalFileFormat, UnmatchingValueError {
+	private boolean checkMethodCall(String line) {
 		String[] methodPars;
 		Regex regex = new Regex(line);
 		if ((methodPars = regex.checkMethodCall()) != null) {
@@ -203,7 +206,7 @@ public abstract class Parser {
 		return false;
 	}
 
-	private boolean checkArgs(LinkedList<Keywords.Type> types, String[] params) throws UnmatchingValueError {
+	private boolean checkArgs(LinkedList<Keywords.Type> types, String[] params) {
 		if (types.size() != params.length) {
 			return false;//Error Wrong num of params
 		}

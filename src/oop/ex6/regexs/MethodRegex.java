@@ -1,5 +1,4 @@
 package oop.ex6.regexs;
-import oop.ex6.Regex;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

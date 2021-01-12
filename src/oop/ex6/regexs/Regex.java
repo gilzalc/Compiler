@@ -1,4 +1,6 @@
-package oop.ex6;
+package oop.ex6.regexs;
+
+import oop.ex6.main.IllegalSFile;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -118,10 +120,10 @@ public class Regex {
 		return null;
 	}
 
-	public String[] splitByComma() throws IllegalFileFormat {
-		if (checkLine.endsWith(",")) {
-			throw new IllegalFileFormat();
-		}
+	public String[] splitByComma() {
+//		if (checkLine.endsWith(",")) {
+//			throw new IllegalSFile();
+//		}
 		return this.checkLine.split(COMMA_SEPARATED);
 	}
 

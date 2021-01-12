@@ -1,7 +1,5 @@
 package oop.ex6.regexs;
 
-import oop.ex6.Regex;
-
 import java.util.regex.Matcher;
 
 public class VariableRegex extends Regex {

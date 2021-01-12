@@ -1,7 +1,6 @@
 package oop.ex6.parsers;
 
-import oop.ex6.Parser;
-import oop.ex6.Regex;
+import oop.ex6.regexs.Regex;
 import java.util.LinkedList;
 
 public class FileParser {
@@ -19,7 +18,7 @@ public class FileParser {
 		parser = GlobalParser.getInstance();
 	}
 
-	public void run() {
+	public void run() throws ParserError {
 		for (String line : fixedLines) {
 			Regex lineRegex = new Regex(line);
 			if (lineRegex.enterScope()) { //check for "void"?
@@ -38,15 +37,18 @@ public class FileParser {
 			if (line.equals("}")) {
 				scope--;
 				if (scope < GLOBAL) {
-					return;//ERROR
+					throw new SuffixError("Closed more internal scopes than opened");
 				}
 				parser = parser.getParentParser();
 				continue;
 			}
 			if((line = lineRegex.validSuffix()) == null){
-				return;//ERROR not valid suffix
+				throw new SuffixError("not valid line suffix");
 			}
 			parser.addLine(line);
+		}
+		if (scope > GLOBAL){
+			throw new SuffixError("Some of the opened internal scopes did not close");
 		}
 	}
 }

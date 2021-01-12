@@ -1,7 +1,8 @@
 package oop.ex6.parsers;
 
 import oop.ex6.*;
-import oop.ex6.scopes.IfWhile;
+import oop.ex6.main.IllegalSFile;
+import oop.ex6.regexs.Regex;
 
 public class IfWhileParser extends Parser {
 
@@ -13,7 +14,7 @@ public class IfWhileParser extends Parser {
 	}
 
 	@Override
-	public void checkLines() throws IllegalFileFormat, UnmatchingValueError, UnInitializedFinalVar {
+	public void checkLines() {
 		runFirstLine(scopeLines.poll());
 		runInnerParsers();
 	}

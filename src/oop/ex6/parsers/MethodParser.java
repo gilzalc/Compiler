@@ -1,8 +1,7 @@
 package oop.ex6.parsers;
 
-import oop.ex6.IllegalFileFormat;
-import oop.ex6.Parser;
-import oop.ex6.Regex;
+import oop.ex6.main.IllegalSFile;
+import oop.ex6.regexs.Regex;
 import oop.ex6.Variable;
 import oop.ex6.scopes.Method;
 
@@ -17,7 +16,7 @@ public class MethodParser extends Parser {
 	}
 
 	@Override
-	public void checkLines() throws IllegalFileFormat, UnmatchingValueError, UnInitializedFinalVar {
+	public void checkLines() {
 //		scopeLines.poll();
 		String lastLine = scopeLines.getLast();
 		runInnerParsers();

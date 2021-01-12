@@ -1,10 +1,13 @@
 package oop.ex6;
 
+import oop.ex6.main.IllegalSFile;
 import oop.ex6.parsers.FileParser;
 import oop.ex6.parsers.GlobalParser;
-import oop.ex6.parsers.UnInitializedFinalVar;
-import oop.ex6.parsers.UnmatchingValueError;
+import oop.ex6.parsers.Parser;
+import oop.ex6.parsers.ParserError;
+import oop.ex6.regexs.Regex;
 
+import java.io.IOException;
 import java.util.LinkedList;
 
 public class Manager {
@@ -15,21 +18,21 @@ public class Manager {
 		linesSReader = SReader;
 	}
 
-	public void run() {
+	public void run() throws IOException, ParserError {
 		sfileOrganizer();
 		FileParser fileParser = new FileParser(fixedLines);
 		fileParser.run();
-		try {
-			runGlobalParser();
-		} catch (IllegalFileFormat illegalFileFormat) {
-			illegalFileFormat.printStackTrace();
-		}
+//		try {
+		runGlobalParser();
+//		} catch (IllegalSFile illegalSFile) {
+//			illegalSFile.printStackTrace();
+//		}
 		runMethodsParsers();
 		// parse method declarations
 		// parse all scopes
 	}
 
-	private void sfileOrganizer() {
+	private void sfileOrganizer() throws IOException {
 		String line;
 		while ((line = linesSReader.getNext()) != null) {
 			Regex regex = new Regex(line);
@@ -40,7 +43,7 @@ public class Manager {
 		}
 	}
 
-	private void runGlobalParser() throws IllegalFileFormat {
+	private void runGlobalParser() {
 		GlobalParser globalParser = GlobalParser.getInstance();
 		globalParser.checkLines();// declarations and assignments and creating methods
 	}
@@ -48,14 +51,11 @@ public class Manager {
 	private void runMethodsParsers(){
 		LinkedList<Parser> methodsParsers = GlobalParser.getInstance().getChildParsers();
 		for (Parser parser : methodsParsers){
-			try {
-				parser.checkLines();
-			} catch (Exception e) {
-			}
+			parser.checkLines();
 		}
 	}
 
-	private void runInnerParsers(){
-
-	}
+//	private void runInnerParsers(){
+//
+//	}
 }

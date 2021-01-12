@@ -3,6 +3,7 @@ package oop.ex6.parsers;
 //import com.sun.jdi.request.DuplicateRequestException;
 import oop.ex6.*;
 import oop.ex6.regexs.MethodRegex;
+import oop.ex6.regexs.Regex;
 import oop.ex6.regexs.VariableRegex;
 import oop.ex6.scopes.Global;
 import oop.ex6.scopes.Method;
@@ -31,18 +32,14 @@ public class GlobalParser extends Parser {
 	@Override
 	public void checkLines() {
 		for (String line : scopeLines) {
-			try {
-				if (!checkLine(line)){
-					return; //Error - don't check if method
-				}
-				createMethods();
-			} catch (Exception exception) {
-				System.err.println(exception.getMessage());
+			if (!checkLine(line)){
+				return; //Error - don't check if method
 			}
 		}
+		createMethods();
 	}
 
-	public void createMethods() throws Exception {
+	public void createMethods() {
 		for (Parser parser : childParsers) {
 			String firstLine = parser.pollScopeLines();
 			MethodRegex reg = new MethodRegex(firstLine);
@@ -61,7 +58,7 @@ public class GlobalParser extends Parser {
 		}
 	}
 
-	private void addParameters(String methodName, MethodRegex reg,Method toAdd) throws Exception {
+	private void addParameters(String methodName, MethodRegex reg,Method toAdd) {
 		Global.getInstance().addMethod(methodName, toAdd);
 		String parameters = reg.getMethodParameters();
 		String[] parametersArr = parameters.split(COMMA);// לשנות??
@@ -82,10 +79,5 @@ public class GlobalParser extends Parser {
 			return;// error
 		}
 	}
-
-
-//	private void checkParam(String param) {
-//
-//	}
 
 }

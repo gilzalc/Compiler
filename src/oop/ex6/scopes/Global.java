@@ -1,9 +1,6 @@
 package oop.ex6.scopes;
 
-import oop.ex6.Scope;
-
 import java.util.HashMap;
-import java.util.LinkedList;
 
 public class Global extends Scope { //singleton
 	private static Global globalScope;
