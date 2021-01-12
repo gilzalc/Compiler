@@ -30,11 +30,10 @@ public class GlobalParser extends Parser {
 
 	//-----------------------------Parsing methods----------------------------\\
 	@Override
-	public void checkLines() {
+	public void checkLines() throws ParserError {
 		for (String line : scopeLines) {
-			if (!checkLine(line)){
-				return; //Error - don't check if method
-			}
+			checkLine(line);
+//				return; //Error - don't check if method
 		}
 		createMethods();
 	}

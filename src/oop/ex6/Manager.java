@@ -43,7 +43,7 @@ public class Manager {
 		}
 	}
 
-	private void runGlobalParser() {
+	private void runGlobalParser() throws ParserError {
 		GlobalParser globalParser = GlobalParser.getInstance();
 		globalParser.checkLines();// declarations and assignments and creating methods
 	}
