@@ -1,6 +1,9 @@
 package oop.ex6.parsers;
 
 import oop.ex6.regexs.Regex;
+import oop.ex6.scopes.IfWhile;
+import oop.ex6.scopes.Scope;
+
 import java.util.LinkedList;
 
 public class FileParser {
@@ -28,7 +31,9 @@ public class FileParser {
 				}
 				if (scope >= IF_WHILE){
 					parser.addLine("{");
-					parser = new IfWhileParser(parser);
+					Scope oldParserScope = parser.getScope();
+					IfWhile ifWhileScope = new IfWhile(oldParserScope);
+					parser = new IfWhileParser(parser, ifWhileScope);
 				}
 				parser.getParentParser().addChildParsers(parser);
 				parser.addLine(line);

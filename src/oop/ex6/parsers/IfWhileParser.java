@@ -3,18 +3,19 @@ package oop.ex6.parsers;
 import oop.ex6.*;
 import oop.ex6.main.IllegalSFile;
 import oop.ex6.regexs.Regex;
+import oop.ex6.scopes.Scope;
 
 public class IfWhileParser extends Parser {
 
 	private final static String AND_OR = "(\\|\\|)|(&&)";
 
-	public IfWhileParser(Parser parentParser) {
-		super(parentParser, parentParser.getScope());// לא נכון!!! צריך לתקן
+	public IfWhileParser(Parser parentParser, Scope ifWhileScope) {
+		super(parentParser, ifWhileScope);// לא נכון!!! צריך לתקן
 //		super(parentParser, new IfWhile(parentParser.getScope()));
 	}
 
 	@Override
-	public void checkLines() {
+	public void checkLines() throws ParserError {
 		runFirstLine(scopeLines.poll());
 		runInnerParsers();
 	}

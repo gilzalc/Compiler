@@ -16,7 +16,7 @@ public class MethodParser extends Parser {
 	}
 
 	@Override
-	public void checkLines() {
+	public void checkLines() throws ParserError {
 //		scopeLines.poll();
 		String lastLine = scopeLines.getLast();
 		runInnerParsers();
