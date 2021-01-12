@@ -199,7 +199,7 @@ public abstract class Parser {
 			Method calledMethod = global.getMethod(methodName);
 			if (calledMethod == null) {
 //				return false;//error not exist method
-				throw new ParserError("There is no method by this name");
+				throw new MethodParseError("There is no method by this name");
 			}
 			LinkedList<Keywords.Type> requiredTypes = calledMethod.getRequiredTypes();
 			checkArgs(requiredTypes, parameters);

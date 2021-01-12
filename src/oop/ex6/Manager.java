@@ -48,7 +48,7 @@ public class Manager {
 		globalParser.checkLines();// declarations and assignments and creating methods
 	}
 
-	private void runMethodsParsers(){
+	private void runMethodsParsers() throws ParserError {
 		LinkedList<Parser> methodsParsers = GlobalParser.getInstance().getChildParsers();
 		for (Parser parser : methodsParsers){
 			parser.checkLines();

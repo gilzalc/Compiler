@@ -57,25 +57,25 @@ public class GlobalParser extends Parser {
 		}
 	}
 
-	private void addParameters(String methodName, MethodRegex reg,Method toAdd) {
+	private void addParameters(String methodName, MethodRegex reg,Method toAdd) throws MethodParseError {
 		Global.getInstance().addMethod(methodName, toAdd);
 		String parameters = reg.getMethodParameters();
 		String[] parametersArr = parameters.split(COMMA);// לשנות??
 		for (String param : parametersArr) {
 			VariableRegex paramReg = new VariableRegex(param);
 			if (!paramReg.isMatching()) {
-				throw new Exception(); // wrong format
+				throw new MethodParseError("wrong parameter format"); // wrong format
 			}
 			Keywords.Type varType = checkVarType(paramReg.getStringType());
 			if (varType == null) {
-				throw new Exception();// wrong format
+				throw new MethodParseError("wrong parameter format");// wrong format
 			}
 			String varName = paramReg.getStringName();
 			if (Regex.isVarNameValid(varName)) {
 				toAdd.addRequiredVar(varName, (new Variable(false, paramReg.hasFinal(), varType)));
 				continue;
 			}
-			return;// error
+			throw new MethodParseError("not valid parameter");
 		}
 	}
 
