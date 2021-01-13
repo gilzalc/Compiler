@@ -37,7 +37,6 @@ public class Regex {
 	private static final String VALID_CHAR = "'.'";
 	private static final String VALID_STRING = "\".*\"";
 	private static final String PARENTHESES = "(.*)";
-//	private static final String NOT_VALID_CHAR = "'\\s{2,}'";
 	private static final String SPACES = "\\b\\s{2,}|\\s{2,}\\b";
 	private static final String SPACE_COMMENT = "^(\\s//)";
 	private static final String SPACE = "^\\s+|\\s+$";
