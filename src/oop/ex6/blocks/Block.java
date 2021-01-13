@@ -31,7 +31,7 @@ public abstract class Block {
 		variables.put(varName, var);
 	}
 	public boolean isShadowingVar(String varName){
-		return (!this.variables.containsKey(varName));
+		return (this.variables.containsKey(varName));
 	}
 
 	private Block getOuterBlock(){
