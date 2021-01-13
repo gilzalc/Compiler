@@ -43,7 +43,7 @@ public class IfWhileParser extends Parser {
 		if (Regex.isVarNameValid(cond) && !(Keywords.getKeywords().contains(cond))) { //search first
 			Variable var = block.getVariable(cond);
 			if (var != null) {
-				return bool.isMatching(var.getType());
+				return (bool.isMatching(var.getType()) && var.isInitialized());
 			}
 		}
 		return Regex.isValidVal(bool.getRegex(), cond);

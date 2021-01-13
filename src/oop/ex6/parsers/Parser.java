@@ -127,8 +127,10 @@ public abstract class Parser {
 			throw new ParserException("cant assign a final and initialized variable");
 		}
 		checkVarValueAssignment(valueString, assignedVar.getType());
-		if (block.isShadowingVar(valueString)){
+		if (block.isNewVar(valueString)) {
 			block.addVariable(nameString, new Variable(true, assignedVar.IsFinal(), assignedVar.getType()));
+		} else {
+			assignedVar.initial();
 		}
 	}
 
@@ -149,10 +151,8 @@ public abstract class Parser {
 
 	protected void runChildParser() throws ParserException {
 		Parser childParser = childParsers.poll();
-		//		if ((childParser = childParsers.poll()) == null) {
-		//			return;//error
-		//		}
-		childParser.checkLines();
+		childParser.checkLines(); // Can't be Null - we call runChildParser method with an open bracket, and
+		// each time that the "{" appears, we declared a new child parser.
 	}
 
 	protected Keywords.Type checkVarType(String firstWord) {

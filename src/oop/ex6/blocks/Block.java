@@ -30,7 +30,7 @@ public abstract class Block {
 		}
 		variables.put(varName, var);
 	}
-	public boolean isShadowingVar(String varName){
+	public boolean isNewVar(String varName){
 		return (this.variables.containsKey(varName));
 	}
 
