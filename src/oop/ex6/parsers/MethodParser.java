@@ -13,7 +13,6 @@ public class MethodParser extends Parser {
 	public MethodParser(Parser parser) {
 		super(parser, new Method(new LinkedList<>()));
 	}
-
 	@Override
 	public void checkLines() throws ParserException {
 //		scopeLines.poll();
