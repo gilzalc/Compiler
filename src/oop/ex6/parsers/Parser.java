@@ -4,6 +4,7 @@ import oop.ex6.Keywords;
 import oop.ex6.regexs.Regex;
 import oop.ex6.blocks.*;
 import oop.ex6.Variable;
+
 import java.util.LinkedList;
 
 public abstract class Parser {
@@ -58,7 +59,7 @@ public abstract class Parser {
 		if (regex.isReturnLine()) { //with regex
 			return;
 		}
-		if (!regex.setFirstWordsMatcher()){
+		if (!regex.setFirstWordsMatcher()) {
 			throw new ParserException("The line is invalid");
 		}
 		String firstWord = regex.getFirstWord();
@@ -87,11 +88,11 @@ public abstract class Parser {
 		for (String declaration : varDeclarations) {
 			regex = new Regex(declaration);
 			String[] nameAndValue;
-			if ((nameAndValue = regex.getVarNameAndValue()) == null){
+			if ((nameAndValue = regex.getVarNameAndValue()) == null) {
 				throw new InvalidException("invalid declaration");
 			}
-//			String nameString = nameAndValue[NAME_INDEX];
-//			String valueString = nameAndValue[VALUE_INDEX];
+			//			String nameString = nameAndValue[NAME_INDEX];
+			//			String valueString = nameAndValue[VALUE_INDEX];
 			if (isCreating) {
 				createVars(nameAndValue[NAME_INDEX], nameAndValue[VALUE_INDEX], type, hasFinal);
 				continue;
@@ -103,7 +104,7 @@ public abstract class Parser {
 	public void createVars(String nameString, String valueString, Keywords.Type type, boolean hasFinal)
 			throws ParserException {
 		if (nameString == null || !Regex.isVarNameValid(nameString)) {
-//			return; //Error - not valid var name
+			//			return; //Error - not valid var name
 			throw new InvalidException("not valid var name");
 		}
 		if (valueString == null) {
@@ -123,10 +124,10 @@ public abstract class Parser {
 			throw new UnInitializedException("The variable was never declared");
 		}
 		if (assignedVar.IsFinal() && assignedVar.isInitialized()) {
-			return; //Error - cant assign to final?
+			throw new ParserException("cant assign a final and initialized variable");
 		}
 		checkVarValueAssignment(valueString, assignedVar.getType());
-		assignedVar.initial();
+		block.addVariable(nameString,new Variable(true,assignedVar.IsFinal(), assignedVar.getType()));
 	}
 
 
@@ -139,17 +140,16 @@ public abstract class Parser {
 			if (!type.isMatching(var.getType())) {
 				throw new TypeException("Incompatible type");
 			}
-		}
-		else if (!Regex.isValidVal(type.getRegex(), valString)) {
+		} else if (!Regex.isValidVal(type.getRegex(), valString)) {
 			throw new InvalidException("The value of the variable does not match the type of variable");
 		}
 	}
 
 	protected void runChildParser() throws ParserException {
 		Parser childParser = childParsers.poll();
-//		if ((childParser = childParsers.poll()) == null) {
-//			return;//error
-//		}
+		//		if ((childParser = childParsers.poll()) == null) {
+		//			return;//error
+		//		}
 		childParser.checkLines();
 	}
 
@@ -188,16 +188,23 @@ public abstract class Parser {
 		String[] methodPars;
 		Regex regex = new Regex(line);
 		if ((methodPars = regex.checkMethodCall()) != null) {
-			// בדיקה שהקריאה למתודה תקינה
+			// Check method calling validity
 			String methodName = methodPars[0];
-			regex = new Regex(methodPars[1]);
-			String[] parameters = regex.splitByComma();
+
 			Global global = Global.getInstance();
 			Method calledMethod = global.getMethod(methodName);
 			if (calledMethod == null) {
-				throw new MethodException("There is no method by this name");
+				throw new MethodException("There is no method with this name");
 			}
 			LinkedList<Keywords.Type> requiredTypes = calledMethod.getRequiredTypes();
+			regex = new Regex(methodPars[1]);
+			if (regex.emptyLine()) {
+				if (requiredTypes.size() != 0) {// return true if both has 0 args, false o.w
+					throw new MethodException("Wrong num of parameters");
+				}
+				return true;
+			}
+			String[] parameters = regex.splitByComma();
 			checkArgs(requiredTypes, parameters);
 			return true;
 		}

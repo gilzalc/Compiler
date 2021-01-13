@@ -21,15 +21,17 @@ public abstract class Block {
 	}
 
 	public void addVariable(String varName, Variable var) throws ScopeException {
-		// בדיקה שהשם תקין
+		// checkNameIsOK
 		if (variables.containsKey(varName)) {
-//			return; //Error
 			throw new ScopeException("A variable with the same name already exists");
 		}
 		if (Keywords.getKeywords().contains(varName)){
 			throw new ScopeException("The variable name is equal to one of the keywords");
 		}
 		variables.put(varName, var);
+	}
+	public boolean isShadowingVar(String varName){
+		return (!this.variables.containsKey(varName));
 	}
 
 	private Block getOuterBlock(){

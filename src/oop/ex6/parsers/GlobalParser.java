@@ -79,7 +79,7 @@ public class GlobalParser extends Parser {
 			}
 			String varName = paramReg.getStringName();
 			if (Regex.isVarNameValid(varName)) {
-				toAdd.addRequiredVar(varName, (new Variable(false, paramReg.hasFinal(), varType)));
+				toAdd.addRequiredVar(varName, (new Variable(true, paramReg.hasFinal(), varType)));
 				continue;
 			}
 			throw new MethodException("not valid parameter");

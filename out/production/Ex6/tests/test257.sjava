@@ -1,9 +1,6 @@
-int a;
+final int a=9;
 void foo(){
-a = 7;
+int a = 7;
 return;
 }
-void boo(){
-int b = a;
-return;
-}
+
