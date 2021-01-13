@@ -1,0 +1,8 @@
+// VarAsBool2
+int a;
+void foo(){
+if (true|| a ||false){
+
+}
+return;
+}

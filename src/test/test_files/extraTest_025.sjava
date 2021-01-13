@@ -1,0 +1,8 @@
+// litterlyAsArguments
+void foo(){
+foo2("Hello", 5.2, 'a', true, false, 3, 4);
+return;
+}
+void foo2(String s, double d, char c, boolean a, boolean b, boolean e, int f){
+return;
+}

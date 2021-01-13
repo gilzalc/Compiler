@@ -1,0 +1,33 @@
+// Big Valid File
+String s = "Lior  'c'";
+int n;
+double d;
+void foo(int n, int d){
+n = 8;
+d = n+4;
+String s;
+if (n){
+s = "Lior 2";
+}
+s= "Mom ";
+while (true||false||n||d&&d&&d&&d&&d&&d&&d&&d&&d&&d&&d&&d&&d&&d&&d&&d&&d&&d&&d&&d&&d&&d&&d&&d){
+if(true||true||true||true||true||true||true||true||s||s||s||s||s||s||s||s||s||s){
+if(true){
+
+}
+}
+}
+return;
+}
+void boo(){
+n= 4;
+d = 4.2;
+foo(n,n);
+foo(n,n);
+foo(n,n);
+foo(n,n);
+foo(n,n);
+foo(n,n);
+foo(n,n);
+return;
+}

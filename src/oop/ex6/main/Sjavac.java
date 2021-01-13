@@ -1,6 +1,8 @@
 package oop.ex6.main;
 
 import oop.ex6.*;
+import oop.ex6.parsers.GlobalParser;
+import oop.ex6.scopes.Global;
 
 import java.io.IOException;
 
@@ -12,6 +14,8 @@ public class Sjavac {
 	private static final int SFILE_ARG = 0;
 
 	public static void main(String[] args) {
+		Global.setNull();
+		GlobalParser.setNull();
 		//        if (args.length != 1){
 		//            return;
 		//        }

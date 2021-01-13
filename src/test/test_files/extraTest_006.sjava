@@ -1,0 +1,12 @@
+// Call Method Invalid Num Args
+void foo(int a){
+return;
+}
+void foo2(){
+foo();
+return;
+}
+void foo3(){
+foo(1,2);
+return;
+}

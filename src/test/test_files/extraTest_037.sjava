@@ -1,0 +1,5 @@
+// ReturnInvalid5
+void foo(){
+return;
+blablalbla;
+}

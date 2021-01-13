@@ -1,0 +1,8 @@
+// VarAsBoolExp
+int a = 8;
+void foo(){
+if (true|| a||false){
+
+}
+return;
+}

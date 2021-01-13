@@ -1,0 +1,6 @@
+// RecursiveCall
+void foo(){
+foo();
+foo();
+return;
+}

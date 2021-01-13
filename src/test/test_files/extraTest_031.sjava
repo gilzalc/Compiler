@@ -1,0 +1,7 @@
+// ReturnInIfScope
+void foo(){
+if(true){
+return;
+}
+return;
+}

@@ -1,0 +1,6 @@
+// Edge Case
+int a;
+void foo(){
+a = 7;
+int a =9;
+}

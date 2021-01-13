@@ -1,0 +1,6 @@
+// ReturnInvalid3
+void foo(){
+return;
+return;
+int a =8;
+}

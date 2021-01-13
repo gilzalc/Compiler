@@ -1,0 +1,9 @@
+// Call Method With Few Args
+void foo(int a, boolean b, int c){
+return;
+}
+
+void foo2(){
+foo(1,false,2);
+return;
+}

@@ -1,0 +1,6 @@
+// TryToAssignFinalVar
+final int d =11;
+void foo(){
+d =3;
+return;
+}

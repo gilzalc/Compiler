@@ -15,9 +15,7 @@ public class GlobalParser extends Parser {
 
 	//-------------------Singleton constructor & access---------------------\\
 	private GlobalParser() {
-		//		globalScope = Global.getInstance();
 		super(null, Global.getInstance());
-		//		Methods = new HashMap<>();
 	}
 
 	public static GlobalParser getInstance() {

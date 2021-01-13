@@ -70,8 +70,6 @@ public class Test {
                     System.out.println(filesLines.get(file.getName()));
                 }
                 System.out.println("_________");
-                Global.setNull();
-                GlobalParser.setNull();
             }
         } catch (Exception ignored) {
         }

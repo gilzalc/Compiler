@@ -1,0 +1,4 @@
+// InvalidMethodName
+void _boo(){
+return;
+}
