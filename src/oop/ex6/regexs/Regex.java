@@ -1,11 +1,10 @@
 package oop.ex6.regexs;
 
-import oop.ex6.main.IllegalSFile;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Regex {
+
 	//-----------------------------magic numbers-----------------\\
 	protected static final String FINAL = "final";
 	protected static final String FIRST = "first";
@@ -14,11 +13,13 @@ public class Regex {
 	private static final String FALSE = "false";
 	private static final String WHILE = "while";
 	protected static final String parameters = "parameters";
+
 	//-----------------------------Capturing groups-----------------\\
 	protected static final String FINAL_AND_FIRST_WORD_GROUPS = "(?<final>final )?(?<first>\\w+) ";
 	private static final String VAR_NAME_AND_VALUE
 			= "(?<varName> ?_\\w+|[a-zA-Z]\\w* ?)(=(?<value> ?\\S?\\S*))?";// למה יש פעמיים \\S בסוף?
 	protected static final String METHOD_PARAMS = " ?\\((?<parameters>[^\\(\\)]*)\\)\\s*";
+
 	//-----------------------------regex-----------------\\
 	protected static final String METHOD_NAME = "[^\\s\\(]+";
 	private static final String METHOD_CALL = "^(?<name>[^\\s\\(=]+) ?\\((?<params>.*)\\) ?$";
@@ -140,7 +141,7 @@ public class Regex {
 	public String ifWhileCondition() {
 		Matcher matcher = regexMatcher(IF_While);
 		if (matcher.matches()) {
-			return matcher.group("condition");//condition
+			return matcher.group("condition");
 		}
 		return null;
 	}
