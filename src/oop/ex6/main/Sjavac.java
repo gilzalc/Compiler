@@ -16,20 +16,17 @@ public class Sjavac {
 	public static void main(String[] args) {
 		Global.setNull();
 		GlobalParser.setNull();
-		//        if (args.length != 1){
-		//            return;
-		//        }
 		try {
 			SReader SReader = new SReader(args[SFILE_ARG]);
 			Manager manager = new Manager(SReader);
 			manager.run();
             System.out.println(LEGAL_CODE);
         } catch (IOException io) {
-//            System.out.println("IO ERROR");
+            System.err.println("IO ERROR");
             System.out.println(IO_ERROR);
         } catch (IllegalSFile isf) {
-//            System.out.println(isf.getMessage());
+            System.err.println(isf.getMessage());
             System.out.println(ILLEGAL_CODE);
         }
-		}
 	}
+}
