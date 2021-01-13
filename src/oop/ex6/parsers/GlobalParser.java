@@ -9,8 +9,9 @@ import oop.ex6.blocks.Method;
 
 public class GlobalParser extends Parser {
 
+
 	//-------------------Constants & data members---------------------\\
-	private static final String COMMA = ",";
+	private static final int PARAMS_INDEX = 1;
 	private static GlobalParser globalParser;
 
 	//-------------------Singleton constructor & access---------------------\\
@@ -42,27 +43,31 @@ public class GlobalParser extends Parser {
 			String firstLine = parser.pollScopeLines();
 			MethodRegex reg = new MethodRegex(firstLine);
 			if (!reg.methodStart()) { // removes void and space, if false throw error
-//				throw new UnsupportedOperationException("method return value has to be void");
 				throw new MethodException("method return value has to be void");
 			}
-			String methodName = reg.getMethodName();
-			if (!Regex.isValidMethodName(methodName)
-				&& !(Keywords.getKeywords().contains(methodName))) { // לא הבנתי מה קורה פה...
-				throw new MethodException("invalid name for method");
-//				return; // invalid name for method
+			String[] nameAndParams = reg.getMethodNameParams();
+			if (nameAndParams == null){
+				throw new MethodException("Invalid method declaration");
 			}
-			if ((Global.getInstance().getMethod(methodName)) != null) {
-//				throw new DuplicateRequestException("two methods with the same name");
+			// !Regex.isValidMethodName(nameAndParams[NAME_INDEX])
+			if (Keywords.getKeywords().contains(nameAndParams[NAME_INDEX])) { // לא הבנתי מה קורה פה...
+				throw new MethodException("invalid name for method");
+			}
+			if ((Global.getInstance().getMethod(nameAndParams[NAME_INDEX])) != null) {
 				throw new MethodException("A method with a similar name already exists");
 			}
-			addParameters(methodName,reg,(Method) parser.getScope());
+			addParameters(nameAndParams,reg,(Method) parser.getScope());
 		}
 	}
 
-	private void addParameters(String methodName, MethodRegex reg,Method toAdd) throws ParserException {
-		Global.getInstance().addMethod(methodName, toAdd);
-		String parameters = reg.getMethodParameters();
-		String[] parametersArr = parameters.split(COMMA);// לשנות??
+	private void addParameters(String[] nameAndParams, MethodRegex reg,Method toAdd) throws ParserException {
+		Global.getInstance().addMethod(nameAndParams[NAME_INDEX], toAdd);
+		String parameters = nameAndParams[PARAMS_INDEX];
+		reg.setCheckLine(parameters);
+		if (reg.emptyLine()){
+			return;
+		}
+		String[] parametersArr = reg.splitByComma();
 		for (String param : parametersArr) {
 			VariableRegex paramReg = new VariableRegex(param);
 			if (!paramReg.isMatching()) {

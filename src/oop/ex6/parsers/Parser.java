@@ -12,8 +12,9 @@ public abstract class Parser {
 	private static final String DOUBLE = "double";
 	private static final String STRING = "String";
 	private static final String CHAR = "char";
-	private static final int NAME_INDEX = 0;
+	protected static final int NAME_INDEX = 0;
 	private static final int VALUE_INDEX = 1;
+	private static final int PARAMS_INDEX = 1;
 	protected LinkedList<String> scopeLines;
 	protected Parser parentParser;
 	protected LinkedList<Parser> childParsers;
@@ -139,7 +140,7 @@ public abstract class Parser {
 				throw new TypeException("Incompatible type");
 			}
 		}
-		if (!Regex.isValidVal(type.getRegex(), valString)) {
+		else if (!Regex.isValidVal(type.getRegex(), valString)) {
 			throw new InvalidException("The value of the variable does not match the type of variable");
 		}
 	}

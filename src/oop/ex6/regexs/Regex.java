@@ -12,25 +12,25 @@ public class Regex {
 	private static final String EQUALS = "=";
 	private static final String FALSE = "false";
 	private static final String WHILE = "while";
-	protected static final String parameters = "parameters";
+	protected static final String PARAMETERS = "parameters";
 
 	//-----------------------------Capturing groups-----------------\\
 //	protected static final String FINAL_AND_FIRST_WORD_GROUPS = "(?<final>final )?(?<first>\\w+) ";
 	protected static final String FINAL_AND_FIRST_WORD_GROUPS = "((?<final>final )?(?<first>\\w+))";
 	private static final String VAR_NAME_AND_VALUE
 			= " ?(?<varName>_\\w+|[a-zA-Z]\\w*) ?(= ?(?<value>\\S*))?";// למה יש פעמיים \\S בסוף?
-	protected static final String METHOD_PARAMS = " ?\\((?<parameters>[^\\(\\)]*)\\)\\s*";
+	protected static final String METHOD_PARAMS = "^(?<name>[a-zA-Z]\\w*)\\s?\\((?<parameters>[^\\(\\)]*)\\)\\s*\\{$";
 
 	//-----------------------------regex-----------------\\
 //	protected static final String METHOD_NAME = "[a-zA-Z]\\w*";
-	private static final String METHOD_CALL = "^(?<name>[a-zA-Z]\\w*) ?\\((?<params>.*)\\) ?$";
-	protected static final String STARTS_WITH_VOID = " ?void ";
-	private static final String COMMA_SEPARATED = " ?, ?";
-	private final static String AND_OR = " ?(\\|\\|) ?| ?(&&) ?";
-	private static final String IF_While = "(if|while) ?\\((?<condition>.+)\\) ?\\{";
+	private static final String METHOD_CALL = "^(?<name>[a-zA-Z]\\w*)\\s?\\((?<params>.*)\\)\\s?$";
+	protected static final String STARTS_WITH_VOID = "\\s?void ";
+	private static final String COMMA_SEPARATED = "\\s?,\\s?";
+	private final static String AND_OR = "\\s?(\\|\\|)\\s?|\\s?(&&) ?";
+	private static final String IF_While = "(if|while)\\s?\\((?<condition>.+)\\)\\s?\\{";
 	private static final String VALID_VARIABLE_NAME = "_\\w+|[a-zA-Z]\\w*";// and not a keyword or typeword
 	protected static final String VALID_METHOD_NAME = "[a-zA-Z]\\w*";
-	private static final String VALID_SUFFIX = ";$";
+	private static final String VALID_SUFFIX = "\\s?;$";
 	private static final String VALID_INTEGER = "-?\\d+";
 	private static final String VALID_DOUBLE = "-?\\d+(\\.\\d+)?"; // W About .5 or 5. ?
 	private static final String VALID_BOOL = TRUE + "|" + FALSE + "|" + VALID_DOUBLE;
@@ -39,11 +39,11 @@ public class Regex {
 	private static final String PARENTHESES = "(.*)";
 //	private static final String NOT_VALID_CHAR = "'\\s{2,}'";
 	private static final String SPACES = "\\b\\s{2,}|\\s{2,}\\b";
-	private static final String SPACE_COMMENT = "^( //)";
-	private static final String SPACE = "^ | $";
+	private static final String SPACE_COMMENT = "^(\\s//)";
+	private static final String SPACE = "^\\s|\\s$";
 	private static final String EMPTY = "^\\s*$";
 	private static final String COMMENT = "//.*";
-	private static final String RETURN = "return ?";
+	private static final String RETURN = "return\\s?";
 
 	//--------------DATA MEMBERS-------------\\
 	private Matcher firstWordsMatcher;
@@ -112,8 +112,6 @@ public class Regex {
 			String valueString = matcher.group("value");
 			return new String[]{nameString, valueString};
 		}
-//		// throw an error?
-//		return new String[]{"S"}; //to edit!!!!!
 		return null;
 	}
 
@@ -129,9 +127,6 @@ public class Regex {
 	}
 
 	public String[] splitByComma() {
-//		if (checkLine.endsWith(",")) {
-//			throw new IllegalSFile();
-//		}
 		checkLine = startEndSpace();
 		return checkLine.split(COMMA_SEPARATED);
 	}
@@ -139,6 +134,10 @@ public class Regex {
 	public String[] splitCondition() {
 		checkLine = startEndSpace();
 		return checkLine.split(AND_OR);
+	}
+
+	public boolean emptyLine(){
+		return regexMatcher(" ?").matches();
 	}
 
 	public boolean isReturnLine(){
@@ -161,9 +160,9 @@ public class Regex {
 		return (Pattern.matches(VALID_VARIABLE_NAME, varName));
 	}
 
-	public static boolean isValidMethodName(String methodName) {
-		return (Pattern.matches(VALID_METHOD_NAME, methodName));
-	}
+//	public static boolean isValidMethodName(String methodName) {
+//		return (Pattern.matches(VALID_METHOD_NAME, methodName));
+//	}
 
 	public static boolean isValidVal(String pattern, String varVal) {
 		return Pattern.matches(pattern, varVal);

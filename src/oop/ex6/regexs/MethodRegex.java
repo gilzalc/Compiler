@@ -1,7 +1,6 @@
 package oop.ex6.regexs;
 
 import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class MethodRegex extends Regex {
 
@@ -22,20 +21,28 @@ public class MethodRegex extends Regex {
 		}
 		return false;
 	}
-	public String getMethodName(){
-		Matcher matcher = regexMatcher(VALID_METHOD_NAME);
-		if (matcher.find()){
-			return checkLine.substring(matcher.start(),matcher.end());
-		}
-		System.out.println("error");
-		return ""; // Error?
-	}
-	public String getMethodParameters() {
+
+//	public String getMethodName(){
+//		Matcher matcher = regexMatcher(VALID_METHOD_NAME);
+//		if (matcher.find()){
+//			return checkLine.substring(matcher.start(),matcher.end());
+//		}
+//		return null;//exception
+//	}
+
+	public String[] getMethodNameParams(){
 		Matcher matcher = regexMatcher(METHOD_PARAMS);
 		if(matcher.matches()){
-			return matcher.group(parameters);
+			return new String[] {matcher.group("name"), matcher.group(PARAMETERS)};
 		}
-		System.out.println("error");
-		return ""; //error
+		return null;//exception
 	}
+
+//	public String getMethodParameters() {
+//		Matcher matcher = regexMatcher(METHOD_PARAMS);
+//		if(matcher.matches()){
+//			return matcher.group(PARAMETERS);
+//		}
+//		return null;//exception
+//	}
 }
