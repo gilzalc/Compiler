@@ -25,7 +25,7 @@ public class Regex {
 	protected static final String STARTS_WITH_VOID = " ?void ";
 	private static final String COMMA_SEPARATED = " ?, ?";
 	private final static String AND_OR = " ?(\\|\\|) ?| ?(&&) ?";
-	private static final String IF_While = "(if|while) ?\\((.+)\\) ?\\{";
+	private static final String IF_While = "(if|while) ?\\((?<condition>.+)\\) ?\\{";
 	private static final String VALID_VARIABLE_NAME = "_\\w+|[a-zA-Z]\\w*";// and not a keyword or typeword
 	protected static final String VALID_METHOD_NAME = "[a-zA-Z]\\w*";
 	private static final String VALID_SUFFIX = ";$";
@@ -140,7 +140,7 @@ public class Regex {
 	public String ifWhileCondition() {
 		Matcher matcher = regexMatcher(IF_While);
 		if (matcher.matches()) {
-			return matcher.group(2);//condition
+			return matcher.group("condition");//condition
 		}
 		return null;
 	}
