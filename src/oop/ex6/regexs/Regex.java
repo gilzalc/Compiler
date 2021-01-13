@@ -3,40 +3,34 @@ package oop.ex6.regexs;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * A class that is responsible for all of the general regex manipulation of the text of the S-java file
+ */
 public class Regex {
 
 	//-----------------------------magic numbers-----------------\\
 	protected static final String FINAL = "final";
 	protected static final String FIRST = "first";
 	private static final String TRUE = "true";
-	private static final String EQUALS = "=";
 	private static final String FALSE = "false";
-	private static final String WHILE = "while";
 	protected static final String PARAMETERS = "parameters";
 
-	//-----------------------------Capturing groups-----------------\\
-//	protected static final String FINAL_AND_FIRST_WORD_GROUPS = "(?<final>final )?(?<first>\\w+) ";
+	//-----------------------------Capturing groups Regex's-----------------\\
 	protected static final String FINAL_AND_FIRST_WORD_GROUPS = "((?<final>final )?(?<first>\\w+))";
 	private static final String VAR_NAME_AND_VALUE
 			= " ?(?<varName>_\\w+|[a-zA-Z]\\w*) ?(= ?(?<value>\\S*))?";// למה יש פעמיים \\S בסוף?
 	protected static final String METHOD_PARAMS = "^(?<name>[a-zA-Z]\\w*)\\s?\\((?<parameters>[^\\(\\)]*)\\)\\s*\\{$";
 
 	//-----------------------------regex-----------------\\
-//	protected static final String METHOD_NAME = "[a-zA-Z]\\w*";
 	private static final String METHOD_CALL = "^(?<name>[a-zA-Z]\\w*)\\s?\\((?<params>.*)\\)\\s*$";
 	protected static final String STARTS_WITH_VOID = "\\s?void ";
 	private static final String COMMA_SEPARATED = "\\s?,\\s?";
 	private final static String AND_OR = "\\s?(\\|\\|)\\s?|\\s?(&&) ?";
-	private static final String IF_While = "(if|while)\\s?\\((?<condition>.+)\\)\\s*\\{";
+	private static final String IF_WHILE = "(if|while)\\s?\\((?<condition>.+)\\)\\s*\\{";
 	private static final String VALID_VARIABLE_NAME = "_\\w+|[a-zA-Z]\\w*";// and not a keyword or typeword
-	protected static final String VALID_METHOD_NAME = "[a-zA-Z]\\w*";
 	private static final String VALID_SUFFIX = "\\s*;$";
-	private static final String VALID_INTEGER = "-?\\d+";
 	private static final String VALID_DOUBLE = "-?\\d+(\\.\\d+)?"; // W About .5 or 5. ?
 	private static final String VALID_BOOL = TRUE + "|" + FALSE + "|" + VALID_DOUBLE;
-	private static final String VALID_CHAR = "'.'";
-	private static final String VALID_STRING = "\".*\"";
-	private static final String PARENTHESES = "(.*)";
 	private static final String SPACES = "\\b\\s{2,}|\\s{2,}\\b";
 	private static final String SPACE_COMMENT = "^(\\s//)";
 	private static final String SPACE = "^\\s+|\\s+$";
@@ -46,6 +40,9 @@ public class Regex {
 
 	//--------------DATA MEMBERS-------------\\
 	private Matcher firstWordsMatcher;
+	/**
+	 * The string to manipulate with regex
+	 */
 	protected String checkLine;
 
 
@@ -93,7 +90,7 @@ public class Regex {
 
 	public String getFirstWord() {
 
-		return firstWordsMatcher.group("first");
+		return firstWordsMatcher.group(FIRST);
 	}
 
 	public boolean hasFinal() {
@@ -144,14 +141,14 @@ public class Regex {
 	}
 
 	public String ifWhileCondition() {
-		Matcher matcher = regexMatcher(IF_While);
+		Matcher matcher = regexMatcher(IF_WHILE);
 		if (matcher.matches()) {
 			return matcher.group("condition");
 		}
 		return null;
 	}
 
-	//------------------Static methods------------------\\
+	                     //------------------Static methods------------------\\
 	public static boolean isVarNameValid(String varName) {
 		if (varName.endsWith(" ")) {
 			varName = varName.substring(0, varName.length() - 1);
@@ -159,9 +156,6 @@ public class Regex {
 		return (Pattern.matches(VALID_VARIABLE_NAME, varName));
 	}
 
-//	public static boolean isValidMethodName(String methodName) {
-//		return (Pattern.matches(VALID_METHOD_NAME, methodName));
-//	}
 
 	public static boolean isValidVal(String pattern, String varVal) {
 		return Pattern.matches(pattern, varVal);

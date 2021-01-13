@@ -5,16 +5,23 @@ import oop.ex6.blocks.Method;
 
 import java.util.LinkedList;
 
+/**
+ * A class that parses the linas of a method
+ */
 public class MethodParser extends Parser {
 
-//	LinkedList<>
 
+	/**
+	 * constructor for the Method parser
+	 * @param parser parent (global) parser
+	 */
 	public MethodParser(Parser parser) {
 		super(parser, new Method(new LinkedList<>()));
 	}
+
+
 	@Override
 	public void checkLines() throws ParserException {
-//		scopeLines.poll();
 		String lastLine = scopeLines.getLast();
 		runInnerParsers();
 		Regex regex = new Regex(lastLine);
@@ -23,20 +30,4 @@ public class MethodParser extends Parser {
 		}
 	}
 
-//	public void runFirstLine(){
-//		for (Variable var: parameters){
-//			// מוסיף את הפרמטרים כמשתנים של המתודה
-//		}
-//	}
-
-//	public void addParameters(Variable parameter){
-//
-//	}
-
-	//	public String getMethodDeclaration() {
-//		return scopeLines.getFirst();
-//	}
-//	public boolean isValidArguments(LinkedList<Variable> vars){
-//		return false;
-//	}//can be a primitive
 }

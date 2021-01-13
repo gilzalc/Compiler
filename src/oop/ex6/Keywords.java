@@ -7,6 +7,11 @@ import java.util.HashSet;
  * Types, and one represents the other keywords. in addition, it has a static method that gets
  */
 public abstract class Keywords {
+	private static final String BOOLEAN = "boolean";
+	private static final String INT = "int";
+	private static final String DOUBLE = "double";
+	private static final String STRING = "String";
+	private static final String CHAR = "char";
 	private static final String TRUE = "true";
 	private static final String FALSE = "false";
 	private static final String VALID_DOUBLE = "-?\\d+(\\.\\d+)?";
@@ -14,34 +19,45 @@ public abstract class Keywords {
 	private static final String VALID_CHAR = "'.'";
 	private static final String VALID_INTEGER_REG = "-?\\d+";
 	private static final String VALID_STRING = "\".*\"";
+	private static HashSet<String> keyWordsSet;
 
 	/**
-	 * enum that represents all of the valid variables types in S-java, with their matching regex expression
-	 * for valid value
+	 * enum that represents all of the valid variables types in S-java ,
+	 * with their matching regex expression for valid value validation
 	 */
 	public enum Type {
-		BOOLEAN(VALID_BOOL),
-		CHAR(VALID_CHAR),
-		DOUBLE(VALID_DOUBLE),
-		INT(VALID_INTEGER_REG),
-		STRING(VALID_STRING);
+		BOOLEAN(VALID_BOOL,Keywords.BOOLEAN),
+		CHAR(VALID_CHAR, Keywords.CHAR),
+		DOUBLE(VALID_DOUBLE, Keywords.DOUBLE),
+		INT(VALID_INTEGER_REG, Keywords.INT),
+		STRING(VALID_STRING, Keywords.STRING);
+		//Data members:
 		private final String myRegex;
+		private final String name;
 
-		Type(String regex) {
+		Type(String regex, String name) {
 			this.myRegex = regex;
+			this.name = name;
 		}
 
 		public String getRegex() {return this.myRegex;}
-
-		public boolean isMatching(Type type) { //Checks assignments
-			if (this == type) {
+		private String getName() {
+			return this.name;
+		}
+		/**
+		 * checks if another type is ok for an assignment with a variable of this obj
+		 * @param otherType other variable type of the
+		 * @return true if ok to assign, false o.w.
+		 */
+		public boolean isMatching(Type otherType) { //Checks assignments
+			if (this == otherType) {
 				return true;
 			}
 			switch (this) {
 			case DOUBLE:
-				return type == INT;
+				return otherType == INT;
 			case BOOLEAN:
-				return type == INT || type == DOUBLE;
+				return otherType == INT || otherType == DOUBLE;
 			default:
 				return false;
 			}
@@ -58,7 +74,7 @@ public abstract class Keywords {
 			this.name = s;
 		}
 
-		String getName() {
+		private String getName() {
 			return this.name;
 		}
 	}
@@ -68,13 +84,16 @@ public abstract class Keywords {
 	 * @return S-java keywords hashSet
 	 */
 	public static HashSet<String> getKeywords() {
-		HashSet<String> setToReturn = new HashSet<>();
-		for (Type t : Type.values()) {
-			setToReturn.add(t.toString());
+		if (keyWordsSet == null) {
+			keyWordsSet = new HashSet<>();
+
+			for (Type t : Type.values()) {
+				keyWordsSet.add(t.getName());
+			}
+			for (General kw : General.values()) {
+				keyWordsSet.add(kw.getName());
+			}
 		}
-		for (General kw : General.values()) {
-			setToReturn.add(kw.name);
-		}
-		return setToReturn;
+		return keyWordsSet;
 	}
 }
