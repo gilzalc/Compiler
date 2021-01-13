@@ -1,10 +1,9 @@
 package oop.ex6;
 
-import oop.ex6.main.IllegalSFile;
 import oop.ex6.parsers.FileParser;
 import oop.ex6.parsers.GlobalParser;
 import oop.ex6.parsers.Parser;
-import oop.ex6.parsers.ParserError;
+import oop.ex6.parsers.ParserException;
 import oop.ex6.regexs.Regex;
 
 import java.io.IOException;
@@ -18,7 +17,7 @@ public class Manager {
 		linesSReader = SReader;
 	}
 
-	public void run() throws IOException, ParserError {
+	public void run() throws IOException, ParserException {
 		sfileOrganizer();
 		FileParser fileParser = new FileParser(fixedLines);
 		fileParser.run();
@@ -43,12 +42,12 @@ public class Manager {
 		}
 	}
 
-	private void runGlobalParser() throws ParserError {
+	private void runGlobalParser() throws ParserException {
 		GlobalParser globalParser = GlobalParser.getInstance();
 		globalParser.checkLines();// declarations and assignments and creating methods
 	}
 
-	private void runMethodsParsers() throws ParserError {
+	private void runMethodsParsers() throws ParserException {
 		LinkedList<Parser> methodsParsers = GlobalParser.getInstance().getChildParsers();
 		for (Parser parser : methodsParsers){
 			parser.checkLines();

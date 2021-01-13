@@ -1,7 +1,7 @@
 package oop.ex6.main;
 
 import oop.ex6.*;
-import oop.ex6.parsers.ParserError;
+
 import java.io.IOException;
 
 public class Sjavac {

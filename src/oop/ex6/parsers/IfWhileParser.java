@@ -1,7 +1,6 @@
 package oop.ex6.parsers;
 
 import oop.ex6.*;
-import oop.ex6.main.IllegalSFile;
 import oop.ex6.regexs.Regex;
 import oop.ex6.scopes.Scope;
 
@@ -15,7 +14,7 @@ public class IfWhileParser extends Parser {
 	}
 
 	@Override
-	public void checkLines() throws ParserError {
+	public void checkLines() throws ParserException {
 		runFirstLine(scopeLines.poll());
 		runInnerParsers();
 	}

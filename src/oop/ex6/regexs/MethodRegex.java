@@ -4,13 +4,14 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class MethodRegex extends Regex {
+
 	public MethodRegex(String line) {
 		super(line);
 	}
 
-	public static boolean isValidMethodName(String methodName) {
-		return (Pattern.matches(VALID_METHOD_NAME, methodName));
-	}
+//	public static boolean isValidMethodName(String methodName) {
+//		return (Pattern.matches(VALID_METHOD_NAME, methodName));
+//	}
 
 	public boolean methodStart() {
 		Matcher matcher = regexMatcher(STARTS_WITH_VOID);

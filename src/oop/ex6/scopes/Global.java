@@ -17,9 +17,10 @@ public class Global extends Scope { //singleton
 		return globalScope;
 	}
 
-	public void addMethod(String s,Method m){
-		if (methodsMap.containsKey(s)) return; //error
-		methodsMap.put(s,m);
+	public void addMethod(String methodName,Method method){
+//		if (methodsMap.containsKey(scope)) return; //error
+		// אנחנו בודקים את זה כבר לפני בglobalParser
+		methodsMap.put(methodName, method);
 	}
 
 

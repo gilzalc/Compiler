@@ -26,7 +26,7 @@ public abstract class Parser {
 		childParsers = new LinkedList<>();
 	}
 
-	public abstract void checkLines() throws ParserError;
+	public abstract void checkLines() throws ParserException;
 
 	public Scope getScope() {
 		return scope;
@@ -52,7 +52,7 @@ public abstract class Parser {
 		return childParsers;
 	}
 
-	protected void checkLine(String line) throws ParserError {
+	protected void checkLine(String line) throws ParserException {
 		Regex reg = new Regex(line);
 		if (reg.isReturnLine()) { //with regex
 			return;
@@ -65,11 +65,11 @@ public abstract class Parser {
 		Keywords.Type type = checkVarType(firstWord);
 		if (type == null) {
 			if (hasFinal) {
-				throw new UnInitializedError("missing type after final");
+				throw new UnInitializedException("missing type after final");
 			}
 			Variable var = scope.getVariable(firstWord);
 			if (var == null) {
-				throw new ParserError("No variable found in line");
+				throw new ParserException("No variable found in line");
 			}
 		} else {
 			isCreating = true;
@@ -79,7 +79,7 @@ public abstract class Parser {
 	}
 
 	private void manageVarExpressions(Regex reg, Boolean isCreating, Keywords.Type type, boolean hasFinal)
-			throws ParserError {
+			throws ParserException {
 		String[] varDeclarations = reg.splitByComma();
 		for (String declaration : varDeclarations) {
 			reg = new Regex(declaration);
@@ -95,14 +95,14 @@ public abstract class Parser {
 	}
 
 	public void createVars(String nameString, String valueString, Keywords.Type type, boolean hasFinal)
-			throws ParserError {
+			throws ParserException {
 		if (nameString == null || !Regex.isVarNameValid(nameString)) {
 //			return; //Error - not valid var name
-			throw new InvalidError("not valid var name");
+			throw new InvalidException("not valid var name");
 		}
 		if (valueString == null) {
 			if (hasFinal) {
-				throw new UnInitializedError("final variable not initialized");
+				throw new UnInitializedException("final variable not initialized");
 			}
 			scope.addVariable(nameString, new Variable(false, false, type));
 		} else {
@@ -111,11 +111,11 @@ public abstract class Parser {
 		}
 	}
 
-	protected void assignVars(String nameString, String valueString) throws ParserError {
+	protected void assignVars(String nameString, String valueString) throws ParserException {
 		Variable assignedVar = scope.getVariable(nameString);
 		if (assignedVar == null) {
 //			return;//Error - not declared
-			throw new UnInitializedError("The variable was never declared");
+			throw new UnInitializedException("The variable was never declared");
 		}
 		if (assignedVar.IsFinal() && assignedVar.isInitialized()) {
 			return; //Error - cant assign to final?
@@ -129,24 +129,24 @@ public abstract class Parser {
 	}
 
 
-	protected void checkVarValueAssignment(String valString, Keywords.Type type) throws ParserError {
+	protected void checkVarValueAssignment(String valString, Keywords.Type type) throws ParserException {
 		Variable var = scope.getVariable(valString);
 		if (var != null) {
 			if (!var.isInitialized()) {
-				throw new UnInitializedError("Assigning uninitialized variable");
+				throw new UnInitializedException("Assigning uninitialized variable");
 //				return;// error Assigning uninitialized var
 			}
 			if (!type.isMatching(var.getType())) {
-				throw new TypeError("Incompatible type");
+				throw new TypeException("Incompatible type");
 //				return; //not compatible Type
 			}
 		}
 		if (!Regex.isValidVal(type.getRegex(), valString)) {
-			throw new InvalidError("The value of the variable does not match the type of variable");
+			throw new InvalidException("The value of the variable does not match the type of variable");
 		}
 	}
 
-	protected void runChildParser() throws ParserError {
+	protected void runChildParser() throws ParserException {
 		Parser childParser = childParsers.poll();
 //		if ((childParser = childParsers.poll()) == null) {
 //			return;//error
@@ -171,7 +171,7 @@ public abstract class Parser {
 		}
 	}
 
-	protected void runInnerParsers() throws ParserError {
+	protected void runInnerParsers() throws ParserException {
 		String line;
 		while ((line = scopeLines.poll()) != null) {
 			if (line.equals("{")) {
@@ -188,7 +188,7 @@ public abstract class Parser {
 		}
 	}
 
-	private boolean checkMethodCall(String line) throws ParserError {
+	private boolean checkMethodCall(String line) throws ParserException {
 		String[] methodPars;
 		Regex regex = new Regex(line);
 		if ((methodPars = regex.checkMethodCall()) != null) {
@@ -200,7 +200,7 @@ public abstract class Parser {
 			Method calledMethod = global.getMethod(methodName);
 			if (calledMethod == null) {
 //				return false;//error not exist method
-				throw new MethodParseError("There is no method by this name");
+				throw new MethodParseException("There is no method by this name");
 			}
 			LinkedList<Keywords.Type> requiredTypes = calledMethod.getRequiredTypes();
 			checkArgs(requiredTypes, parameters);
@@ -209,10 +209,10 @@ public abstract class Parser {
 		return false;
 	}
 
-	private void checkArgs(LinkedList<Keywords.Type> types, String[] params) throws ParserError {
+	private void checkArgs(LinkedList<Keywords.Type> types, String[] params) throws ParserException {
 		if (types.size() != params.length) {
 //			return false;//Error Wrong num of params
-			throw new MethodParseError("Wrong num of parameters");
+			throw new MethodParseException("Wrong num of parameters");
 		}
 		for (int i = 0; i < params.length - 1; i++) {
 			checkVarValueAssignment(params[i], types.get(i));

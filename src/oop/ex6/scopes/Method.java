@@ -14,7 +14,7 @@ public class Method extends Scope {
 		requiredTypes = types;
 	}
 
-	public void addRequiredVar(String varName,Variable variable) {
+	public void addRequiredVar(String varName,Variable variable) throws ScopeException {
 		addVariable(varName,variable); //can throw error
 		requiredTypes.add(variable.getType());
 	}

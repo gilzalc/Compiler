@@ -21,7 +21,7 @@ public class FileParser {
 		parser = GlobalParser.getInstance();
 	}
 
-	public void run() throws ParserError {
+	public void run() throws ParserException {
 		for (String line : fixedLines) {
 			Regex lineRegex = new Regex(line);
 			if (lineRegex.enterScope()) { //check for "void"?
@@ -42,18 +42,18 @@ public class FileParser {
 			if (line.equals("}")) {
 				scope--;
 				if (scope < GLOBAL) {
-					throw new SuffixError("Closed more internal scopes than opened");
+					throw new SuffixException("Closed more internal scopes than opened");
 				}
 				parser = parser.getParentParser();
 				continue;
 			}
 			if((line = lineRegex.validSuffix()) == null){
-				throw new SuffixError("not valid line suffix");
+				throw new SuffixException("not valid line suffix");
 			}
 			parser.addLine(line);
 		}
 		if (scope > GLOBAL){
-			throw new SuffixError("Some of the opened internal scopes did not close");
+			throw new SuffixException("Some of the opened internal scopes did not close");
 		}
 	}
 }

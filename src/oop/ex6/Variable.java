@@ -4,7 +4,6 @@ public class Variable {
 
 	private  boolean initialized;
 	private final boolean isFinal;
-	//	private final String name;
 	private final Keywords.Type type;
 
 	public Variable(boolean vInitialized, boolean vFinal, Keywords.Type Vtype) {
@@ -24,7 +23,6 @@ public class Variable {
 	public boolean IsFinal() {
 		return isFinal;
 	}
-
 
 	public Keywords.Type getType() {
 		return type;

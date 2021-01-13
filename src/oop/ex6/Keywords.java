@@ -61,8 +61,6 @@ public abstract class Keywords {
 		String getName() {
 			return this.name;
 		}
-
-
 	}
 
 	/**

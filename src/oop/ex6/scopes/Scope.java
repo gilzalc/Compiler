@@ -20,12 +20,16 @@ public abstract class Scope {
 		outerScope = null;
 	}
 
-	public void addVariable(String s, Variable var) {
+	public void addVariable(String varName, Variable var) throws ScopeException {
 		// בדיקה שהשם תקין
-		if (variables.containsKey(s) || Keywords.getKeywords().contains(s)) {
-			return; //Error
+		if (variables.containsKey(varName)) {
+//			return; //Error
+			throw new ScopeException("A variable with the same name already exists");
 		}
-		variables.put(s, var);
+		if (Keywords.getKeywords().contains(varName)){
+			throw new ScopeException("The variable name is equal to one of the keywords");
+		}
+		variables.put(varName, var);
 	}
 
 	private Scope getOuterScope(){

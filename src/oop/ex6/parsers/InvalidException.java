@@ -1,7 +1,7 @@
 package oop.ex6.parsers;
 
-public class InvalidError extends ParserError {
-	public InvalidError(String message) {
+public class InvalidException extends ParserException {
+	public InvalidException(String message) {
 		super(message);
 	}
 

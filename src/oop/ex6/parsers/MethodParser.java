@@ -1,6 +1,5 @@
 package oop.ex6.parsers;
 
-import oop.ex6.main.IllegalSFile;
 import oop.ex6.regexs.Regex;
 import oop.ex6.Variable;
 import oop.ex6.scopes.Method;
@@ -16,7 +15,7 @@ public class MethodParser extends Parser {
 	}
 
 	@Override
-	public void checkLines() throws ParserError {
+	public void checkLines() throws ParserException {
 //		scopeLines.poll();
 		String lastLine = scopeLines.getLast();
 		runInnerParsers();
