@@ -1,4 +1,4 @@
-package oop.ex6.scopes;
+package oop.ex6.blocks;
 
 import oop.ex6.Keywords;
 import oop.ex6.Variable;
@@ -32,17 +32,17 @@ public abstract class Block {
 		variables.put(varName, var);
 	}
 
-	private Block getOuterScope(){
+	private Block getOuterBlock(){
 		return outerBlock;
 	}
 
 	public Variable getVariable(String varName) {
-		while (outerBlock != null) {
-			if (variables.containsKey(varName)) {
-				return variables.get(varName);
+		Block checkBlock = this;
+		do {
+			if (checkBlock.variables.containsKey(varName)) {
+				return checkBlock.variables.get(varName);
 			}
-			outerBlock = outerBlock.getOuterScope();
-		}
+		} while ((checkBlock = checkBlock.getOuterBlock()) != null);
 		return null;
 	}
 }

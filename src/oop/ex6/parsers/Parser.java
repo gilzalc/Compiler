@@ -2,7 +2,7 @@ package oop.ex6.parsers;
 
 import oop.ex6.Keywords;
 import oop.ex6.regexs.Regex;
-import oop.ex6.scopes.*;
+import oop.ex6.blocks.*;
 import oop.ex6.Variable;
 import java.util.LinkedList;
 
@@ -119,18 +119,13 @@ public abstract class Parser {
 	protected void assignVars(String nameString, String valueString) throws ParserException {
 		Variable assignedVar = block.getVariable(nameString);
 		if (assignedVar == null) {
-//			return;//Error - not declared
 			throw new UnInitializedException("The variable was never declared");
 		}
 		if (assignedVar.IsFinal() && assignedVar.isInitialized()) {
 			return; //Error - cant assign to final?
 		}
-//		try {
 		checkVarValueAssignment(valueString, assignedVar.getType());
 		assignedVar.initial();
-//		} catch (UnmatchingValueError error) {
-//			error.getMessage(); //not good value/var Type
-//		}
 	}
 
 
@@ -139,11 +134,9 @@ public abstract class Parser {
 		if (var != null) {
 			if (!var.isInitialized()) {
 				throw new UnInitializedException("Assigning uninitialized variable");
-//				return;// error Assigning uninitialized var
 			}
 			if (!type.isMatching(var.getType())) {
 				throw new TypeException("Incompatible type");
-//				return; //not compatible Type
 			}
 		}
 		if (!Regex.isValidVal(type.getRegex(), valString)) {
@@ -187,9 +180,6 @@ public abstract class Parser {
 				continue;
 			}
 			checkLine(line);
-//			if (!checkLine(line)) {
-//				return;//error: not valid line
-//			}
 		}
 	}
 
@@ -204,7 +194,6 @@ public abstract class Parser {
 			Global global = Global.getInstance();
 			Method calledMethod = global.getMethod(methodName);
 			if (calledMethod == null) {
-//				return false;//error not exist method
 				throw new MethodException("There is no method by this name");
 			}
 			LinkedList<Keywords.Type> requiredTypes = calledMethod.getRequiredTypes();
@@ -216,13 +205,11 @@ public abstract class Parser {
 
 	private void checkArgs(LinkedList<Keywords.Type> types, String[] params) throws ParserException {
 		if (types.size() != params.length) {
-//			return false;//Error Wrong num of params
 			throw new MethodException("Wrong num of parameters");
 		}
 		for (int i = 0; i < params.length - 1; i++) {
 			checkVarValueAssignment(params[i], types.get(i));
 		}
-//		return true;
 	}
 }
 

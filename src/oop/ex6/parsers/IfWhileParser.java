@@ -2,13 +2,12 @@ package oop.ex6.parsers;
 
 import oop.ex6.*;
 import oop.ex6.regexs.Regex;
-import oop.ex6.scopes.Block;
+import oop.ex6.blocks.Block;
 
 public class IfWhileParser extends Parser {
 
 	public IfWhileParser(Parser parentParser, Block ifWhileBlock) {
 		super(parentParser, ifWhileBlock);
-//		super(parentParser, new IfWhile(parentParser.getScope()));
 	}
 
 	@Override
@@ -21,7 +20,6 @@ public class IfWhileParser extends Parser {
 		Regex regex = new Regex(line);
 		String conditions = regex.ifWhileCondition();
 		if (conditions == null) {
-//			return;//error not valid if/while
 			throw new IfWhileException("not valid if/while first line");
 		}
 		regex = new Regex(conditions);

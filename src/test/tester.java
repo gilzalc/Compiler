@@ -1,15 +1,12 @@
 import java.io.File;
 
 import oop.ex6.main.Sjavac;
-import oop.ex6.parsers.GlobalParser;
-import oop.ex6.scopes.Global;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileWriter;
 import java.io.PrintStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Scanner;
 
 public class tester {
     // TODO - change the TESTS_DIR_PATH to the absolut path to "test" dir on your pc.

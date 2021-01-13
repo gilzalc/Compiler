@@ -4,8 +4,8 @@ import oop.ex6.*;
 import oop.ex6.regexs.MethodRegex;
 import oop.ex6.regexs.Regex;
 import oop.ex6.regexs.VariableRegex;
-import oop.ex6.scopes.Global;
-import oop.ex6.scopes.Method;
+import oop.ex6.blocks.Global;
+import oop.ex6.blocks.Method;
 
 public class GlobalParser extends Parser {
 

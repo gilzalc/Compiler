@@ -5,7 +5,6 @@ import oop.ex6.parsers.GlobalParser;
 import oop.ex6.parsers.Parser;
 import oop.ex6.parsers.ParserException;
 import oop.ex6.regexs.Regex;
-import oop.ex6.scopes.Global;
 
 import java.io.IOException;
 import java.util.LinkedList;
@@ -22,18 +21,9 @@ public class Manager {
 		sfileOrganizer();
 		FileParser fileParser = new FileParser(fixedLines);
 		fileParser.run();
-//		try {
 		GlobalParser globalParser = GlobalParser.getInstance();
 		globalParser.checkLines();
-//		} catch (IllegalSFile illegalSFile) {
-//			illegalSFile.printStackTrace();
-//		}
 		runMethodsParsers();
-//		if(!globalParser.getChildParsers().isEmpty()) {
-//			runMethodsParsers();
-//		}
-		// parse method declarations
-		// parse all scopes
 	}
 
 	private void sfileOrganizer() throws IOException {
@@ -58,8 +48,4 @@ public class Manager {
 			parser.checkLines();
 		}
 	}
-
-//	private void runInnerParsers(){
-//
-//	}
 }

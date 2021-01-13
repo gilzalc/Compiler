@@ -1,4 +1,4 @@
-package oop.ex6.scopes;
+package oop.ex6.blocks;
 
 public class IfWhile extends Block {
 

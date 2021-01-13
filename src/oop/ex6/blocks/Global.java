@@ -1,4 +1,4 @@
-package oop.ex6.scopes;
+package oop.ex6.blocks;
 
 import java.util.HashMap;
 

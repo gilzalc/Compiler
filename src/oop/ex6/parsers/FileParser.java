@@ -1,8 +1,8 @@
 package oop.ex6.parsers;
 
 import oop.ex6.regexs.Regex;
-import oop.ex6.scopes.IfWhile;
-import oop.ex6.scopes.Block;
+import oop.ex6.blocks.IfWhile;
+import oop.ex6.blocks.Block;
 
 import java.util.LinkedList;
 

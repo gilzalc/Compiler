@@ -26,8 +26,6 @@
  */
 
 import oop.ex6.main.Sjavac;
-import oop.ex6.parsers.GlobalParser;
-import oop.ex6.scopes.Global;
 
 import java.io.BufferedReader;
 import java.io.File;

@@ -1,8 +1,7 @@
 package oop.ex6.parsers;
 
 import oop.ex6.regexs.Regex;
-import oop.ex6.Variable;
-import oop.ex6.scopes.Method;
+import oop.ex6.blocks.Method;
 
 import java.util.LinkedList;
 

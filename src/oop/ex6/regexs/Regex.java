@@ -18,7 +18,7 @@ public class Regex {
 //	protected static final String FINAL_AND_FIRST_WORD_GROUPS = "(?<final>final )?(?<first>\\w+) ";
 	protected static final String FINAL_AND_FIRST_WORD_GROUPS = "((?<final>final )?(?<first>\\w+))";
 	private static final String VAR_NAME_AND_VALUE
-			= " ?(?<varName>_\\w+|[a-zA-Z]\\w* ?)(= ?(?<value>\\S*))?";// למה יש פעמיים \\S בסוף?
+			= " ?(?<varName>_\\w+|[a-zA-Z]\\w*) ?(= ?(?<value>\\S*))?";// למה יש פעמיים \\S בסוף?
 	protected static final String METHOD_PARAMS = " ?\\((?<parameters>[^\\(\\)]*)\\)\\s*";
 
 	//-----------------------------regex-----------------\\

@@ -2,7 +2,7 @@ package oop.ex6.main;
 
 import oop.ex6.*;
 import oop.ex6.parsers.GlobalParser;
-import oop.ex6.scopes.Global;
+import oop.ex6.blocks.Global;
 
 import java.io.IOException;
 
@@ -25,10 +25,10 @@ public class Sjavac {
 			manager.run();
             System.out.println(LEGAL_CODE);
         } catch (IOException io) {
-            System.err.println("IO ERROR");
+            System.out.println("IO ERROR");
             System.out.println(IO_ERROR);
         } catch (IllegalSFile isf) {
-            System.err.println(isf.getMessage());
+            System.out.println(isf.getMessage());
             System.out.println(ILLEGAL_CODE);
         }
 		}
