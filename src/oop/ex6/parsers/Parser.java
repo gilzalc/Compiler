@@ -14,14 +14,16 @@ public abstract class Parser {
 	private static final String DOUBLE = "double";
 	private static final String STRING = "String";
 	private static final String CHAR = "char";
+	private static final int NAME_INDEX = 0;
+	private static final int VALUE_INDEX = 1;
 	protected LinkedList<String> scopeLines;
 	protected Parser parentParser;
 	protected LinkedList<Parser> childParsers;
 	protected Scope scope;
 
-	protected Parser(Parser parent, Scope s) {
+	protected Parser(Parser parent, Scope parserScope) {
 		parentParser = parent;
-		scope = s;
+		scope = parserScope;
 		scopeLines = new LinkedList<>();
 		childParsers = new LinkedList<>();
 	}
@@ -53,14 +55,14 @@ public abstract class Parser {
 	}
 
 	protected void checkLine(String line) throws ParserException {
-		Regex reg = new Regex(line);
-		if (reg.isReturnLine()) { //with regex
+		Regex regex = new Regex(line);
+		if (regex.isReturnLine()) { //with regex
 			return;
 		}
-		reg.setFirstWordsMatcher();
-		String firstWord = reg.getFirstWord();
-		boolean hasFinal = reg.hasFinal();
-		int afterLast = reg.getEndOfFirst();
+		regex.setFirstWordsMatcher();
+		String firstWord = regex.getFirstWord();
+		boolean hasFinal = regex.hasFinal();
+		int afterLast = regex.getEndOfFirst();
 		boolean isCreating = false;
 		Keywords.Type type = checkVarType(firstWord);
 		if (type == null) {
@@ -73,24 +75,27 @@ public abstract class Parser {
 			}
 		} else {
 			isCreating = true;
-			reg = new Regex(line.substring(afterLast));
+			regex = new Regex(line.substring(afterLast));
 		}
-		manageVarExpressions(reg, isCreating, type, hasFinal);
+		manageVarExpressions(regex, isCreating, type, hasFinal);
 	}
 
-	private void manageVarExpressions(Regex reg, Boolean isCreating, Keywords.Type type, boolean hasFinal)
+	private void manageVarExpressions(Regex regex, Boolean isCreating, Keywords.Type type, boolean hasFinal)
 			throws ParserException {
-		String[] varDeclarations = reg.splitByComma();
+		String[] varDeclarations = regex.splitByComma();
 		for (String declaration : varDeclarations) {
-			reg = new Regex(declaration);
-			String[] str = reg.getVarNameAndValue();
-			String nameString = str[0];
-			String valueString = str[1];
+			regex = new Regex(declaration);
+			String[] nameAndValue;
+			if ((nameAndValue = regex.getVarNameAndValue()) == null){
+				throw new InvalidException("invalid declaration");
+			}
+//			String nameString = nameAndValue[NAME_INDEX];
+//			String valueString = nameAndValue[VALUE_INDEX];
 			if (isCreating) {
-				createVars(nameString, valueString, type, hasFinal);
+				createVars(nameAndValue[NAME_INDEX], nameAndValue[VALUE_INDEX], type, hasFinal);
 				continue;
 			}
-			assignVars(nameString, valueString);
+			assignVars(nameAndValue[NAME_INDEX], nameAndValue[VALUE_INDEX]);
 		}
 	}
 
@@ -200,7 +205,7 @@ public abstract class Parser {
 			Method calledMethod = global.getMethod(methodName);
 			if (calledMethod == null) {
 //				return false;//error not exist method
-				throw new MethodParseException("There is no method by this name");
+				throw new MethodException("There is no method by this name");
 			}
 			LinkedList<Keywords.Type> requiredTypes = calledMethod.getRequiredTypes();
 			checkArgs(requiredTypes, parameters);
@@ -212,7 +217,7 @@ public abstract class Parser {
 	private void checkArgs(LinkedList<Keywords.Type> types, String[] params) throws ParserException {
 		if (types.size() != params.length) {
 //			return false;//Error Wrong num of params
-			throw new MethodParseException("Wrong num of parameters");
+			throw new MethodException("Wrong num of parameters");
 		}
 		for (int i = 0; i < params.length - 1; i++) {
 			checkVarValueAssignment(params[i], types.get(i));

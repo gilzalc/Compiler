@@ -21,9 +21,10 @@ public class Regex {
 	protected static final String METHOD_PARAMS = " ?\\((?<parameters>[^\\(\\)]*)\\)\\s*";
 	//-----------------------------regex-----------------\\
 	protected static final String METHOD_NAME = "[^\\s\\(]+";
-	private static final String METHOD_CALL = "^([^\\s\\(=]+) ?\\((.*\\)) ?$";
+	private static final String METHOD_CALL = "^(?<name>[^\\s\\(=]+) ?\\((?<params>.*)\\) ?$";
 	protected static final String STARTS_WITH_VOID = " ?void ";
 	private static final String COMMA_SEPARATED = " ?, ?";
+	private final static String AND_OR = " ?(\\|\\|) ?| ?(&&) ?";
 	private static final String IF_While = "(if|while) ?\\((.+)\\) ?\\{";
 	private static final String VALID_VARIABLE_NAME = "_\\w+|[a-zA-Z]\\w*";// and not a keyword or typeword
 	protected static final String VALID_METHOD_NAME = "[a-zA-Z]\\w*";
@@ -75,11 +76,10 @@ public class Regex {
 	public String[] checkMethodCall(){
 		Matcher matcher = (regexMatcher(METHOD_CALL));
 		if (matcher.matches()) {
-			return new String[]{matcher.group(1), matcher.group(2)};
+			return new String[]{matcher.group("name"), matcher.group("params")};
 		}
 		return null;
 	}
-
 
 	public void setFirstWordsMatcher() {
 		firstWordsMatcher = regexMatcher(FINAL_AND_FIRST_WORD_GROUPS);
@@ -104,10 +104,10 @@ public class Regex {
 			String valueString = matcher.group("value");
 			return new String[]{nameString, valueString};
 		}
-		// throw an error?
-		return new String[]{"S"}; //to edit!!!!!
+//		// throw an error?
+//		return new String[]{"S"}; //to edit!!!!!
+		return null;
 	}
-
 
 	public boolean enterScope() {
 		return regexMatcher("{$").matches();
@@ -124,7 +124,13 @@ public class Regex {
 //		if (checkLine.endsWith(",")) {
 //			throw new IllegalSFile();
 //		}
-		return this.checkLine.split(COMMA_SEPARATED);
+		checkLine = startEndSpace();
+		return checkLine.split(COMMA_SEPARATED);
+	}
+
+	public String[] splitCondition() {
+		checkLine = startEndSpace();
+		return checkLine.split(AND_OR);
 	}
 
 	public boolean isReturnLine(){

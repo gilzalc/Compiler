@@ -44,17 +44,17 @@ public class GlobalParser extends Parser {
 			MethodRegex reg = new MethodRegex(firstLine);
 			if (!reg.methodStart()) { // removes void and space, if false throw error
 //				throw new UnsupportedOperationException("method return value has to be void");
-				throw new MethodParseException("method return value has to be void");
+				throw new MethodException("method return value has to be void");
 			}
 			String methodName = reg.getMethodName();
 			if (!Regex.isValidMethodName(methodName)
 				&& !(Keywords.getKeywords().contains(methodName))) { // לא הבנתי מה קורה פה...
-				throw new MethodParseException("invalid name for method");
+				throw new MethodException("invalid name for method");
 //				return; // invalid name for method
 			}
 			if ((Global.getInstance().getMethod(methodName)) != null) {
 //				throw new DuplicateRequestException("two methods with the same name");
-				throw new MethodParseException("A method with a similar name already exists");
+				throw new MethodException("A method with a similar name already exists");
 			}
 			addParameters(methodName,reg,(Method) parser.getScope());
 		}
@@ -67,18 +67,18 @@ public class GlobalParser extends Parser {
 		for (String param : parametersArr) {
 			VariableRegex paramReg = new VariableRegex(param);
 			if (!paramReg.isMatching()) {
-				throw new MethodParseException("wrong parameter format"); // wrong format
+				throw new MethodException("wrong parameter format"); // wrong format
 			}
 			Keywords.Type varType = checkVarType(paramReg.getStringType());
 			if (varType == null) {
-				throw new MethodParseException("wrong parameter format");// wrong format
+				throw new MethodException("wrong parameter format");// wrong format
 			}
 			String varName = paramReg.getStringName();
 			if (Regex.isVarNameValid(varName)) {
 				toAdd.addRequiredVar(varName, (new Variable(false, paramReg.hasFinal(), varType)));
 				continue;
 			}
-			throw new MethodParseException("not valid parameter");
+			throw new MethodException("not valid parameter");
 		}
 	}
 

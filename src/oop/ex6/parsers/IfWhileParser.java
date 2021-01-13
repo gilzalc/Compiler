@@ -6,10 +6,8 @@ import oop.ex6.scopes.Scope;
 
 public class IfWhileParser extends Parser {
 
-	private final static String AND_OR = "(\\|\\|)|(&&)";
-
 	public IfWhileParser(Parser parentParser, Scope ifWhileScope) {
-		super(parentParser, ifWhileScope);// לא נכון!!! צריך לתקן
+		super(parentParser, ifWhileScope);
 //		super(parentParser, new IfWhile(parentParser.getScope()));
 	}
 
@@ -19,18 +17,22 @@ public class IfWhileParser extends Parser {
 		runInnerParsers();
 	}
 
-	private void runFirstLine(String line) {
+	private void runFirstLine(String line) throws ParserException {
 		Regex regex = new Regex(line);
 		String conditions = regex.ifWhileCondition();
 		if (conditions == null) {
-			return;//error not valid if/while
+//			return;//error not valid if/while
+			throw new IfWhileException("not valid if/while first line");
 		}
-		String[] conditionsArray = conditions.split(AND_OR);
+		regex = new Regex(conditions);
+		String[] conditionsArray = regex.splitCondition();
 		for (String bool : conditionsArray) {
-			regex = new Regex(bool);
-			bool = regex.startEndSpace();
-			if (bool.equals("") || !checkCondition(bool)) {
-				return;// error not valid condition
+//			regex = new Regex(bool);
+//			bool = regex.startEndSpace();
+//			if (bool.equals("") || !checkCondition(bool)) {
+			if (!checkCondition(bool)) {
+//				return;// error not valid condition
+				throw new IfWhileException("not valid condition");
 			}
 		}
 	}

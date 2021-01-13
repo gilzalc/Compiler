@@ -21,7 +21,7 @@ public class MethodParser extends Parser {
 		runInnerParsers();
 		Regex regex = new Regex(lastLine);
 		if (!regex.isReturnLine()){
-			return;// error not end with return
+			throw new MethodException("Method does not end with return line");
 		}
 	}
 
@@ -31,14 +31,14 @@ public class MethodParser extends Parser {
 //		}
 //	}
 
-	public void addParameters(Variable parameter){
-
-	}
+//	public void addParameters(Variable parameter){
+//
+//	}
 
 	//	public String getMethodDeclaration() {
 //		return scopeLines.getFirst();
 //	}
-	public boolean isValidArguments(LinkedList<Variable> vars){
-		return false;
-	}//can be a primitive
+//	public boolean isValidArguments(LinkedList<Variable> vars){
+//		return false;
+//	}//can be a primitive
 }
