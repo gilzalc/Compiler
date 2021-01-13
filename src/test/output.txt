@@ -1,21 +1,14 @@
-extraTest_001.sjava - error
-1
-extraTest_002.sjava - error
-1
-extraTest_003.sjava - 1
+extraTest_001.sjava - 1
+extraTest_002.sjava - 0
+extraTest_003.sjava - 0
 extraTest_004.sjava - 1
 extraTest_005.sjava - 1
-extraTest_006.sjava - error
-1
-extraTest_007.sjava - error
-1
-extraTest_008.sjava - error
-1
+extraTest_006.sjava - 1
+extraTest_007.sjava - 0
+extraTest_008.sjava - 0
 extraTest_009.sjava - 0
-extraTest_010.sjava - error
-1
-extraTest_011.sjava - error
-1
+extraTest_010.sjava - 1
+extraTest_011.sjava - 1
 extraTest_012.sjava - 1
 extraTest_013.sjava - 1
 extraTest_014.sjava - 0
@@ -25,43 +18,26 @@ extraTest_017.sjava - 1
 extraTest_018.sjava - 1
 extraTest_019.sjava - 1
 extraTest_020.sjava - 0
-extraTest_021.sjava - error
-1
-extraTest_022.sjava - error
-1
+extraTest_021.sjava - 1
+extraTest_022.sjava - 1
 extraTest_023.sjava - 1
-extraTest_024.sjava - error
-1
-extraTest_025.sjava - error
-1
+extraTest_024.sjava - 1
+extraTest_025.sjava - 0
 extraTest_026.sjava - 1
-extraTest_027.sjava - error
-1
-extraTest_028.sjava - error
-1
-extraTest_029.sjava - error
-1
-extraTest_030.sjava - error
-1
-extraTest_031.sjava - error
-1
-extraTest_032.sjava - error
-1
-extraTest_033.sjava - 0
-extraTest_034.sjava - error
-1
-extraTest_035.sjava - error
-1
-extraTest_036.sjava - error
-1
-extraTest_037.sjava - error
-1
-extraTest_038.sjava - error
-1
-extraTest_039.sjava - error
-1
-extraTest_040.sjava - error
-1
+extraTest_027.sjava - 1
+extraTest_028.sjava - 1
+extraTest_029.sjava - 1
+extraTest_030.sjava - 0
+extraTest_031.sjava - 0
+extraTest_032.sjava - 1
+extraTest_033.sjava - 1
+extraTest_034.sjava - 1
+extraTest_035.sjava - 1
+extraTest_036.sjava - 1
+extraTest_037.sjava - 1
+extraTest_038.sjava - 1
+extraTest_039.sjava - 0
+extraTest_040.sjava - 1
 test001.sjava - 0
 test002.sjava - 0
 test003.sjava - 0
@@ -109,13 +85,13 @@ test047.sjava - 1
 test048.sjava - 1
 test049.sjava - 1
 test050.sjava - 0
-test051.sjava - 1
+test051.sjava - 0
 test052.sjava - 1
 test053.sjava - 1
 test054.sjava - 1
 test055.sjava - 1
 test056.sjava - 0
-test057.sjava - 0
+test057.sjava - 1
 test058.sjava - 0
 test059.sjava - 0
 test061.sjava - 1
@@ -130,268 +106,151 @@ test102.sjava - 1
 test103.sjava - 1
 test104.sjava - 1
 test105.sjava - 1
-test106.sjava - error
-1
-test107.sjava - error
-1
-test108.sjava - error
-1
-test109.sjava - error
-1
-test110.sjava - error
-1
-test111.sjava - error
-1
-test112.sjava - error
-1
-test113.sjava - error
-1
-test114.sjava - error
-1
+test106.sjava - 0
+test107.sjava - 0
+test108.sjava - 0
+test109.sjava - 0
+test110.sjava - 0
+test111.sjava - 0
+test112.sjava - 0
+test113.sjava - 0
+test114.sjava - 1
 test115.sjava - 1
-test116.sjava - error
-1
+test116.sjava - 1
 test117.sjava - 1
-test201.sjava - error
-1
-test202.sjava - error
-1
-test203.sjava - error
-1
-test204.sjava - error
-1
-test205.sjava - error
-1
-test206.sjava - error
-1
-test207.sjava - error
-1
-test208.sjava - error
-1
-test209.sjava - error
-1
-test211.sjava - error
-1
-test212.sjava - error
-1
-test213.sjava - error
-1
-test214.sjava - error
-1
-test215.sjava - error
-1
-test216.sjava - error
-1
-test217.sjava - error
-1
-test218.sjava - error
-1
-test219.sjava - error
-1
-test221.sjava - error
-1
-test222.sjava - error
-1
-test223.sjava - error
-1
-test224.sjava - error
-1
-test225.sjava - error
-1
-test226.sjava - error
-1
-test227.sjava - error
-1
-test231.sjava - error
-1
-test232.sjava - error
-1
-test233.sjava - error
-1
-test234.sjava - error
-1
-test235.sjava - error
-1
-test236.sjava - error
-1
+test201.sjava - 0
+test202.sjava - 0
+test203.sjava - 0
+test204.sjava - 0
+test205.sjava - 1
+test206.sjava - 1
+test207.sjava - 1
+test208.sjava - 1
+test209.sjava - 0
+test211.sjava - 0
+test212.sjava - 0
+test213.sjava - 0
+test214.sjava - 0
+test215.sjava - 0
+test216.sjava - 1
+test217.sjava - 1
+test218.sjava - 1
+test219.sjava - 0
+test221.sjava - 0
+test222.sjava - 0
+test223.sjava - 1
+test224.sjava - 1
+test225.sjava - 1
+test226.sjava - 1
+test227.sjava - 0
+test231.sjava - 0
+test232.sjava - 0
+test233.sjava - 0
+test234.sjava - 0
+test235.sjava - 0
+test236.sjava - 1
 test237.sjava - 1
-test238.sjava - error
-1
-test239.sjava - error
-1
-test241.sjava - error
-1
-test242.sjava - error
-1
-test243.sjava - error
-1
-test244.sjava - error
-1
-test245.sjava - error
-1
-test246.sjava - error
-1
-test247.sjava - error
-1
-test248.sjava - error
-1
-test249.sjava - error
-1
-test250.sjava - error
-1
-test251.sjava - error
-1
-test252.sjava - error
-1
-test253.sjava - error
-1
-test254.sjava - error
-1
-test255.sjava - error
-1
-test257.sjava - error
-1
+test238.sjava - 1
+test239.sjava - 0
+test241.sjava - 0
+test242.sjava - 0
+test243.sjava - 0
+test244.sjava - 1
+test245.sjava - 1
+test246.sjava - 1
+test247.sjava - 1
+test248.sjava - 1
+test249.sjava - 1
+test250.sjava - 1
+test251.sjava - 0
+test252.sjava - 1
+test253.sjava - 0
+test254.sjava - 1
+test255.sjava - 0
+test257.sjava - 0
 test261.sjava - 1
-test262.sjava - error
-1
+test262.sjava - 1
 test263.sjava - 1
-test264.sjava - error
-1
-test265.sjava - error
-1
-test266.sjava - error
-1
-test267.sjava - error
-1
+test264.sjava - 1
+test265.sjava - 1
+test266.sjava - 0
+test267.sjava - 0
 test268.sjava - 1
 test269.sjava - 1
-test270.sjava - error
-1
+test270.sjava - 1
 test271.sjava - 0
 test272.sjava - 1
 test273.sjava - 1
 test274.sjava - 1
-test291.sjava - error
-1
-test301.sjava - error
-1
-test302.sjava - error
-1
-test303.sjava - error
-1
-test305.sjava - error
-1
-test306.sjava - error
-1
-test307.sjava - error
-1
-test308.sjava - error
-1
-test309.sjava - error
-1
-test310.sjava - error
-1
-test311.sjava - error
-1
-test312.sjava - error
-1
-test313.sjava - error
-1
-test314.sjava - error
-1
-test315.sjava - error
-1
-test316.sjava - error
-1
-test321.sjava - error
-1
-test322.sjava - error
-1
-test323.sjava - error
-1
-test324.sjava - error
-1
-test325.sjava - error
-1
-test326.sjava - error
-1
-test327.sjava - error
-1
-test328.sjava - error
-1
-test401.sjava - 0
-test402.sjava - error
-1
-test403.sjava - error
-1
-test404.sjava - error
-1
-test405.sjava - error
-1
-test406.sjava - error
-1
-test407.sjava - error
-1
-test408.sjava - error
-1
-test409.sjava - error
-1
-test410.sjava - error
-1
+test291.sjava - 0
+test301.sjava - 0
+test302.sjava - 0
+test303.sjava - 0
+test305.sjava - 0
+test306.sjava - 1
+test307.sjava - 1
+test308.sjava - 1
+test309.sjava - 1
+test310.sjava - 1
+test311.sjava - 0
+test312.sjava - 0
+test313.sjava - 0
+test314.sjava - 1
+test315.sjava - 0
+test316.sjava - 1
+test321.sjava - 0
+test322.sjava - 0
+test323.sjava - 0
+test324.sjava - 0
+test325.sjava - 0
+test326.sjava - 0
+test327.sjava - 0
+test328.sjava - 1
+test401.sjava - 1
+test402.sjava - 1
+test403.sjava - 1
+test404.sjava - 0
+test405.sjava - 0
+test406.sjava - 1
+test407.sjava - 1
+test408.sjava - 1
+test409.sjava - 1
+test410.sjava - 0
 test411.sjava - 0
 test412.sjava - 0
 test413.sjava - 1
 test414.sjava - 0
 test415.sjava - 1
-test416.sjava - 0
-test417.sjava - 0
-test418.sjava - 1
+test416.sjava - 1
+test417.sjava - 1
+test418.sjava - 0
 test420.sjava - 1
-test421.sjava - error
-1
-test422.sjava - error
-1
-test423.sjava - error
-1
-test425.sjava - error
-1
-test427.sjava - error
-1
-test428.sjava - error
-1
-test429.sjava - error
-1
-test430.sjava - error
-1
-test431.sjava - error
-1
-test432.sjava - 1
-test433.sjava - error
-1
+test421.sjava - 1
+test422.sjava - 1
+test423.sjava - 1
+test425.sjava - 0
+test427.sjava - 0
+test428.sjava - 0
+test429.sjava - 1
+test430.sjava - 1
+test431.sjava - 1
+test432.sjava - 0
+test433.sjava - 0
 test434.sjava - 1
-test435.sjava - error
-1
-test436.sjava - error
-1
-test437.sjava - 1
-test438.sjava - error
-1
+test435.sjava - 1
+test436.sjava - 1
+test437.sjava - 0
+test438.sjava - 0
 test439.sjava - 1
-test440.sjava - error
-1
-test441.sjava - error
-1
+test440.sjava - 1
+test441.sjava - 1
 test442.sjava - 1
-test451.sjava - error
-1
+test451.sjava - 0
 test452.sjava - 1
 test453.sjava - 1
-test454.sjava - error
-1
-test455.sjava - error
-1
-test456.sjava - error
-1
+test454.sjava - 1
+test455.sjava - 1
+test456.sjava - 1
 test457.sjava - 1
 test458.sjava - 1
 test459.sjava - 1
@@ -399,32 +258,22 @@ test460.sjava - 1
 test461.sjava - 0
 test462.sjava - 0
 test463.sjava - 1
-test464.sjava - 0
-test465.sjava - error
-1
-test466.sjava - error
-1
-test467.sjava - error
-1
-test468.sjava - error
-1
-test469.sjava - error
-1
-test470.sjava - error
-1
-test471.sjava - error
-1
-test472.sjava - error
-1
-test473.sjava - error
-1
-test474.sjava - error
-1
+test464.sjava - 1
+test465.sjava - 0
+test466.sjava - 0
+test467.sjava - 1
+test468.sjava - 1
+test469.sjava - 0
+test470.sjava - 1
+test471.sjava - 1
+test472.sjava - 0
+test473.sjava - 0
+test474.sjava - 1
 test475.sjava - 1
 test476.sjava - 1
 test477.sjava - 1
-test501.sjava - 1
+test501.sjava - 0
 test502.sjava - 1
 test503.sjava - 1
 test504.sjava - 1
-test505.sjava - 1
+test505.sjava - 0

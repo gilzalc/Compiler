@@ -15,7 +15,6 @@ public abstract class Parser {
 	private static final String CHAR = "char";
 	protected static final int NAME_INDEX = 0;
 	private static final int VALUE_INDEX = 1;
-	private static final int PARAMS_INDEX = 1;
 	protected LinkedList<String> scopeLines;
 	protected Parser parentParser;
 	protected LinkedList<Parser> childParsers;
@@ -56,7 +55,8 @@ public abstract class Parser {
 
 	protected void checkLine(String line) throws ParserException {
 		Regex regex = new Regex(line);
-		if (regex.isReturnLine()) { //with regex
+		if (regex.isReturnLine() && (parentParser != null)) { // Make sure it's not a return line in the
+			// global scope
 			return;
 		}
 		if (!regex.setFirstWordsMatcher()) {
@@ -91,8 +91,6 @@ public abstract class Parser {
 			if ((nameAndValue = regex.getVarNameAndValue()) == null) {
 				throw new InvalidException("invalid declaration");
 			}
-			//			String nameString = nameAndValue[NAME_INDEX];
-			//			String valueString = nameAndValue[VALUE_INDEX];
 			if (isCreating) {
 				createVars(nameAndValue[NAME_INDEX], nameAndValue[VALUE_INDEX], type, hasFinal);
 				continue;
@@ -104,7 +102,6 @@ public abstract class Parser {
 	public void createVars(String nameString, String valueString, Keywords.Type type, boolean hasFinal)
 			throws ParserException {
 		if (nameString == null || !Regex.isVarNameValid(nameString)) {
-			//			return; //Error - not valid var name
 			throw new InvalidException("not valid var name");
 		}
 		if (valueString == null) {
@@ -192,7 +189,6 @@ public abstract class Parser {
 		if ((methodPars = regex.checkMethodCall()) != null) {
 			// Check method calling validity
 			String methodName = methodPars[0];
-
 			Global global = Global.getInstance();
 			Method calledMethod = global.getMethod(methodName);
 			if (calledMethod == null) {

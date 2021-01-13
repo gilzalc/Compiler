@@ -29,7 +29,6 @@ public class IfWhileParser extends Parser {
 //			bool = regex.startEndSpace();
 //			if (bool.equals("") || !checkCondition(bool)) {
 			if (!checkCondition(bool)) {
-//				return;// error not valid condition
 				throw new IfWhileException("not valid condition");
 			}
 		}

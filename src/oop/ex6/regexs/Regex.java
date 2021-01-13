@@ -23,14 +23,14 @@ public class Regex {
 
 	//-----------------------------regex-----------------\\
 //	protected static final String METHOD_NAME = "[a-zA-Z]\\w*";
-	private static final String METHOD_CALL = "^(?<name>[a-zA-Z]\\w*)\\s?\\((?<params>.*)\\)\\s?$";
+	private static final String METHOD_CALL = "^(?<name>[a-zA-Z]\\w*)\\s?\\((?<params>.*)\\)\\s*$";
 	protected static final String STARTS_WITH_VOID = "\\s?void ";
 	private static final String COMMA_SEPARATED = "\\s?,\\s?";
 	private final static String AND_OR = "\\s?(\\|\\|)\\s?|\\s?(&&) ?";
-	private static final String IF_While = "(if|while)\\s?\\((?<condition>.+)\\)\\s?\\{";
+	private static final String IF_While = "(if|while)\\s?\\((?<condition>.+)\\)\\s*\\{";
 	private static final String VALID_VARIABLE_NAME = "_\\w+|[a-zA-Z]\\w*";// and not a keyword or typeword
 	protected static final String VALID_METHOD_NAME = "[a-zA-Z]\\w*";
-	private static final String VALID_SUFFIX = "\\s?;$";
+	private static final String VALID_SUFFIX = "\\s*;$";
 	private static final String VALID_INTEGER = "-?\\d+";
 	private static final String VALID_DOUBLE = "-?\\d+(\\.\\d+)?"; // W About .5 or 5. ?
 	private static final String VALID_BOOL = TRUE + "|" + FALSE + "|" + VALID_DOUBLE;
@@ -40,7 +40,7 @@ public class Regex {
 //	private static final String NOT_VALID_CHAR = "'\\s{2,}'";
 	private static final String SPACES = "\\b\\s{2,}|\\s{2,}\\b";
 	private static final String SPACE_COMMENT = "^(\\s//)";
-	private static final String SPACE = "^\\s|\\s$";
+	private static final String SPACE = "^\\s+|\\s+$";
 	private static final String EMPTY = "^\\s*$";
 	private static final String COMMENT = "//.*";
 	private static final String RETURN = "return\\s?";
@@ -107,7 +107,7 @@ public class Regex {
 
 	public String[] getVarNameAndValue() {
 		Matcher matcher = regexMatcher(VAR_NAME_AND_VALUE);
-		if (matcher.find()) {
+		if (matcher.matches()) {
 			String nameString = matcher.group("varName");
 			String valueString = matcher.group("value");
 			return new String[]{nameString, valueString};

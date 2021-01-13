@@ -25,10 +25,10 @@ public class Sjavac {
 			manager.run();
             System.out.println(LEGAL_CODE);
         } catch (IOException io) {
-            System.out.println("IO ERROR");
+//            System.out.println("IO ERROR");
             System.out.println(IO_ERROR);
         } catch (IllegalSFile isf) {
-            System.out.println(isf.getMessage());
+//            System.out.println(isf.getMessage());
             System.out.println(ILLEGAL_CODE);
         }
 		}

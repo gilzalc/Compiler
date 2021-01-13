@@ -50,7 +50,7 @@ public class GlobalParser extends Parser {
 				throw new MethodException("Invalid method declaration");
 			}
 			// !Regex.isValidMethodName(nameAndParams[NAME_INDEX])
-			if (Keywords.getKeywords().contains(nameAndParams[NAME_INDEX])) { // לא הבנתי מה קורה פה...
+			if (Keywords.getKeywords().contains(nameAndParams[NAME_INDEX])) {
 				throw new MethodException("invalid name for method");
 			}
 			if ((Global.getInstance().getMethod(nameAndParams[NAME_INDEX])) != null) {
