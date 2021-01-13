@@ -21,8 +21,8 @@ public class Regex {
 	protected static final String METHOD_PARAMS = " ?\\((?<parameters>[^\\(\\)]*)\\)\\s*";
 
 	//-----------------------------regex-----------------\\
-	protected static final String METHOD_NAME = "[^\\s\\(]+";
-	private static final String METHOD_CALL = "^(?<name>[^\\s\\(=]+) ?\\((?<params>.*)\\) ?$";
+//	protected static final String METHOD_NAME = "[a-zA-Z]\\w*";
+	private static final String METHOD_CALL = "^(?<name>[a-zA-Z]\\w*) ?\\((?<params>.*)\\) ?$";
 	protected static final String STARTS_WITH_VOID = " ?void ";
 	private static final String COMMA_SEPARATED = " ?, ?";
 	private final static String AND_OR = " ?(\\|\\|) ?| ?(&&) ?";

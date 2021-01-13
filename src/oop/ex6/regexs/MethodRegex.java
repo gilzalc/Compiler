@@ -23,7 +23,7 @@ public class MethodRegex extends Regex {
 		return false;
 	}
 	public String getMethodName(){
-		Matcher matcher = regexMatcher(METHOD_NAME);
+		Matcher matcher = regexMatcher(VALID_METHOD_NAME);
 		if (matcher.find()){
 			return checkLine.substring(matcher.start(),matcher.end());
 		}
