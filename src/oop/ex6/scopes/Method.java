@@ -5,7 +5,7 @@ import oop.ex6.Variable;
 
 import java.util.LinkedList;
 
-public class Method extends Scope {
+public class Method extends Block {
 
 	private final LinkedList<Keywords.Type> requiredTypes;
 

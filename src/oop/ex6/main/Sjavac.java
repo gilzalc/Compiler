@@ -27,6 +27,5 @@ public class Sjavac {
             System.err.println(isf.getMessage());
             System.out.println(ILLEGAL_CODE);
         }
-
 	}
 }

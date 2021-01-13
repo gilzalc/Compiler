@@ -5,19 +5,19 @@ import oop.ex6.Variable;
 
 import java.util.HashMap;
 
-public abstract class Scope {
+public abstract class Block {
 
 	protected HashMap<String, Variable> variables;
-	protected Scope outerScope;
+	protected Block outerBlock;
 
-	protected Scope(Scope parentScope) {
+	protected Block(Block parentBlock) {
 		variables = new HashMap<>();
-		outerScope = parentScope;
+		outerBlock = parentBlock;
 	}
 
-	protected Scope() { // global
+	protected Block() { // global
 		variables = new HashMap<>();
-		outerScope = null;
+		outerBlock = null;
 	}
 
 	public void addVariable(String varName, Variable var) throws ScopeException {
@@ -32,16 +32,16 @@ public abstract class Scope {
 		variables.put(varName, var);
 	}
 
-	private Scope getOuterScope(){
-		return outerScope;
+	private Block getOuterScope(){
+		return outerBlock;
 	}
 
 	public Variable getVariable(String varName) {
-		while (outerScope != null) {
+		while (outerBlock != null) {
 			if (variables.containsKey(varName)) {
 				return variables.get(varName);
 			}
-			outerScope = outerScope.getOuterScope();
+			outerBlock = outerBlock.getOuterScope();
 		}
 		return null;
 	}

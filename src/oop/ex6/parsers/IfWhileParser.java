@@ -2,12 +2,12 @@ package oop.ex6.parsers;
 
 import oop.ex6.*;
 import oop.ex6.regexs.Regex;
-import oop.ex6.scopes.Scope;
+import oop.ex6.scopes.Block;
 
 public class IfWhileParser extends Parser {
 
-	public IfWhileParser(Parser parentParser, Scope ifWhileScope) {
-		super(parentParser, ifWhileScope);
+	public IfWhileParser(Parser parentParser, Block ifWhileBlock) {
+		super(parentParser, ifWhileBlock);
 //		super(parentParser, new IfWhile(parentParser.getScope()));
 	}
 
@@ -43,7 +43,7 @@ public class IfWhileParser extends Parser {
 		}
 		Keywords.Type bool = Keywords.Type.BOOLEAN;
 		if (Regex.isVarNameValid(cond) && !(Keywords.getKeywords().contains(cond))) { //search first
-			Variable var = scope.getVariable(cond);
+			Variable var = block.getVariable(cond);
 			if (var != null) {
 				return bool.isMatching(var.getType());
 			}

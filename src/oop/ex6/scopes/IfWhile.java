@@ -1,9 +1,9 @@
 package oop.ex6.scopes;
 
-public class IfWhile extends Scope {
+public class IfWhile extends Block {
 
-	public IfWhile(Scope parentScope){
-		super(parentScope);
+	public IfWhile(Block parentBlock){
+		super(parentBlock);
 	}
 
 //	private boolean checkCondition(String cond) {

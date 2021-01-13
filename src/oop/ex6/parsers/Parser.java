@@ -17,19 +17,19 @@ public abstract class Parser {
 	protected LinkedList<String> scopeLines;
 	protected Parser parentParser;
 	protected LinkedList<Parser> childParsers;
-	protected Scope scope;
+	protected Block block;
 
-	protected Parser(Parser parent, Scope parserScope) {
+	protected Parser(Parser parent, Block parserBlock) {
 		parentParser = parent;
-		scope = parserScope;
+		block = parserBlock;
 		scopeLines = new LinkedList<>();
 		childParsers = new LinkedList<>();
 	}
 
 	public abstract void checkLines() throws ParserException;
 
-	public Scope getScope() {
-		return scope;
+	public Block getScope() {
+		return block;
 	}
 
 	public void addLine(String line) {
@@ -69,7 +69,7 @@ public abstract class Parser {
 			if (hasFinal) {
 				throw new UnInitializedException("missing type after final");
 			}
-			Variable var = scope.getVariable(firstWord);
+			Variable var = block.getVariable(firstWord);
 			if (var == null) {
 				throw new ParserException("No variable found in line");
 			}
@@ -109,15 +109,15 @@ public abstract class Parser {
 			if (hasFinal) {
 				throw new UnInitializedException("final variable not initialized");
 			}
-			scope.addVariable(nameString, new Variable(false, false, type));
+			block.addVariable(nameString, new Variable(false, false, type));
 		} else {
 			checkVarValueAssignment(valueString, type);
-			scope.addVariable(nameString, new Variable(true, hasFinal, type));
+			block.addVariable(nameString, new Variable(true, hasFinal, type));
 		}
 	}
 
 	protected void assignVars(String nameString, String valueString) throws ParserException {
-		Variable assignedVar = scope.getVariable(nameString);
+		Variable assignedVar = block.getVariable(nameString);
 		if (assignedVar == null) {
 //			return;//Error - not declared
 			throw new UnInitializedException("The variable was never declared");
@@ -135,7 +135,7 @@ public abstract class Parser {
 
 
 	protected void checkVarValueAssignment(String valString, Keywords.Type type) throws ParserException {
-		Variable var = scope.getVariable(valString);
+		Variable var = block.getVariable(valString);
 		if (var != null) {
 			if (!var.isInitialized()) {
 				throw new UnInitializedException("Assigning uninitialized variable");

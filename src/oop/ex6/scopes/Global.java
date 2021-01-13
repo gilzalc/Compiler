@@ -2,7 +2,7 @@ package oop.ex6.scopes;
 
 import java.util.HashMap;
 
-public class Global extends Scope { //singleton
+public class Global extends Block { //singleton
 	private static Global globalScope;
 	private final HashMap<String,Method> methodsMap;
 
