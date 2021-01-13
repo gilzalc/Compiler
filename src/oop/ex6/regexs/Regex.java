@@ -54,6 +54,10 @@ public class Regex {
 		checkLine = line;
 	}
 
+	public void setCheckLine(String checkLine) {
+		this.checkLine = checkLine;
+	}
+
 	protected Matcher regexMatcher(String p) {
 		Pattern pattern = Pattern.compile(p);
 		return pattern.matcher(checkLine);
@@ -85,9 +89,11 @@ public class Regex {
 
 	public void setFirstWordsMatcher() {
 		firstWordsMatcher = regexMatcher(FINAL_AND_FIRST_WORD_GROUPS);
+		firstWordsMatcher.find();
 	}
 
 	public String getFirstWord() {
+
 		return firstWordsMatcher.group("first");
 	}
 

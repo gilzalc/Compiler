@@ -27,6 +27,7 @@ public class MethodRegex extends Regex {
 		if (matcher.find()){
 			return checkLine.substring(matcher.start(),matcher.end());
 		}
+		System.out.println("error");
 		return ""; // Error?
 	}
 	public String getMethodParameters() {
@@ -34,6 +35,7 @@ public class MethodRegex extends Regex {
 		if(matcher.matches()){
 			return matcher.group(parameters);
 		}
+		System.out.println("error");
 		return ""; //error
 	}
 }

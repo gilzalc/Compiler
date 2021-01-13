@@ -75,7 +75,7 @@ public abstract class Parser {
 			}
 		} else {
 			isCreating = true;
-			regex = new Regex(line.substring(afterLast));
+			regex.setCheckLine(line.substring(afterLast));
 		}
 		manageVarExpressions(regex, isCreating, type, hasFinal);
 	}
