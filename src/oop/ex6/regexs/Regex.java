@@ -87,9 +87,9 @@ public class Regex {
 		return null;
 	}
 
-	public void setFirstWordsMatcher() {
+	public boolean setFirstWordsMatcher() {
 		firstWordsMatcher = regexMatcher(FINAL_AND_FIRST_WORD_GROUPS);
-		firstWordsMatcher.find();
+		return firstWordsMatcher.find();
 	}
 
 	public String getFirstWord() {

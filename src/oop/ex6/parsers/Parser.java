@@ -2,10 +2,8 @@ package oop.ex6.parsers;
 
 import oop.ex6.Keywords;
 import oop.ex6.regexs.Regex;
-import oop.ex6.scopes.Scope;
+import oop.ex6.scopes.*;
 import oop.ex6.Variable;
-import oop.ex6.scopes.Global;
-import oop.ex6.scopes.Method;
 import java.util.LinkedList;
 
 public abstract class Parser {
@@ -59,7 +57,9 @@ public abstract class Parser {
 		if (regex.isReturnLine()) { //with regex
 			return;
 		}
-		regex.setFirstWordsMatcher();
+		if (!regex.setFirstWordsMatcher()){
+			throw new ParserException("The line is invalid");
+		}
 		String firstWord = regex.getFirstWord();
 		boolean hasFinal = regex.hasFinal();
 		int afterLast = regex.getEndOfFirst();
