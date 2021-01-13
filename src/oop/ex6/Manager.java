@@ -22,11 +22,15 @@ public class Manager {
 		FileParser fileParser = new FileParser(fixedLines);
 		fileParser.run();
 //		try {
-		runGlobalParser();
+		GlobalParser globalParser = GlobalParser.getInstance();
+		globalParser.checkLines();
 //		} catch (IllegalSFile illegalSFile) {
 //			illegalSFile.printStackTrace();
 //		}
 		runMethodsParsers();
+//		if(!globalParser.getChildParsers().isEmpty()) {
+//			runMethodsParsers();
+//		}
 		// parse method declarations
 		// parse all scopes
 	}

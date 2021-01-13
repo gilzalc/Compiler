@@ -15,7 +15,8 @@ public class Regex {
 	protected static final String parameters = "parameters";
 
 	//-----------------------------Capturing groups-----------------\\
-	protected static final String FINAL_AND_FIRST_WORD_GROUPS = "(?<final>final )?(?<first>\\w+) ";
+//	protected static final String FINAL_AND_FIRST_WORD_GROUPS = "(?<final>final )?(?<first>\\w+) ";
+	protected static final String FINAL_AND_FIRST_WORD_GROUPS = "((?<final>final )?(?<first>\\w+))";
 	private static final String VAR_NAME_AND_VALUE
 			= "(?<varName> ?_\\w+|[a-zA-Z]\\w* ?)(=(?<value> ?\\S?\\S*))?";// למה יש פעמיים \\S בסוף?
 	protected static final String METHOD_PARAMS = " ?\\((?<parameters>[^\\(\\)]*)\\)\\s*";
@@ -87,7 +88,7 @@ public class Regex {
 	}
 
 	public String getFirstWord() {
-		return firstWordsMatcher.group(FIRST);
+		return firstWordsMatcher.group("first");
 	}
 
 	public boolean hasFinal() {
@@ -111,7 +112,7 @@ public class Regex {
 	}
 
 	public boolean enterScope() {
-		return regexMatcher("{$").matches();
+		return regexMatcher("\\{$").find();
 	}
 
 	public String validSuffix() {
