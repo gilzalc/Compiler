@@ -26,6 +26,8 @@
  */
 
 import oop.ex6.main.Sjavac;
+import oop.ex6.parsers.GlobalParser;
+import oop.ex6.scopes.Global;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -68,6 +70,8 @@ public class Test {
                     System.out.println(filesLines.get(file.getName()));
                 }
                 System.out.println("_________");
+                Global.setNull();
+                GlobalParser.setNull();
             }
         } catch (Exception ignored) {
         }

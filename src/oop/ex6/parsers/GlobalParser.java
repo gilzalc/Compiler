@@ -26,7 +26,9 @@ public class GlobalParser extends Parser {
 		}
 		return globalParser;
 	}
-
+	public static void setNull(){
+		globalParser= null;
+	}
 	//-----------------------------Parsing methods----------------------------\\
 	@Override
 	public void checkLines() throws ParserException {

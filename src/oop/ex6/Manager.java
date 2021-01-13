@@ -5,6 +5,7 @@ import oop.ex6.parsers.GlobalParser;
 import oop.ex6.parsers.Parser;
 import oop.ex6.parsers.ParserException;
 import oop.ex6.regexs.Regex;
+import oop.ex6.scopes.Global;
 
 import java.io.IOException;
 import java.util.LinkedList;

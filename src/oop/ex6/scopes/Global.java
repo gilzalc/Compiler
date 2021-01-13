@@ -16,7 +16,9 @@ public class Global extends Block { //singleton
 		}
 		return globalScope;
 	}
-
+	public static void setNull(){
+		globalScope= null;
+	}
 	public void addMethod(String methodName,Method method){
 //		if (methodsMap.containsKey(scope)) return; //error
 		// אנחנו בודקים את זה כבר לפני בglobalParser
