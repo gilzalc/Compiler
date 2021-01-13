@@ -124,7 +124,7 @@ public abstract class Parser {
 			throw new ParserException("cant assign a final and initialized variable");
 		}
 		checkVarValueAssignment(valueString, assignedVar.getType());
-		if (block.isNewVar(valueString)) {
+		if (block.isNewVar(nameString)) {
 			block.addVariable(nameString, new Variable(true, assignedVar.IsFinal(), assignedVar.getType()));
 		} else {
 			assignedVar.initial();

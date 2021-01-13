@@ -1,4 +1,0 @@
-void foo() {
-final char a = 'h',b;
-return;
-}
