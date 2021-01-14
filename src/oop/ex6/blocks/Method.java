@@ -27,8 +27,8 @@ public class Method extends Block {
 	 * @param variable variable to add
 	 * @throws ScopeException in case addVariable throws an error
 	 */
-	public void addRequiredVar(String varName,Variable variable) throws ScopeException {
-		addVariable(varName,variable); //can throw error
+	public void addRequiredVar(String varName, Variable variable) throws ScopeException {
+		addVariable(varName, variable); //can throw error
 		requiredTypes.add(variable.getType());
 	}
 

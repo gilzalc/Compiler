@@ -17,12 +17,13 @@ public class GlobalParser extends Parser {
 	private static final int FIRST_PARAMETER = 0;
 	private static final String EMPTY_STRING = "";
 	private static GlobalParser globalParser;
-	private static final String UNSUPPORTED_METHOD_TYPE_MSG =  "method return value has to be void";
+	private static final String UNSUPPORTED_METHOD_TYPE_MSG = "method return value has to be void";
 	private static final String INVALID_METHOD_DECLARATION_MSG = "Invalid method declaration";
-	private static final String INVALID_METHOD_NAME_MSG="Invalid name for method" ;
+	private static final String INVALID_METHOD_NAME_MSG = "Invalid name for method";
 	private static final String DUPLICATE_METHOD_NAME_MSG = "A method with a similar name already exists";
 	private static final String WRONG_PARAM_FORMAT_MSG = "wrong parameter format";
-	private static final String NOT_VALID_PARAM ="not valid parameter";
+	private static final String NOT_VALID_PARAM = "not valid parameter";
+
 	//-------------------Singleton constructor & access---------------------\\
 	private GlobalParser() {
 		super(null, Global.getInstance());
@@ -40,15 +41,15 @@ public class GlobalParser extends Parser {
 	}
 
 	// nulls the pointer
-	public static void setNull(){
-		globalParser= null;
+	public static void setNull() {
+		globalParser = null;
 	}
 	//-----------------------------Parsing methods----------------------------\\
+
 	@Override
 	public void checkLines() throws ParserException {
 		for (String line : scopeLines) {
 			checkLine(line);
-//				return; //Error - don't check if method
 		}
 		createMethods();
 	}
@@ -59,13 +60,13 @@ public class GlobalParser extends Parser {
 	 */
 	public void createMethods() throws ParserException {
 		for (Parser parser : childParsers) {
-			String firstLine = parser.pollScopeLines();
+			String firstLine = parser.pollBlockLines();
 			MethodRegex reg = new MethodRegex(firstLine);
 			if (!reg.methodStart()) { // removes void and space, if false throw error
 				throw new MethodException(UNSUPPORTED_METHOD_TYPE_MSG);
 			}
 			String[] nameAndParams = reg.getMethodNameParams();
-			if (nameAndParams == null){
+			if (nameAndParams == null) {
 				throw new MethodException(INVALID_METHOD_DECLARATION_MSG);
 			}
 			if (Keywords.getKeywords().contains(nameAndParams[NAME_INDEX])) {
@@ -74,7 +75,7 @@ public class GlobalParser extends Parser {
 			if ((Global.getInstance().getMethod(nameAndParams[NAME_INDEX])) != null) {
 				throw new MethodException(DUPLICATE_METHOD_NAME_MSG);
 			}
-			addParameters(nameAndParams,reg,(Method) parser.getBlock());
+			addParameters(nameAndParams, reg, (Method) parser.getBlock());
 		}
 	}
 
@@ -85,15 +86,15 @@ public class GlobalParser extends Parser {
 	 * @param toAdd The method object to add it parameters
 	 * @throws ParserException illegal format
 	 */
-	private void addParameters(String[] nameAndParams, MethodRegex reg,Method toAdd) throws ParserException {
+	private void addParameters(String[] nameAndParams, MethodRegex reg, Method toAdd) throws ParserException {
 		Global.getInstance().addMethod(nameAndParams[NAME_INDEX], toAdd);
 		String parameters = nameAndParams[PARAMS_INDEX];
 		reg.setCheckLine(parameters);
-		if (reg.emptyLine()){
+		if (reg.emptyLine()) {
 			return;
 		}
 		String[] parametersArr = reg.splitByComma();
-		if (parametersArr.length == ONE_PARAMETER && parametersArr[FIRST_PARAMETER].equals(EMPTY_STRING)){
+		if (parametersArr.length == ONE_PARAMETER && parametersArr[FIRST_PARAMETER].equals(EMPTY_STRING)) {
 			return;
 		}
 		for (String param : parametersArr) {

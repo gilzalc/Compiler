@@ -10,23 +10,21 @@ public class Regex {
 
 	//-----------------------------magic numbers-----------------\\
 	protected static final String FINAL = "final";
-	protected static final String FIRST = "first";
 	protected static final String PARAMETERS = "parameters";
 	protected static final String NAME = "name";
+	private static final String FIRST = "first";
 	private static final String VALUE = "value";
 	private static final String CONDITION = "condition";
 
 	//-----------------------------Capturing groups Regex's-----------------\\
-	protected static final String FINAL_AND_FIRST_WORD_GROUPS = "((?<final>final )?(?<first>\\w+))";
+	private static final String FINAL_AND_FIRST_WORD_GROUPS = "((?<final>final )?(?<first>\\w+))";
 	private static final String VAR_NAME_AND_VALUE = " ?(?<name>_\\w+|[a-zA-Z]\\w*) ?(= ?(?<value>((\\\"" +
 													 " ?\\S* ?\\\")|(\\S*))))?";
-	protected static final String METHOD_PARAMS
-			= "^(?<name>[a-zA-Z]\\w*)\\s?\\((?<parameters>[^\\(\\)]*)\\)\\s*\\{$";
 
 	//-----------------------------regex's--------------------------\\
 	private static final String METHOD_CALL = "^(?<name>[a-zA-Z]\\w*)\\s?\\((?<parameters>.*)\\)\\s*$";
 	private static final String COMMA_SEPARATED = "\\s?,\\s?";
-	private final static String AND_OR = "\\s?(\\|\\|)\\s?|\\s?(&&) ?";
+	private static final String AND_OR = "\\s?(\\|\\|)\\s?|\\s?(&&) ?";
 	private static final String IF_WHILE = "(if|while)\\s?\\((?<condition>.+)\\)\\s*\\{";
 	private static final String VALID_VARIABLE_NAME = "_\\w+|[a-zA-Z]\\w*";// and not a keyword or a type
 	private static final String VALID_SUFFIX = "\\s*;$";
@@ -96,7 +94,6 @@ public class Regex {
 	}
 
 	public String getFirstWord() {
-
 		return firstWordsMatcher.group(FIRST);
 	}
 
@@ -118,7 +115,7 @@ public class Regex {
 		return null;
 	}
 
-	public boolean enterScope() {
+	public boolean enterBlock() {
 		return regexMatcher(OPEN_BLOCK).find();
 	}
 
@@ -173,7 +170,6 @@ public class Regex {
 		}
 		return (Pattern.matches(VALID_VARIABLE_NAME, varName));
 	}
-
 
 	public static boolean isValidVal(String pattern, String varVal) {
 		return Pattern.matches(pattern, varVal);

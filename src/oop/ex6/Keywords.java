@@ -22,11 +22,11 @@ public abstract class Keywords {
 	private static HashSet<String> keyWordsSet;
 
 	/**
-	 * enum that represents all of the valid variables types in S-java ,
-	 * with their matching regex expression for valid value validation
+	 * enum that represents all of the valid variables types in S-java , with their matching regex expression
+	 * for valid value validation
 	 */
 	public enum Type {
-		BOOLEAN(VALID_BOOL,Keywords.BOOLEAN),
+		BOOLEAN(VALID_BOOL, Keywords.BOOLEAN),
 		CHAR(VALID_CHAR, Keywords.CHAR),
 		DOUBLE(VALID_DOUBLE, Keywords.DOUBLE),
 		INT(VALID_INTEGER_REG, Keywords.INT),
@@ -41,9 +41,11 @@ public abstract class Keywords {
 		}
 
 		public String getRegex() {return this.myRegex;}
+
 		private String getName() {
 			return this.name;
 		}
+
 		/**
 		 * checks if another type is ok for an assignment with a variable of this obj
 		 * @param otherType other variable type of the

@@ -9,6 +9,11 @@ import oop.ex6.blocks.Block;
  */
 public class IfWhileParser extends Parser {
 
+	private static final String INVALID_IF_WHILE_MSG = "invalid if/while first line";
+	private static final String INVALID_CONDITION_MSG = "not valid condition";
+	private static final String TRUE_STRING = "true";
+	private static final String FALSE_STRING = "false";
+
 	public IfWhileParser(Parser parentParser, Block ifWhileBlock) {
 		super(parentParser, ifWhileBlock);
 	}
@@ -28,16 +33,13 @@ public class IfWhileParser extends Parser {
 		Regex regex = new Regex(line);
 		String conditions = regex.ifWhileCondition();
 		if (conditions == null) {
-			throw new IfWhileException("not valid if/while first line");
+			throw new IfWhileException(INVALID_IF_WHILE_MSG);
 		}
 		regex = new Regex(conditions);
 		String[] conditionsArray = regex.splitCondition();
 		for (String bool : conditionsArray) {
-//			regex = new Regex(bool);
-//			bool = regex.startEndSpace();
-//			if (bool.equals("") || !checkCondition(bool)) {
 			if (!checkCondition(bool)) {
-				throw new IfWhileException("not valid condition");
+				throw new IfWhileException(INVALID_CONDITION_MSG);
 			}
 		}
 	}
@@ -48,7 +50,7 @@ public class IfWhileParser extends Parser {
 	 * @return true if condition is ok, false o.w
 	 */
 	private boolean checkCondition(String cond) {
-		if (cond.equals("true") || cond.equals("false")) {
+		if (cond.equals(TRUE_STRING) || cond.equals(FALSE_STRING)) {
 			return true;
 		}
 		Keywords.Type bool = Keywords.Type.BOOLEAN;

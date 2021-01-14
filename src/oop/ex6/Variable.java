@@ -5,7 +5,7 @@ package oop.ex6;
  */
 public class Variable {
 	// This data member indicates whether the object was initialized
-	private  boolean isInitialized;
+	private boolean isInitialized;
 	// This data member indicates whether the object was declared final (and can't be assigned a new value
 	// if has been initialized)
 	private final boolean isFinal;
@@ -34,7 +34,7 @@ public class Variable {
 	/**
 	 * Initializes the variable
 	 */
-	public void initial(){
+	public void initial() {
 		isInitialized = true;
 	}
 

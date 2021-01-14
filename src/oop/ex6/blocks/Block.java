@@ -37,26 +37,25 @@ public abstract class Block {
 	 * @param varName name of the var to add
 	 * @param var Variable object to add
 	 * @throws ScopeException in case map already has a key with the same name, or the name is part of the
-	 * S-Java special keywords
+	 * 		S-Java special keywords
 	 */
 	public void addVariable(String varName, Variable var) throws ScopeException {
 		// checkNameIsOK
 		if (variables.containsKey(varName)) {
 			throw new ScopeException("A variable with the same name already exists");
 		}
-		if (Keywords.getKeywords().contains(varName)){
+		if (Keywords.getKeywords().contains(varName)) {
 			throw new ScopeException("The variable name is equal to one of the keywords");
 		}
 		variables.put(varName, var);
 	}
 
 	/**
-	 *
 	 * checks if a variable(by using its name), is shadowing another variable from an outer scope
 	 * @param varName name of variable to check
 	 * @return true if it shadows, false o.w
 	 */
-	public boolean isNewVar(String varName){
+	public boolean isNewVar(String varName) {
 		return (!this.variables.containsKey(varName));
 	}
 
@@ -64,7 +63,7 @@ public abstract class Block {
 	 * Gets the outer Block of this Block
 	 * @return
 	 */
-	private Block getOuterBlock(){
+	private Block getOuterBlock() {
 		return outerBlock;
 	}
 

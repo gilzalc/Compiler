@@ -18,21 +18,24 @@ public abstract class Parser {
 	private static final String CHAR = "char";
 	protected static final int NAME_INDEX = 0;
 	private static final int VALUE_INDEX = 1;
-
 	private static final String INVALID_LINE_MSG = "The line is invalid";
 	private static final String FINAL_WITH_NO_DECLARATION_MSG = "Missing type for declaration after final";
-	private static final String NO_VAR_MSG="No variable found in line";
-	private static final String NOT_DECLARED_MSG= "The variable was never declared";
-	private static final String INVALID_DECLARATION_MSG= "invalid declaration";
+	private static final String NO_VAR_MSG = "No variable found in line";
+	private static final String NOT_DECLARED_MSG = "The variable was never declared";
+	private static final String INVALID_DECLARATION_MSG = "invalid declaration";
 	private static final String INCOMPATIBLE_TYPE_ASSIGN_MSG = "Incompatible type assignment";
-	private static final String INCOMPATIBLE_VAL_ASSIGN_MSG = "The value of the variable does not match the" +
+	private static final String INCOMPATIBLE_VAL_ASSIGN_MSG = "The value of the variable does not match " +
+															  "the" +
 															  " type of variable";
 	private static final String INVALID_VAR_NAME = "not valid var name";
-	private static final String MODIFYING_FINAL_AND_INIT_MSG = "cant assign a final and initialized variable";
+	private static final String MODIFYING_FINAL_AND_INIT_MSG = "cant assign a final and initialized " +
+															   "variable";
 	private static final String ASSIGNING_WITH_UN_INIT_VAR_MSG = "Assigning uninitialized variable";
 	private static final String WRONG_NUM_OF_PARAMS_MSG = "Wrong num of parameters";
 	private static final String NO_SUCH_METHOD_MSG = "There is no method with such a name";
-	private static final String DECLARED_FINAL_BUT_NO_INIT_MSG ="final variable not initialized";
+	private static final String DECLARED_FINAL_BUT_NO_INIT_MSG = "final variable not initialized";
+	private static final String BLOCK_ENTER = "{";
+	private static final int PARAMETERS_INDEX = 1;
 
 	/**
 	 * The lines of the scope - to parse
@@ -114,7 +117,7 @@ public abstract class Parser {
 	 * Polls a line from the linked list that stores the scope lines
 	 * @return the line
 	 */
-	public String pollScopeLines() {
+	public String pollBlockLines() {
 		return scopeLines.poll();
 	}
 
@@ -163,7 +166,7 @@ public abstract class Parser {
 	private void manageVarExpressions(Regex regex, Boolean isDeclaring, Keywords.Type type, boolean hasFinal)
 			throws ParserException {
 		String[] varDeclarations = regex.splitDeclarations();
-		if (varDeclarations == null){
+		if (varDeclarations == null) {
 			throw new InvalidException(INVALID_DECLARATION_MSG);
 		}
 		for (String declaration : varDeclarations) {
@@ -208,7 +211,8 @@ public abstract class Parser {
 
 	/**
 	 * Manages the assignment of the variables, asserting it is made legally, and if needed it initialize
-	 * them and creates a local variable
+	 * them
+	 * and creates a local variable
 	 * @param nameString String represents the name of the variable
 	 * @param valueString String represents the value of the string, (or a variable name to assign its val)
 	 * @throws ParserException in case of Illegal assignment
@@ -234,7 +238,8 @@ public abstract class Parser {
 	/**
 	 * This method is only responsible for checking if the value assigned is legal, given the type of the
 	 * variable to assign
-	 * @param valString String that represents the value of the string, or a variable name to assign its val
+	 * @param valString String that represents the value of the string, or a variable name to assign its
+	 * 		val
 	 * @param type the s-java type of the variable needed to be assigned with a new val
 	 * @throws ParserException parser exception
 	 */
@@ -291,7 +296,7 @@ public abstract class Parser {
 	protected void runInnerParsers() throws ParserException {
 		String line;
 		while ((line = scopeLines.poll()) != null) {
-			if (line.equals("{")) {
+			if (line.equals(BLOCK_ENTER)) {
 				runChildParser();
 				continue;
 			}
@@ -306,21 +311,22 @@ public abstract class Parser {
 	 * This method checks if the given line of the scope is a legal method call
 	 * @param line String that is a scope of the line
 	 * @return true if it is a valid method call, false o.w
-	 * @throws ParserException in case of calling a method that don't exist, or in case of illegal arguments
+	 * @throws ParserException in case of calling a method that don't exist, or in case of illegal
+	 * 		arguments
 	 */
 	private boolean checkMethodCall(String line) throws ParserException {
 		String[] methodPars;
 		Regex regex = new Regex(line);
 		if ((methodPars = regex.checkMethodCall()) != null) {
 			// Check method calling validity
-			String methodName = methodPars[0];
+			String methodName = methodPars[NAME_INDEX];
 			Global global = Global.getInstance();
 			Method calledMethod = global.getMethod(methodName);
 			if (calledMethod == null) {
 				throw new MethodException(NO_SUCH_METHOD_MSG);
 			}
 			LinkedList<Keywords.Type> requiredTypes = calledMethod.getRequiredTypes();
-			regex = new Regex(methodPars[1]);
+			regex = new Regex(methodPars[PARAMETERS_INDEX]);
 			if (regex.emptyLine()) {
 				if (requiredTypes.size() != 0) {// return true if both has 0 args, false o.w
 					throw new MethodException(WRONG_NUM_OF_PARAMS_MSG);
@@ -335,8 +341,8 @@ public abstract class Parser {
 	}
 
 	/**
-	 * A method that given a list of parameters, and another of the required types, checks whether the
-	 * call for the method is legal
+	 * A method that given a list of parameters, and another of the required types, checks whether the call
+	 * for the method is legal
 	 * @param types the list of the ordered required types the method asks for invoking it
 	 * @param params list of param to check if they match
 	 * @throws ParserException in case of different size of lists, or an incompatible type
@@ -345,7 +351,7 @@ public abstract class Parser {
 		if (types.size() != params.length) {
 			throw new MethodException(WRONG_NUM_OF_PARAMS_MSG);
 		}
-		for (int i = 0; i < params.length ; i++) {
+		for (int i = 0; i < params.length; i++) {
 			checkVarValueAssignment(params[i], types.get(i));
 		}
 	}

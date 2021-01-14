@@ -13,6 +13,7 @@ import java.util.LinkedList;
  * Manages the entire parsing process over the S-java file
  */
 public class Manager {
+
 	private final SReader linesSReader;
 	private final LinkedList<String> fixedLines = new LinkedList<>();
 
@@ -56,7 +57,7 @@ public class Manager {
 	 */
 	private void runMethodsParsers() throws ParserException {
 		LinkedList<Parser> methodsParsers = GlobalParser.getInstance().getChildParsers();
-		for (Parser parser : methodsParsers){
+		for (Parser parser : methodsParsers) {
 			parser.checkLines();
 		}
 	}

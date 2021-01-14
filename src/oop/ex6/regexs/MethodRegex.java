@@ -1,4 +1,5 @@
 package oop.ex6.regexs;
+
 import java.util.regex.Matcher;
 
 /**
@@ -7,14 +8,16 @@ import java.util.regex.Matcher;
 public class MethodRegex extends Regex {
 
 	private static final String STARTS_WITH_VOID = "(\\s?void ){1}?"; //uses reluctant search
+	private static final String METHOD_PARAMS
+			= "^(?<name>[a-zA-Z]\\w*)\\s?\\((?<parameters>[^\\(\\)]*)\\)\\s*\\{$";
+
 	public MethodRegex(String line) {
 		super(line);
 	}
 
 
 	/**
-	 * @return true if the method starts legally, and takes off her first word
-	 * false o.w
+	 * @return true if the method starts legally, and takes off her first word false o.w
 	 */
 	public boolean methodStart() {
 		Matcher matcher = regexMatcher(STARTS_WITH_VOID);
@@ -30,14 +33,13 @@ public class MethodRegex extends Regex {
 	/**
 	 * tries to match the method name and parameters,
 	 * @return a String[] array that holds in the first place the group that matches the name, and in the
-	 * second the group that matches the parameters
+	 * 		second the group that matches the parameters
 	 */
 	public String[] getMethodNameParams() {
 		Matcher matcher = regexMatcher(METHOD_PARAMS);
 		if (matcher.matches()) {
 			return new String[]{matcher.group(NAME), matcher.group(PARAMETERS)};
 		}
-
 		return null; //will be exception - not a valid method line
 	}
 

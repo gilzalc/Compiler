@@ -11,6 +11,8 @@ import java.util.LinkedList;
 public class MethodParser extends Parser {
 
 
+	private static final String MISSING_RETURN_MSG = "Method does not end with return line";
+
 	/**
 	 * constructor for the Method parser
 	 * @param parser parent (global) parser
@@ -25,8 +27,8 @@ public class MethodParser extends Parser {
 		String lastLine = scopeLines.getLast();
 		runInnerParsers();
 		Regex regex = new Regex(lastLine);
-		if (!regex.isReturnLine()){
-			throw new MethodException("Method does not end with return line");
+		if (!regex.isReturnLine()) {
+			throw new MethodException(MISSING_RETURN_MSG);
 		}
 	}
 
