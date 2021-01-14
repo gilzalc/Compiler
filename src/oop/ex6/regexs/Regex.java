@@ -11,26 +11,23 @@ public class Regex {
 	//-----------------------------magic numbers-----------------\\
 	protected static final String FINAL = "final";
 	protected static final String FIRST = "first";
-	private static final String TRUE = "true";
-	private static final String FALSE = "false";
 	protected static final String PARAMETERS = "parameters";
+	protected static final String NAME = "name";
 
 	//-----------------------------Capturing groups Regex's-----------------\\
 	protected static final String FINAL_AND_FIRST_WORD_GROUPS = "((?<final>final )?(?<first>\\w+))";
 	private static final String VAR_NAME_AND_VALUE
-			= " ?(?<varName>_\\w+|[a-zA-Z]\\w*) ?(= ?(?<value>\\S*))?";// למה יש פעמיים \\S בסוף?
+			= " ?(?<varName>_\\w+|[a-zA-Z]\\w*) ?(= ?(?<value>\\S*))?";//
 	protected static final String METHOD_PARAMS = "^(?<name>[a-zA-Z]\\w*)\\s?\\((?<parameters>[^\\(\\)]*)\\)\\s*\\{$";
 
-	//-----------------------------regex-----------------\\
+	//-----------------------------regex's--------------------------\\
 	private static final String METHOD_CALL = "^(?<name>[a-zA-Z]\\w*)\\s?\\((?<params>.*)\\)\\s*$";
 	protected static final String STARTS_WITH_VOID = "\\s?void ";
 	private static final String COMMA_SEPARATED = "\\s?,\\s?";
 	private final static String AND_OR = "\\s?(\\|\\|)\\s?|\\s?(&&) ?";
 	private static final String IF_WHILE = "(if|while)\\s?\\((?<condition>.+)\\)\\s*\\{";
-	private static final String VALID_VARIABLE_NAME = "_\\w+|[a-zA-Z]\\w*";// and not a keyword or typeword
+	private static final String VALID_VARIABLE_NAME = "_\\w+|[a-zA-Z]\\w*";// and not a keyword or a type
 	private static final String VALID_SUFFIX = "\\s*;$";
-	private static final String VALID_DOUBLE = "-?\\d+(\\.\\d+)?"; // W About .5 or 5. ?
-	private static final String VALID_BOOL = TRUE + "|" + FALSE + "|" + VALID_DOUBLE;
 	private static final String SPACES = "\\b\\s{2,}|\\s{2,}\\b";
 	private static final String SPACE_COMMENT = "^(\\s//)";
 	private static final String SPACE = "^\\s+|\\s+$";
@@ -82,7 +79,7 @@ public class Regex {
 	public String[] checkMethodCall(){
 		Matcher matcher = (regexMatcher(METHOD_CALL));
 		if (matcher.matches()) {
-			return new String[]{matcher.group("name"), matcher.group("params")};
+			return new String[]{matcher.group(NAME), matcher.group("params")};
 		}
 		return null;
 	}
@@ -126,6 +123,10 @@ public class Regex {
 		return null;
 	}
 
+	/**
+	 * Splits the string by the COMMA_SEPARATED regex
+	 * @return an array of the split string
+	 */
 	public String[] splitByComma() {
 		checkLine = startEndSpace();
 		return checkLine.split(COMMA_SEPARATED);

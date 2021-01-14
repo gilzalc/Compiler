@@ -1,0 +1,23 @@
+The README instructions from previous exercises apply here as well. Please describe your design
+and focus on non-trivial decisions you made. The README file should also include answers
+to the questions from Sections 6.1, 6.2 and 6.3.
+6.1: report in your README file
+how you handled s-Java code errors in this exercise, and why you chose to do so.
+6.2: You are required to specify your design, as well as your thinking process and the alternatives you
+     ruled out, in your README file.
+     In addition, you should address the following points in your README file:
+     • How would you modify your code to add new types of variables (e.g., float)?
+     • Below are four features your program currently does not support. Please select two of
+     them, and describe which modifications/extensions you would have to make in your code
+     in order to support them. Please briefly describe which classes you would add to your code,
+     which methods you would add to existing classes, and which classes you would modify. You
+     are not required to implement these features.
+     – Classes.
+     10
+     – Different methods’ types (i.e int foo()) .
+     – Using methods of standart java (i.e System.out.println).
+     – Inheritage of files (just like class inheritage, so virtual functions can appear, and a
+     sub-file may use a method from a parent file).
+6.3:
+In your README file, please describe two of the main regular expressions you
+used in your code.
