@@ -13,17 +13,18 @@ public class Regex {
 	protected static final String FIRST = "first";
 	protected static final String PARAMETERS = "parameters";
 	protected static final String NAME = "name";
+	private static final String VALUE = "value";
 
 	//-----------------------------Capturing groups Regex's-----------------\\
 	protected static final String FINAL_AND_FIRST_WORD_GROUPS = "((?<final>final )?(?<first>\\w+))";
 //	private static final String VAR_NAME_AND_VALUE
 //			= " ?(?<varName>_\\w+|[a-zA-Z]\\w*) ?(= ?(?<value>\\S*))?";//
-	private static final String VAR_NAME_AND_VALUE = " ?(?<varName>_\\w+|[a-zA-Z]\\w*) ?(= ?(?<value>((\\\"" +
+	private static final String VAR_NAME_AND_VALUE = " ?(?<name>_\\w+|[a-zA-Z]\\w*) ?(= ?(?<value>((\\\"" +
 													 " ?\\S* ?\\\")|(\\S*))))?";
 	protected static final String METHOD_PARAMS = "^(?<name>[a-zA-Z]\\w*)\\s?\\((?<parameters>[^\\(\\)]*)\\)\\s*\\{$";
 
 	//-----------------------------regex's--------------------------\\
-	private static final String METHOD_CALL = "^(?<name>[a-zA-Z]\\w*)\\s?\\((?<params>.*)\\)\\s*$";
+	private static final String METHOD_CALL = "^(?<name>[a-zA-Z]\\w*)\\s?\\((?<parameters>.*)\\)\\s*$";
 
 	private static final String COMMA_SEPARATED = "\\s?,\\s?";
 	private final static String AND_OR = "\\s?(\\|\\|)\\s?|\\s?(&&) ?";
@@ -81,7 +82,7 @@ public class Regex {
 	public String[] checkMethodCall(){
 		Matcher matcher = (regexMatcher(METHOD_CALL));
 		if (matcher.matches()) {
-			return new String[]{matcher.group(NAME), matcher.group("params")};
+			return new String[]{matcher.group(NAME), matcher.group(PARAMETERS)};
 		}
 		return null;
 	}
@@ -107,8 +108,8 @@ public class Regex {
 	public String[] getVarNameAndValue() {
 		Matcher matcher = regexMatcher(VAR_NAME_AND_VALUE);
 		if (matcher.matches()) {
-			String nameString = matcher.group("varName");
-			String valueString = matcher.group("value");
+			String nameString = matcher.group(NAME);
+			String valueString = matcher.group(VALUE);
 			return new String[]{nameString, valueString};
 		}
 		return null;
