@@ -1,0 +1,10 @@
+void foo(final int a) {
+	a = 3;
+	return;
+}
+
+void bar() {
+	final int x = 3;
+	foo(x);
+	return;
+}

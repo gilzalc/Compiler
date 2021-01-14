@@ -1,0 +1,2 @@
+boolean	 a	 =	 false   ;
+char b = a;

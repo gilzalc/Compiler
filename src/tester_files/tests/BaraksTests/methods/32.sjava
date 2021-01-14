@@ -1,0 +1,8 @@
+void bar() {
+	foo();
+	return;
+}
+
+void foo() {
+	return;
+}

@@ -1,0 +1,2 @@
+void main() { // this is "not legal"
+}

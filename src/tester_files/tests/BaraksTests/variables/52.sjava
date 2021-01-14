@@ -1,0 +1,2 @@
+double a='a';
+double b = a;

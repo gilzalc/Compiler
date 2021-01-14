@@ -1,0 +1,2 @@
+		double a = 3.3;
+boolean b = a;

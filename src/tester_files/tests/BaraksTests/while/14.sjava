@@ -1,0 +1,6 @@
+void foo() {
+	while    (   x   )    {
+	}
+	return;
+}
+int x = 3;

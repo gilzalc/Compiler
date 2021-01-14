@@ -1,0 +1,2 @@
+boolean a;
+int a = a;

@@ -1,0 +1,16 @@
+void foo() {
+	if(true) {
+		int x = 3;
+		if (false) {
+			while(x) {
+				while (5) {
+					if (z) {
+					}
+				}
+			}
+		}
+	}
+	return;
+}
+
+double z = 2;
