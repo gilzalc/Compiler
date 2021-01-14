@@ -1,0 +1,2 @@
+double a = 3.9;
+String b = a;

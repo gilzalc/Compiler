@@ -1,0 +1,2 @@
+double a = 3.3;
+char b = a;

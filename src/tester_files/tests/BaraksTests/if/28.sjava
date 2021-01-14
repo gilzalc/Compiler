@@ -1,0 +1,6 @@
+void foo() {
+	char x = 'u';
+	if(x) {
+	}
+	return;
+}

@@ -1,0 +1,6 @@
+try {
+	eat();
+}
+catch (Exception up) {
+	throw up;
+}

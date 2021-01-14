@@ -1,0 +1,6 @@
+void foo() {
+	String x = "barak";
+	while(x) {
+	}
+	return;
+}

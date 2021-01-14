@@ -1,0 +1,2 @@
+boolean a=false;
+double b = a;

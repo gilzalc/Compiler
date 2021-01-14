@@ -1,0 +1,5 @@
+int eger = 8;
+char mander = 'a';
+double d = "banana";
+String attached = "why";
+boolean sheu = true;

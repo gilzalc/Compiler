@@ -1,0 +1,5 @@
+void foo() {
+	while    (   -99 || false && true || 0.1   )    {
+	}
+	return;
+}

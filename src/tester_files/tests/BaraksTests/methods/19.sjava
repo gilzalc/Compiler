@@ -1,0 +1,8 @@
+void foo(int a) {
+	return;
+}
+
+void bar() {
+	foo('3');
+	return;
+}

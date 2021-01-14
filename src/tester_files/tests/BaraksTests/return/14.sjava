@@ -1,0 +1,7 @@
+void foo() {
+	return;
+	if (true) {
+		return;
+	}
+	return;
+}

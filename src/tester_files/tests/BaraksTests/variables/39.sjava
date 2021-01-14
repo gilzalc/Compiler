@@ -1,0 +1,2 @@
+String a = "a";
+char b = a;
