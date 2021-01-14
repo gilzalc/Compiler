@@ -282,7 +282,7 @@ public abstract class Parser {
 
 	/**
 	 * Runs the inner parsers of the parser
-	 * @throws ParserException
+	 * @throws ParserException if exception in inner parser is risen
 	 */
 	protected void runInnerParsers() throws ParserException {
 		String line;
@@ -341,7 +341,7 @@ public abstract class Parser {
 		if (types.size() != params.length) {
 			throw new MethodException(WRONG_NUM_OF_PARAMS_MSG);
 		}
-		for (int i = 0; i < params.length - 1; i++) {
+		for (int i = 0; i < params.length ; i++) {
 			checkVarValueAssignment(params[i], types.get(i));
 		}
 	}

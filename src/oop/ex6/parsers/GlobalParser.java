@@ -65,7 +65,6 @@ public class GlobalParser extends Parser {
 			if (nameAndParams == null){
 				throw new MethodException(INVALID_METHOD_DECLARATION_MSG);
 			}
-			// !Regex.isValidMethodName(nameAndParams[NAME_INDEX])
 			if (Keywords.getKeywords().contains(nameAndParams[NAME_INDEX])) {
 				throw new MethodException(INVALID_METHOD_NAME_MSG);
 			}
@@ -91,6 +90,9 @@ public class GlobalParser extends Parser {
 			return;
 		}
 		String[] parametersArr = reg.splitByComma();
+		if (parametersArr.length ==1 && parametersArr[0].equals("")){
+			return;
+		}
 		for (String param : parametersArr) {
 			VariableRegex paramReg = new VariableRegex(param);
 			if (!paramReg.isMatching()) {

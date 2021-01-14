@@ -16,13 +16,15 @@ public class Regex {
 
 	//-----------------------------Capturing groups Regex's-----------------\\
 	protected static final String FINAL_AND_FIRST_WORD_GROUPS = "((?<final>final )?(?<first>\\w+))";
-	private static final String VAR_NAME_AND_VALUE
-			= " ?(?<varName>_\\w+|[a-zA-Z]\\w*) ?(= ?(?<value>\\S*))?";//
+//	private static final String VAR_NAME_AND_VALUE
+//			= " ?(?<varName>_\\w+|[a-zA-Z]\\w*) ?(= ?(?<value>\\S*))?";//
+	private static final String VAR_NAME_AND_VALUE = " ?(?<varName>_\\w+|[a-zA-Z]\\w*) ?(= ?(?<value>((\\\"" +
+													 " ?\\S* ?\\\")|(\\S*))))?";
 	protected static final String METHOD_PARAMS = "^(?<name>[a-zA-Z]\\w*)\\s?\\((?<parameters>[^\\(\\)]*)\\)\\s*\\{$";
 
 	//-----------------------------regex's--------------------------\\
 	private static final String METHOD_CALL = "^(?<name>[a-zA-Z]\\w*)\\s?\\((?<params>.*)\\)\\s*$";
-	protected static final String STARTS_WITH_VOID = "\\s?void ";
+
 	private static final String COMMA_SEPARATED = "\\s?,\\s?";
 	private final static String AND_OR = "\\s?(\\|\\|)\\s?|\\s?(&&) ?";
 	private static final String IF_WHILE = "(if|while)\\s?\\((?<condition>.+)\\)\\s*\\{";

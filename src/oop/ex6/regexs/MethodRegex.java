@@ -6,7 +6,7 @@ import java.util.regex.Matcher;
  */
 public class MethodRegex extends Regex {
 
-
+	private static final String STARTS_WITH_VOID = "(\\s?void ){1}?"; //uses reluctant search
 	public MethodRegex(String line) {
 		super(line);
 	}
