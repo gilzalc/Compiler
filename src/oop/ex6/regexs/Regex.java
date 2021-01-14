@@ -50,6 +50,10 @@ public class Regex {
 		checkLine = line;
 	}
 
+	/**
+	 * Sets the string to search with the regex
+	 * @param checkLine new String to set as check line
+	 */
 	public void setCheckLine(String checkLine) {
 		this.checkLine = checkLine;
 	}
@@ -148,7 +152,7 @@ public class Regex {
 		return null;
 	}
 
-	                     //------------------Static methods------------------\\
+	                     //------------------Static  Regex methods------------------\\
 	public static boolean isVarNameValid(String varName) {
 		if (varName.endsWith(" ")) {
 			varName = varName.substring(0, varName.length() - 1);
