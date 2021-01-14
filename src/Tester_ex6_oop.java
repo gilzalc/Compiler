@@ -1,8 +1,4 @@
 import oop.ex6.main.Sjavac;
-
-// import the library - alt+enter
-import static org.junit.Assert.*;
-
 import org.junit.Test;
 
 import java.awt.*;
@@ -15,6 +11,11 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.stream.Collectors;
+
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
+// import the library - alt+enter
 
 public class Tester_ex6_oop {
 	private static Path pathToFiles = Paths.get("src", "tester_files");

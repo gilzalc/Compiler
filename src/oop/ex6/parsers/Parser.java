@@ -33,6 +33,7 @@ public abstract class Parser {
 	private static final String WRONG_NUM_OF_PARAMS_MSG = "Wrong num of parameters";
 	private static final String NO_SUCH_METHOD_MSG = "There is no method with such a name";
 	private static final String DECLARED_FINAL_BUT_NO_INIT_MSG ="final variable not initialized";
+
 	/**
 	 * The lines of the scope - to parse
 	 */
@@ -161,7 +162,10 @@ public abstract class Parser {
 	 */
 	private void manageVarExpressions(Regex regex, Boolean isDeclaring, Keywords.Type type, boolean hasFinal)
 			throws ParserException {
-		String[] varDeclarations = regex.splitByComma();
+		String[] varDeclarations = regex.splitDeclarations();
+		if (varDeclarations == null){
+			throw new InvalidException(INVALID_DECLARATION_MSG);
+		}
 		for (String declaration : varDeclarations) {
 			regex = new Regex(declaration);
 			String[] nameAndValue;

@@ -13,6 +13,9 @@ import oop.ex6.blocks.Method;
 public class GlobalParser extends Parser {
 	//-------------------Constants & data members---------------------\\
 	private static final int PARAMS_INDEX = 1;
+	private static final int ONE_PARAMETER = 1;
+	private static final int FIRST_PARAMETER = 0;
+	private static final String EMPTY_STRING = "";
 	private static GlobalParser globalParser;
 	private static final String UNSUPPORTED_METHOD_TYPE_MSG =  "method return value has to be void";
 	private static final String INVALID_METHOD_DECLARATION_MSG = "Invalid method declaration";
@@ -90,7 +93,7 @@ public class GlobalParser extends Parser {
 			return;
 		}
 		String[] parametersArr = reg.splitByComma();
-		if (parametersArr.length ==1 && parametersArr[0].equals("")){
+		if (parametersArr.length == ONE_PARAMETER && parametersArr[FIRST_PARAMETER].equals(EMPTY_STRING)){
 			return;
 		}
 		for (String param : parametersArr) {
