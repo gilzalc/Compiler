@@ -10,7 +10,8 @@ import java.nio.file.Paths;
 
 public class tester {
     // TODO - change the TESTS_DIR_PATH to the absolut path to "test" dir on your pc.
-    private static final String TEST_DIR_PATH = "C:\\Users\\lenovo\\IdeaProjects\\Ex6\\src\\test";
+    private static final String TEST_DIR_PATH = "C:\\Users\\gilza\\IdeaProjects\\Ex6\\src\\test"; //changed
+    // lenovo to gilza
 
     public static void main(String[] args) throws Exception {
 

@@ -1,17 +1,21 @@
 package oop.ex6.regexs;
-
 import java.util.regex.Matcher;
 
+/**
+ * An object that its responsible is to manipulate methods strings using regex
+ */
 public class MethodRegex extends Regex {
 
+	private static final String STARTS_WITH_VOID = "(\\s?void ){1}?"; //uses reluctant search
 	public MethodRegex(String line) {
 		super(line);
 	}
 
-//	public static boolean isValidMethodName(String methodName) {
-//		return (Pattern.matches(VALID_METHOD_NAME, methodName));
-//	}
 
+	/**
+	 * @return true if the method starts legally, and takes off her first word
+	 * false o.w
+	 */
 	public boolean methodStart() {
 		Matcher matcher = regexMatcher(STARTS_WITH_VOID);
 		if (matcher.lookingAt()) {
@@ -22,27 +26,19 @@ public class MethodRegex extends Regex {
 		return false;
 	}
 
-//	public String getMethodName(){
-//		Matcher matcher = regexMatcher(VALID_METHOD_NAME);
-//		if (matcher.find()){
-//			return checkLine.substring(matcher.start(),matcher.end());
-//		}
-//		return null;//exception
-//	}
 
-	public String[] getMethodNameParams(){
+	/**
+	 * tries to match the method name and parameters,
+	 * @return a String[] array that holds in the first place the group that matches the name, and in the
+	 * second the group that matches the parameters
+	 */
+	public String[] getMethodNameParams() {
 		Matcher matcher = regexMatcher(METHOD_PARAMS);
-		if(matcher.matches()){
-			return new String[] {matcher.group("name"), matcher.group(PARAMETERS)};
+		if (matcher.matches()) {
+			return new String[]{matcher.group(NAME), matcher.group(PARAMETERS)};
 		}
-		return null;//exception
+
+		return null; //will be exception - not a valid method line
 	}
 
-//	public String getMethodParameters() {
-//		Matcher matcher = regexMatcher(METHOD_PARAMS);
-//		if(matcher.matches()){
-//			return matcher.group(PARAMETERS);
-//		}
-//		return null;//exception
-//	}
 }
