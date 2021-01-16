@@ -1,23 +1,131 @@
-The README instructions from previous exercises apply here as well. Please describe your design
-and focus on non-trivial decisions you made. The README file should also include answers
-to the questions from Sections 6.1, 6.2 and 6.3.
-6.1: report in your README file
-how you handled s-Java code errors in this exercise, and why you chose to do so.
-6.2: You are required to specify your design, as well as your thinking process and the alternatives you
-     ruled out, in your README file.
-     In addition, you should address the following points in your README file:
-     • How would you modify your code to add new types of variables (e.g., float)?
-     • Below are four features your program currently does not support. Please select two of
-     them, and describe which modifications/extensions you would have to make in your code
-     in order to support them. Please briefly describe which classes you would add to your code,
-     which methods you would add to existing classes, and which classes you would modify. You
-     are not required to implement these features.
-     – Classes.
-     10
-     – Different methods’ types (i.e int foo()) .
-     – Using methods of standart java (i.e System.out.println).
-     – Inheritage of files (just like class inheritage, so virtual functions can appear, and a
-     sub-file may use a method from a parent file).
-6.3:
-In your README file, please describe two of the main regular expressions you
-used in your code.
+gilzalc
+amichaiv
+
+=============================
+=      File description     =
+=============================
+Packages and java files of Ex6:
+oop.ex6.blocks:
+This package is composed of an abstract class of a block of codes (AKA scope), with the concrete blocks of the
+S-java program,that are the Global, Method, IfWhile that serves for both if condition or a while loop, and a
+general ScopeException that represents the exceptions of the blocks.
+
+oop.ex6.regexs:
+A package that centers all of the methods that uses regular expressions for manipulating text,and also includes
+a special inherited classes, MethodRegex and VariableRegex for special use in method or variable lines,
+respectively.
+
+oop.ex6.parsers: Package that holds the parsers for all of the scopes,and one parser (FileParser) that parses
+all over the file, creates the different parser of the program, and gives them provides them their code lines.
+Each one of them (excluding the FileParser inherit from the super and abstract class "Parser", that has the
+general methods that each parser uses. This package also holds various Exception files, that all are sub
+classes of a general ParserException class.
+
+
+oop.ex6.main:
+Package with the main class of the program, Sjavac, that receives a file as an argument, and prints the
+corresponding return value. also has an IllegalSFile exception class, that refers to any exceptions the
+program has found during the compiling process (excluding IO exceptions).
+
+Classes:
+Keywords: An abstract class that represents the special keywords that are defined in the s-Java language.it is
+composed of two enums, one for the Variable types, and one (General) for the others.
+Manager: manages the flow of the parsing process.
+Sreader: A wrapper class for a Buffered reader object
+Variable: Represents a specific variable object of the s-Java program.
+
+=============================
+=          Design           =
+=============================
+We have divided the program's tasks, for a small units of responsibility, according to the modularity
+principles. sometimes we used some hierarchy in the classes, especially in
+the Parsers and the blocks package of classes, because of the similarity of the parsers and blocks, and the
+fact  that some extends others in a way, so we could minimize the code duplication, and
+implement the Open/close principle, because the code now can be extended to another type of a scope of
+program lines very easily and intuitively.
+
+In addition, we chose to design the Global scope and the global scope parser making a use of the singletons
+design pattern, so we can make the program full-safe in the future, since the fact that each program has just
+one global scope.
+
+Since we know all of them during the compiling process, the keywords is represented in the code as two enums,
+one for the Variable types, and another one for the  other general keyword,both placed in an abstract class
+that has a method, which returns a list of all of the String representations of the words. this way we managed
+to separate the objects from the rest of the code, and make an addition of another variable type or other
+keyword very facile.Working with enums made the program very open-closed and singled-choice, since extending
+the program in many regards, only means expanding the related enum, as we described at the answers to question
+part.
+
+We also kept on our mind the Encapsulation and the single-Responsibility principle, so we created a manager
+class that is responsibility is to manage the parsing process of the scopes, and the Regex classes, which only
+deals with the complexity of manipulating Strings using regular expressions, using java util's Matcher and
+Pattern class. In this way we followed with the principles of the modular design -
+we decomposes the problem into a number of less complex sub-problems- which is a modular decomposability,
+and then connected them back at the manager and the sjavac class main method. Of course we are not obligating
+the extension of the code to follow this pattern, according to the importance of the composability - cause we
+produced a software elements which may be freely combined with each other to produce new systems.
+the design of the exceeptions mechansim is explained on the answers section
+
+=============================
+=  Implementation details   =
+=============================
+
+since we do not care about the contents of a valid comment line, or a general string of spaces(of course some
+spaces matters and we checked them separately), we decided to first parse the file and get rid of all of the
+comment lines and redundant and meaningless white-spaces. Afterwards we've sent the lines for a a fileParser
+class, which divides it to the different scopes of the program.
+
+since the global scope has a unique and different characterises, like the fact that its lines order are
+irrelevant, we've first parsed all over him to create the variables object. we understood that we dont need
+to store its concrete value, just some other characteristics, such as whether it was initialized, or whther
+the variable was declared as a final one, and of course the type of it. we chose to store the var. object in
+an hashmap of the relevant scope, since the names are uniques and can served as the keys for the variable
+itself.Then we have created the methods objects, cause before starting to parse the inner method lines,
+we add to "recognize" all of the method names and its invoking requirements, so we can determine wether the
+code is legal.
+
+=============================
+=    Answers to questions   =
+=============================
+
+6.1) How you handled s-Java code errors in this exercise, and why you chose to do so?
+We chose to implement a number of different exceptions in the different packages for different reasons, that
+all causes
+the sjava file  to be is invalid, in any case where we detected illegal behavior of the code we called an
+appropriate exception for the specific error, and we added an error message describing the type of problem.
+All of the exceptions we implemented inherit from the IleagalSFile exception, that we have implemented in the
+main package. We chose to deal with the exceptions this way, because that in this way, way we could
+characterize each problem in the file in a unique way and print a message to the user explaining what exactly
+is wrong with the file. In addition, we chose to implement all the exceptions so that they would inherit from
+the same class, because that each method was required to throw at most one exception, and catch only one
+exception in the main method.
+
+6.2)
+a) How would you modify your code to add new types of variables (e.g., float)?
+very easily - since we are guided by the single choice principle, we just had to add to the Keywords.type enum
+an object that fits the "float" string, and to update the Keywords.Type enum,to possess an additional type,which
+is a FLOAT for example, with its matching regex and assignments rules in the isMatching method of the enum.
+now we can say we understood well the beauty within the single choice principle.
+
+b)
+Different methods’ types:
+we would send the first word to a factory of the method types, that supports just the legal method types,
+and stores the method type as a data member of the method object, and then when encountering a return line
+expression, we would send the returned value to the method we already add, that checks if a given value is
+from a specific type.
+
+– Using methods of standard java (i.e System.out.println):
+we would store them automatically as a methods of the global scope, because we know all of them at the start
+of the program , that's because they are fixed and could be invoked from anywhere in the file.
+
+
+6.3) Please describe two of the main regular expressions you used in your code.
+
+Using the Regex method "CommentOrEmpty",At the beginning of our program run in the FileParser class, we filtered
+out the entire line that we had to ignore and we did not add them to the list of lines we went through later
+in the program.
+
+Using the Regex method "checkMethodCall", we checked if a valid call to the method is made in the line we are
+checking, if a legal call to the method was indeed made then the method returns the name of the called method
+and its parameters using Matcher's "capturing groups" skill, and named the groups in an appropriate name,for a
+better understandability of the code.

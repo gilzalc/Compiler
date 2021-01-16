@@ -42,7 +42,7 @@ public abstract class Keywords {
 
 		public String getRegex() {return this.myRegex;}
 
-		private String getName() {
+		public String getName() {
 			return this.name;
 		}
 

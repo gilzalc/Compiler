@@ -273,20 +273,12 @@ public abstract class Parser {
 	 * @return Type of variable, or null if does not match
 	 */
 	protected Keywords.Type checkVarType(String firstWord) {
-		switch (firstWord) {
-		case BOOLEAN:
-			return Keywords.Type.BOOLEAN;
-		case CHAR:
-			return Keywords.Type.CHAR;
-		case STRING:
-			return Keywords.Type.STRING;
-		case INT:
-			return Keywords.Type.INT;
-		case DOUBLE:
-			return Keywords.Type.DOUBLE;
-		default:
-			return null;
+		for (Keywords.Type type : Keywords.Type.values()) {
+			if (firstWord.equals(type.getName())) {
+				return type;
+			}
 		}
+		return null;
 	}
 
 	/**

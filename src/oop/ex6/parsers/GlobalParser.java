@@ -75,7 +75,7 @@ public class GlobalParser extends Parser {
 			if ((Global.getInstance().getMethod(nameAndParams[NAME_INDEX])) != null) {
 				throw new MethodException(DUPLICATE_METHOD_NAME_MSG);
 			}
-			addParameters(nameAndParams, reg, (Method) parser.getBlock());
+			addParameters(nameAndParams, reg, (Method) parser.getBlock()); //just method possible
 		}
 	}
 
