@@ -11,10 +11,10 @@ public class MethodRegex extends Regex {
 	private static final String METHOD_PARAMS
 			= "^(?<name>[a-zA-Z]\\w*)\\s?\\((?<parameters>[^\\(\\)]*)\\)\\s*\\{$";
 
+
 	public MethodRegex(String line) {
 		super(line);
 	}
-
 
 	/**
 	 * @return true if the method starts legally, and takes off her first word false o.w
@@ -29,7 +29,6 @@ public class MethodRegex extends Regex {
 		return false;
 	}
 
-
 	/**
 	 * tries to match the method name and parameters,
 	 * @return a String[] array that holds in the first place the group that matches the name, and in the
@@ -42,5 +41,4 @@ public class MethodRegex extends Regex {
 		}
 		return null; //will be exception - not a valid method line
 	}
-
 }

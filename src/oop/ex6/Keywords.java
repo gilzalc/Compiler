@@ -66,8 +66,7 @@ public abstract class Keywords {
 		}
 	}
 
-
-	 enum General {
+	enum General {
 		VOID("void"), FINAL("final"), IF("if"), WHILE("while"), TRUE("true"), FALSE("false"),
 		RETURN("return");
 		private final String name;

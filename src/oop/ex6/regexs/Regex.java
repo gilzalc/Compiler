@@ -174,5 +174,4 @@ public class Regex {
 	public static boolean isValidVal(String pattern, String varVal) {
 		return Pattern.matches(pattern, varVal);
 	}
-
 }

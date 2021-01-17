@@ -1,11 +1,7 @@
 package oop.ex6;
 
-import oop.ex6.parsers.FileParser;
-import oop.ex6.parsers.GlobalParser;
-import oop.ex6.parsers.Parser;
-import oop.ex6.parsers.ParserException;
+import oop.ex6.parsers.*;
 import oop.ex6.regexs.Regex;
-
 import java.io.IOException;
 import java.util.LinkedList;
 
@@ -16,6 +12,7 @@ public class Manager {
 
 	private final SReader linesSReader;
 	private final LinkedList<String> fixedLines = new LinkedList<>();
+
 
 	public Manager(SReader SReader) {
 		linesSReader = SReader;
@@ -49,7 +46,6 @@ public class Manager {
 			fixedLines.add(regex.checkSpaces());
 		}
 	}
-
 
 	/**
 	 * This method runs all of the method parsers of the file

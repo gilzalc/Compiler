@@ -1,9 +1,7 @@
 package oop.ex6.parsers;
 
 import oop.ex6.*;
-import oop.ex6.regexs.MethodRegex;
-import oop.ex6.regexs.Regex;
-import oop.ex6.regexs.VariableRegex;
+import oop.ex6.regexs.*;
 import oop.ex6.blocks.Global;
 import oop.ex6.blocks.Method;
 
@@ -11,6 +9,7 @@ import oop.ex6.blocks.Method;
  * A class that represents a parser that is responsible for the lines of the global scope
  */
 public class GlobalParser extends Parser {
+
 	//-------------------Constants & data members---------------------\\
 	private static final int PARAMS_INDEX = 1;
 	private static final int ONE_PARAMETER = 1;
@@ -44,6 +43,7 @@ public class GlobalParser extends Parser {
 	public static void setNull() {
 		globalParser = null;
 	}
+
 	//-----------------------------Parsing methods----------------------------\\
 
 	@Override
@@ -58,7 +58,7 @@ public class GlobalParser extends Parser {
 	 * This method creates the methods objects of the program
 	 * @throws ParserException in case of illegal method declaration line
 	 */
-	public void createMethods() throws ParserException {
+	private void createMethods() throws ParserException {
 		for (Parser parser : childParsers) {
 			String firstLine = parser.pollBlockLines();
 			MethodRegex reg = new MethodRegex(firstLine);
@@ -114,5 +114,4 @@ public class GlobalParser extends Parser {
 			throw new MethodException(NOT_VALID_PARAM);
 		}
 	}
-
 }

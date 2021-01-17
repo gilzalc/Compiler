@@ -2,7 +2,6 @@ package oop.ex6.blocks;
 
 import oop.ex6.Keywords;
 import oop.ex6.Variable;
-
 import java.util.HashMap;
 
 /**
@@ -10,14 +9,19 @@ import java.util.HashMap;
  */
 public abstract class Block {
 
+	private static final String ALREADY_EXISTS_MSG = "A variable with the same name already exists";
+	private static final String EQUAL_TO_KEYWORDS_MSG = "The variable name is equal to one of the keywords";
+
 	/**
 	 * The local variables of the block map, key is it's name String
 	 */
 	protected HashMap<String, Variable> variables;
+
 	/**
 	 * The outer Block of this Block
 	 */
 	protected Block outerBlock;
+
 
 	protected Block(Block parentBlock) {
 		variables = new HashMap<>();
@@ -27,7 +31,7 @@ public abstract class Block {
 	/**
 	 * Default constructor for a block, the global scope uses it
 	 */
-	protected Block() { // global
+	protected Block() { // for global (global does not have parentBlock)
 		variables = new HashMap<>();
 		outerBlock = null;
 	}
@@ -42,10 +46,10 @@ public abstract class Block {
 	public void addVariable(String varName, Variable var) throws ScopeException {
 		// checkNameIsOK
 		if (variables.containsKey(varName)) {
-			throw new ScopeException("A variable with the same name already exists");
+			throw new ScopeException(ALREADY_EXISTS_MSG);
 		}
 		if (Keywords.getKeywords().contains(varName)) {
-			throw new ScopeException("The variable name is equal to one of the keywords");
+			throw new ScopeException(EQUAL_TO_KEYWORDS_MSG);
 		}
 		variables.put(varName, var);
 	}

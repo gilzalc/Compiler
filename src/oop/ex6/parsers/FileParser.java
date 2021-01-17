@@ -3,7 +3,6 @@ package oop.ex6.parsers;
 import oop.ex6.regexs.Regex;
 import oop.ex6.blocks.IfWhile;
 import oop.ex6.blocks.Block;
-
 import java.util.LinkedList;
 
 /**
@@ -23,6 +22,7 @@ public class FileParser {
 	private final LinkedList<String> fixedLines;
 	private Parser parser;
 
+
 	public FileParser(LinkedList<String> lines) {
 		fixedLines = lines;
 		parser = GlobalParser.getInstance();
@@ -36,7 +36,7 @@ public class FileParser {
 	public void run() throws ParserException {
 		for (String line : fixedLines) {
 			Regex lineRegex = new Regex(line);
-			if (lineRegex.enterBlock()) { //check for "void"?
+			if (lineRegex.enterBlock()) {
 				depth++;
 				if (depth == METHOD_DEPTH) {
 					parser = new MethodParser(parser);

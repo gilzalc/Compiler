@@ -4,6 +4,7 @@ package oop.ex6;
  * Represents a variable of the S-Java program
  */
 public class Variable {
+
 	// This data member indicates whether the object was initialized
 	private boolean isInitialized;
 	// This data member indicates whether the object was declared final (and can't be assigned a new value
@@ -52,5 +53,4 @@ public class Variable {
 	public Keywords.Type getType() {
 		return type;
 	}
-
 }

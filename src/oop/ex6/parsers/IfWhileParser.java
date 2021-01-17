@@ -14,6 +14,7 @@ public class IfWhileParser extends Parser {
 	private static final String TRUE_STRING = "true";
 	private static final String FALSE_STRING = "false";
 
+
 	public IfWhileParser(Parser parentParser, Block ifWhileBlock) {
 		super(parentParser, ifWhileBlock);
 	}

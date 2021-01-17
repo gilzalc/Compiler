@@ -39,5 +39,4 @@ public class Method extends Block {
 	public LinkedList<Keywords.Type> getRequiredTypes() {
 		return requiredTypes;
 	}
-
 }

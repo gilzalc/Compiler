@@ -11,6 +11,7 @@ public class Global extends Block { //singleton
 	// the map of the methods of the program
 	private final HashMap<String, Method> methodsMap;
 
+
 	private Global() {
 		methodsMap = new HashMap<>();
 	}
@@ -39,7 +40,6 @@ public class Global extends Block { //singleton
 	public void addMethod(String methodName, Method method) {
 		methodsMap.put(methodName, method);
 	}
-
 
 	/**
 	 * gets a method object of the methods map

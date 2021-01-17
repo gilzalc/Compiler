@@ -4,20 +4,17 @@ import oop.ex6.Keywords;
 import oop.ex6.regexs.Regex;
 import oop.ex6.blocks.*;
 import oop.ex6.Variable;
-
 import java.util.LinkedList;
 
 /**
  * An abstract class that represents an object that is responsible for parsing a specific scope
  */
 public abstract class Parser {
-	private static final String BOOLEAN = "boolean";
-	private static final String INT = "int";
-	private static final String DOUBLE = "double";
-	private static final String STRING = "String";
-	private static final String CHAR = "char";
+
 	protected static final int NAME_INDEX = 0;
 	private static final int VALUE_INDEX = 1;
+	private static final int PARAMETERS_INDEX = 1;
+	private static final String BLOCK_ENTER = "{";
 	private static final String INVALID_LINE_MSG = "The line is invalid";
 	private static final String FINAL_WITH_NO_DECLARATION_MSG = "Missing type for declaration after final";
 	private static final String NO_VAR_MSG = "No variable found in line";
@@ -25,8 +22,7 @@ public abstract class Parser {
 	private static final String INVALID_DECLARATION_MSG = "invalid declaration";
 	private static final String INCOMPATIBLE_TYPE_ASSIGN_MSG = "Incompatible type assignment";
 	private static final String INCOMPATIBLE_VAL_ASSIGN_MSG = "The value of the variable does not match " +
-															  "the" +
-															  " type of variable";
+															  "the type of variable";
 	private static final String INVALID_VAR_NAME = "not valid var name";
 	private static final String MODIFYING_FINAL_AND_INIT_MSG = "cant assign a final and initialized " +
 															   "variable";
@@ -34,8 +30,6 @@ public abstract class Parser {
 	private static final String WRONG_NUM_OF_PARAMS_MSG = "Wrong num of parameters";
 	private static final String NO_SUCH_METHOD_MSG = "There is no method with such a name";
 	private static final String DECLARED_FINAL_BUT_NO_INIT_MSG = "final variable not initialized";
-	private static final String BLOCK_ENTER = "{";
-	private static final int PARAMETERS_INDEX = 1;
 
 	/**
 	 * The lines of the scope - to parse
@@ -53,6 +47,7 @@ public abstract class Parser {
 	 * The specific line Block (scope) that is referenced to this parser
 	 */
 	protected Block block;
+
 
 	/**
 	 * A constructor for the parser object
@@ -77,7 +72,7 @@ public abstract class Parser {
 	 * A getter for the specific block object of the parser
 	 * @return the block
 	 */
-	public Block getBlock() {
+	Block getBlock() {
 		return block;
 	}
 
@@ -85,7 +80,7 @@ public abstract class Parser {
 	 * Adds a line to the scope lines list
 	 * @param line String line to add
 	 */
-	public void addLine(String line) {
+	void addLine(String line) {
 		scopeLines.add(line);
 	}
 
@@ -101,7 +96,7 @@ public abstract class Parser {
 	 * Add a parser to the inner scopes parsers list
 	 * @param parser child parser to add
 	 */
-	public void addChildParsers(Parser parser) {
+	void addChildParsers(Parser parser) {
 		childParsers.add(parser);
 	}
 
@@ -117,7 +112,7 @@ public abstract class Parser {
 	 * Polls a line from the linked list that stores the scope lines
 	 * @return the line
 	 */
-	public String pollBlockLines() {
+	protected String pollBlockLines() {
 		return scopeLines.poll();
 	}
 
@@ -183,7 +178,6 @@ public abstract class Parser {
 		}
 	}
 
-
 	/**
 	 * method that is responsible for creating the variables, and adding them to the scopes variables list
 	 * @param nameString String that represents the var name
@@ -192,7 +186,7 @@ public abstract class Parser {
 	 * @param hasFinal boolean represents whether the parameter was declared by the final keyword
 	 * @throws ParserException in case of invalid name, or final without initializing.
 	 */
-	public void createVars(String nameString, String valueString, Keywords.Type type, boolean hasFinal)
+	private void createVars(String nameString, String valueString, Keywords.Type type, boolean hasFinal)
 			throws ParserException {
 		if (nameString == null || !Regex.isVarNameValid(nameString)) {
 			throw new InvalidException(INVALID_VAR_NAME);
@@ -208,7 +202,6 @@ public abstract class Parser {
 		}
 	}
 
-
 	/**
 	 * Manages the assignment of the variables, asserting it is made legally, and if needed it initialize
 	 * them
@@ -217,7 +210,7 @@ public abstract class Parser {
 	 * @param valueString String represents the value of the string, (or a variable name to assign its val)
 	 * @throws ParserException in case of Illegal assignment
 	 */
-	protected void assignVars(String nameString, String valueString) throws ParserException {
+	private void assignVars(String nameString, String valueString) throws ParserException {
 		Variable assignedVar = block.getVariable(nameString);
 		if (assignedVar == null) {
 			throw new UnInitializedException(NOT_DECLARED_MSG);
@@ -234,7 +227,6 @@ public abstract class Parser {
 		}
 	}
 
-
 	/**
 	 * This method is only responsible for checking if the value assigned is legal, given the type of the
 	 * variable to assign
@@ -243,7 +235,7 @@ public abstract class Parser {
 	 * @param type the s-java type of the variable needed to be assigned with a new val
 	 * @throws ParserException parser exception
 	 */
-	protected void checkVarValueAssignment(String valString, Keywords.Type type) throws ParserException {
+	private void checkVarValueAssignment(String valString, Keywords.Type type) throws ParserException {
 		Variable var = block.getVariable(valString);
 		if (var != null) {
 			if (!var.isInitialized()) {
@@ -261,7 +253,7 @@ public abstract class Parser {
 	 * Runs the child parsers abstract method- the check lines that parses its lines
 	 * @throws ParserException in case of legal format discovered while parsing
 	 */
-	protected void runChildParser() throws ParserException {
+	private void runChildParser() throws ParserException {
 		Parser childParser = childParsers.poll();
 		childParser.checkLines(); // Can't be Null - we call runChildParser method with an open bracket, and
 		// each time that the "{" appears, we declared a new child parser.
