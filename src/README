@@ -1,10 +1,11 @@
 gilzalc
-amichaiv
+amichaiv2
 
 =============================
 =      File description     =
 =============================
 Packages and java files of Ex6:
+
 oop.ex6.blocks:
 This package is composed of an abstract class of a block of codes (AKA scope), with the concrete blocks of the
 S-java program,that are the Global, Method, IfWhile that serves for both if condition or a while loop, and a
@@ -30,8 +31,8 @@ program has found during the compiling process (excluding IO exceptions).
 Classes:
 Keywords: An abstract class that represents the special keywords that are defined in the s-Java language.it is
 composed of two enums, one for the Variable types, and one (General) for the others.
-Manager: manages the flow of the parsing process.
-Sreader: A wrapper class for a Buffered reader object
+Manager: Manages the flow of the parsing process.
+Sreader: A wrapper class for the Buffered reader object
 Variable: Represents a specific variable object of the s-Java program.
 
 =============================
@@ -70,12 +71,12 @@ the design of the exceeptions mechansim is explained on the answers section
 =  Implementation details   =
 =============================
 
-since we do not care about the contents of a valid comment line, or a general string of spaces(of course some
+Since we do not care about the contents of a valid comment line, or a general string of spaces(of course some
 spaces matters and we checked them separately), we decided to first parse the file and get rid of all of the
 comment lines and redundant and meaningless white-spaces. Afterwards we've sent the lines for a a fileParser
 class, which divides it to the different scopes of the program.
 
-since the global scope has a unique and different characterises, like the fact that its lines order are
+Since the global scope has a unique and different characterises, like the fact that its lines order are
 irrelevant, we've first parsed all over him to create the variables object. we understood that we dont need
 to store its concrete value, just some other characteristics, such as whether it was initialized, or whther
 the variable was declared as a final one, and of course the type of it. we chose to store the var. object in
@@ -89,6 +90,7 @@ code is legal.
 =============================
 
 6.1) How you handled s-Java code errors in this exercise, and why you chose to do so?
+
 We chose to implement a number of different exceptions in the different packages for different reasons, that
 all causes
 the sjava file  to be is invalid, in any case where we detected illegal behavior of the code we called an
@@ -101,7 +103,9 @@ the same class, because that each method was required to throw at most one excep
 exception in the main method.
 
 6.2)
+
 a) How would you modify your code to add new types of variables (e.g., float)?
+
 very easily - since we are guided by the single choice principle, we just had to add to the Keywords.type enum
 an object that fits the "float" string, and to update the Keywords.Type enum,to possess an additional type,which
 is a FLOAT for example, with its matching regex and assignments rules in the isMatching method of the enum.
@@ -109,12 +113,14 @@ now we can say we understood well the beauty within the single choice principle.
 
 b)
 Different methods’ types:
+
 we would send the first word to a factory of the method types, that supports just the legal method types,
 and stores the method type as a data member of the method object, and then when encountering a return line
 expression, we would send the returned value to the method we already add, that checks if a given value is
 from a specific type.
 
 – Using methods of standard java (i.e System.out.println):
+
 we would store them automatically as a methods of the global scope, because we know all of them at the start
 of the program , that's because they are fixed and could be invoked from anywhere in the file.
 

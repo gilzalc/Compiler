@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="ex6">
+    <output-path>$PROJECT_DIR$/out/artifacts/ex6</output-path>
+    <root id="archive" name="ex6.jar">
+      <element id="file-copy" path="$PROJECT_DIR$/src/README" />
+      <element id="dir-copy" path="$PROJECT_DIR$/src/oop" />
+    </root>
+  </artifact>
+</component>
